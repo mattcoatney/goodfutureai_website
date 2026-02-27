@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoodFuture.ai — Matthew Mottola | AI Education & Thought Leadership</title>
+<meta name="description" content="I help people prepare for the AI era through education, skills, advice, and tools. AI is changing the world. We can shape it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --sunrise-gold:        #F2A93B;
+  --sunrise-gold-light:  #F8CC7A;
+  --deep-horizon:        #0F2E3D;
+  --living-coral:        #E85D4A;
+  --living-coral-light:  #F08B7D;
+  --morning-teal:        #3BA5A5;
+  --morning-teal-light:  #7FCECE;
+  --warm-light:          #FBF6EF;
+  --warm-mid:            #F0E8DB;
+  --warm-stone:          #C4B8A8;
+  --warm-dark:           #5A4F42;
+  --night-sky:           #0A1628;
+  --charcoal:            #1E1E2E;
+
+  --gradient-sunrise: linear-gradient(135deg, #F2A93B 0%, #E85D4A 100%);
+  --gradient-horizon: linear-gradient(135deg, #0F2E3D 0%, #3BA5A5 100%);
+  --gradient-warm:    linear-gradient(135deg, #FBF6EF 0%, #F8CC7A 100%);
+  --gradient-dusk:    linear-gradient(135deg, #0A1628 0%, #0F2E3D 50%, #3BA5A5 100%);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+  --radius-sm:   8px;
+  --radius-md:  16px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 2px 8px rgba(15,46,61,.08);
+  --shadow-md: 0 8px 32px rgba(15,46,61,.12);
+  --shadow-lg: 0 24px 64px rgba(15,46,61,.18);
+}
+
+/* ══════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--warm-light);
+  color: var(--deep-horizon);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { max-width:100%; height:auto; display:block; }
+a { text-decoration:none; color:inherit; }
+button { font-family: var(--font-body); cursor:pointer; border:none; }
+
+/* ══════════════════════════════════════════════
+   TYPOGRAPHY
+══════════════════════════════════════════════ */
+h1,h2,h3,h4 { font-family: var(--font-display); line-height:1.15; }
+h1 { font-size: clamp(2.6rem, 6vw, 5rem);   font-weight:800; }
+h2 { font-size: clamp(1.9rem, 4vw, 3rem);   font-weight:700; }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight:600; }
+h4 { font-size:1.1rem; font-weight:600; }
+p  { line-height:1.75; }
+.label {
+  font-size:11px; font-weight:600;
+  text-transform:uppercase; letter-spacing:2px;
+  font-family: var(--font-body);
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════ */
+.container { max-width:1180px; margin:0 auto; padding:0 24px; }
+.section    { padding:100px 0; }
+.section-sm { padding:64px 0; }
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════ */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 28px; border-radius:var(--radius-full);
+  font-size:14px; font-weight:600; transition:all .25s ease;
+  white-space:nowrap;
+}
+.btn-primary {
+  background: var(--gradient-sunrise); color:#fff;
+  box-shadow: 0 4px 20px rgba(242,169,59,.3);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(242,169,59,.4); }
+.btn-ghost {
+  background:transparent; color:var(--warm-light);
+  border:1.5px solid rgba(251,246,239,.35);
+}
+.btn-ghost:hover { background:rgba(251,246,239,.1); border-color:rgba(251,246,239,.6); }
+.btn-outline {
+  background:transparent; color:var(--deep-horizon);
+  border:1.5px solid var(--warm-stone);
+}
+.btn-outline:hover { border-color:var(--morning-teal); color:var(--morning-teal); }
+.btn-teal {
+  background:var(--morning-teal); color:#fff;
+  box-shadow:0 4px 20px rgba(59,165,165,.3);
+}
+.btn-teal:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(59,165,165,.4); }
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+.nav {
+  position:sticky; top:0; z-index:1000;
+  background:rgba(251,246,239,.92);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(196,184,168,.25);
+  transition:all .3s ease;
+}
+.nav.scrolled {
+  background:rgba(251,246,239,.97);
+  box-shadow: var(--shadow-sm);
+}
+.nav-inner {
+  display:flex; align-items:center;
+  justify-content:space-between; height:66px; gap:24px;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-display); font-size:1.2rem; font-weight:700;
+  color:var(--deep-horizon); flex-shrink:0;
+}
+.nav-links {
+  display:flex; align-items:center; gap:36px; list-style:none;
+}
+.nav-links a {
+  font-size:12px; font-weight:600;
+  text-transform:uppercase; letter-spacing:1.5px;
+  color:var(--deep-horizon); opacity:.65;
+  transition:opacity .2s, color .2s;
+}
+.nav-links a:hover { opacity:1; color:var(--morning-teal); }
+.nav-links .nav-cta {
+  opacity:1; background:var(--gradient-sunrise); color:#fff;
+  padding:8px 20px; border-radius:var(--radius-full);
+  transition:transform .2s, box-shadow .2s;
+}
+.nav-links .nav-cta:hover {
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(242,169,59,.4);
+}
+.nav-hamburger {
+  display:none; flex-direction:column; gap:5px;
+  cursor:pointer; padding:4px; background:none; border:none;
+}
+.nav-hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--deep-horizon); border-radius:2px;
+  transition:all .3s ease;
+}
+
+/* Mobile overlay nav */
+.mobile-nav {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:var(--warm-light);
+  flex-direction:column; align-items:center; justify-content:center; gap:32px;
+}
+.mobile-nav.open { display:flex; }
+.mobile-nav a {
+  font-family:var(--font-display); font-size:2rem; font-weight:600;
+  color:var(--deep-horizon); text-align:center;
+  transition:color .2s;
+}
+.mobile-nav a:hover { color:var(--morning-teal); }
+.mobile-nav-close {
+  position:absolute; top:20px; right:20px;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--warm-mid); border:none;
+  font-size:18px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+
+/* ══════════════════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════════════════ */
+.fade-up {
+  opacity:0; transform:translateY(28px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.fade-up.visible { opacity:1; transform:translateY(0); }
+.delay-1 { transition-delay:.1s; }
+.delay-2 { transition-delay:.2s; }
+.delay-3 { transition-delay:.3s; }
+.delay-4 { transition-delay:.45s; }
+.delay-5 { transition-delay:.6s; }
+
+/* ══════════════════════════════════════════════
+   ① HERO
+══════════════════════════════════════════════ */
+.hero {
+  min-height:100vh; background:var(--night-sky);
+  position:relative; display:flex; align-items:center; overflow:hidden;
+}
+.hero-aurora { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.aurora-blob {
+  position:absolute; border-radius:50%; filter:blur(90px);
+  opacity:.14; animation:aurora 20s ease-in-out infinite;
+}
+.ab1 { width:600px; height:600px; background:var(--morning-teal); top:-120px; right:-80px; }
+.ab2 { width:450px; height:450px; background:var(--sunrise-gold); bottom:-60px; left:8%; animation-delay:-8s; }
+.ab3 { width:320px; height:320px; background:var(--living-coral); top:35%; left:45%; animation-delay:-15s; }
+@keyframes aurora {
+  0%,100% { transform:translate(0,0) scale(1); }
+  33%      { transform:translate(-25px,25px) scale(1.06); }
+  66%      { transform:translate(18px,-18px) scale(.95); }
+}
+/* Sunrise arc decoration */
+.hero-arcs {
+  position:absolute; bottom:0; left:50%;
+  transform:translateX(-50%); width:200%; opacity:.07; pointer-events:none;
+}
+.hero-content {
+  position:relative; z-index:1;
+  padding:120px 0 80px;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  color:var(--sunrise-gold); margin-bottom:28px;
+}
+.hero-eyebrow::before {
+  content:''; display:block; width:28px; height:2px;
+  background:var(--sunrise-gold); border-radius:2px;
+}
+.hero h1 {
+  color:var(--warm-light); max-width:13ch;
+  margin-bottom:24px;
+}
+.hero h1 em { font-style:italic; color:var(--sunrise-gold); }
+.hero-sub {
+  color:rgba(251,246,239,.68); font-size:1.125rem;
+  max-width:48ch; margin-bottom:40px; line-height:1.8;
+}
+.hero-buttons { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:72px; }
+.hero-stats {
+  display:flex; flex-wrap:wrap; gap:48px;
+  padding-top:40px;
+  border-top:1px solid rgba(251,246,239,.1);
+}
+.hero-stat-num {
+  font-family:var(--font-display); font-size:2.4rem; font-weight:700;
+  color:var(--sunrise-gold); line-height:1;
+}
+.hero-stat-lbl {
+  color:rgba(251,246,239,.45); font-size:12px; letter-spacing:1px;
+  margin-top:6px;
+}
+.scroll-hint {
+  position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  color:rgba(251,246,239,.35); font-size:10px; font-weight:600;
+  letter-spacing:2.5px; text-transform:uppercase;
+  animation:hint-pulse 2.2s ease-in-out infinite;
+}
+.scroll-hint svg { animation:hint-bounce 2.2s ease-in-out infinite; }
+@keyframes hint-pulse  { 0%,100%{opacity:.35} 50%{opacity:.8} }
+@keyframes hint-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+/* ══════════════════════════════════════════════
+   ② ABOUT
+══════════════════════════════════════════════ */
+.about { background:var(--warm-light); }
+.about-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:center;
+}
+.about-image-wrap { position:relative; }
+.about-image-glow {
+  position:absolute; inset:-16px;
+  background:var(--gradient-warm);
+  border-radius:var(--radius-xl); z-index:0;
+  opacity:.6;
+}
+.about-image {
+  position:relative; z-index:1;
+  border-radius:var(--radius-lg); overflow:hidden;
+  aspect-ratio:3/4; background:var(--warm-mid);
+  display:flex; align-items:center; justify-content:center;
+}
+.about-image img { width:100%; height:100%; object-fit:cover; }
+.about-image-ph { text-align:center; color:var(--warm-stone); padding:24px; }
+.about-image-ph svg { margin:0 auto 12px; opacity:.5; }
+.about-image-ph p { font-size:13px; opacity:.7; }
+.about-text .label { color:var(--morning-teal); margin-bottom:14px; }
+.about-text h2 { margin-bottom:20px; }
+.about-text p { color:var(--warm-dark); margin-bottom:16px; }
+.about-text p:last-of-type { margin-bottom:32px; }
+
+/* ══════════════════════════════════════════════
+   ③ IMPACT
+══════════════════════════════════════════════ */
+.impact { background:var(--deep-horizon); color:var(--warm-light); }
+.impact-header { text-align:center; margin-bottom:64px; }
+.impact-header .label { color:var(--morning-teal-light); margin-bottom:16px; }
+.impact-header h2 { color:var(--warm-light); }
+.impact-header p { color:rgba(251,246,239,.6); margin-top:12px; max-width:44ch; margin-inline:auto; }
+
+.how-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:20px; margin-bottom:64px;
+}
+.how-card {
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius-lg); padding:36px;
+  transition:all .3s ease;
+}
+.how-card:hover {
+  background:rgba(255,255,255,.08);
+  transform:translateY(-4px);
+  border-color:rgba(59,165,165,.3);
+}
+.how-icon {
+  width:48px; height:48px;
+  background:var(--gradient-sunrise); border-radius:var(--radius-sm);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:20px;
+}
+.how-card h3 { font-size:1.2rem; margin-bottom:10px; color:var(--warm-light); }
+.how-card p  { color:rgba(251,246,239,.58); font-size:14px; line-height:1.7; }
+
+/* Testimonials */
+.testimonials-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+.t-card {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--radius-md); padding:28px;
+  position:relative;
+}
+.t-card::before {
+  content:'\201C'; font-family:var(--font-display); font-size:5rem;
+  line-height:.8; color:var(--sunrise-gold); opacity:.25;
+  position:absolute; top:16px; left:20px;
+}
+.t-body {
+  padding-top:36px; color:rgba(251,246,239,.78);
+  font-size:15px; line-height:1.75; font-style:italic;
+  margin-bottom:20px;
+}
+.t-author { display:flex; align-items:center; gap:12px; }
+.t-avatar {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--gradient-horizon); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:13px; color:#fff;
+}
+.t-name  { font-weight:600; color:var(--warm-light); font-size:14px; }
+.t-title { color:rgba(251,246,239,.45); font-size:12px; margin-top:2px; }
+
+/* ══════════════════════════════════════════════
+   SHARED SECTION HEADER
+══════════════════════════════════════════════ */
+.sec-head {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:20px; flex-wrap:wrap; margin-bottom:56px;
+}
+.sec-head-text .label { margin-bottom:10px; }
+.sec-head-text h2    { line-height:1.15; }
+
+/* ══════════════════════════════════════════════
+   ④ WRITING
+══════════════════════════════════════════════ */
+.writing { background:var(--warm-light); }
+.writing .sec-head-text .label { color:var(--morning-teal); }
+
+.articles {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+  gap:20px;
+}
+.article {
+  background:#fff; border:1px solid var(--warm-mid);
+  border-radius:var(--radius-lg); overflow:hidden;
+  transition:all .3s ease; cursor:pointer;
+  display:flex; flex-direction:column;
+}
+.article:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:rgba(59,165,165,.2); }
+.article.featured { grid-column:span 2; }
+
+.a-img {
+  aspect-ratio:16/9; position:relative;
+  background:var(--gradient-horizon);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.article.featured .a-img { aspect-ratio:21/9; }
+.a-img-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(15,46,61,.7),rgba(59,165,165,.5));
+}
+.a-img svg { position:relative; z-index:1; opacity:.55; }
+
+.a-body { padding:24px; flex:1; display:flex; flex-direction:column; }
+.a-tag {
+  display:inline-block; padding:4px 12px;
+  background:rgba(59,165,165,.1); color:var(--morning-teal);
+  border-radius:var(--radius-full); font-size:11px; font-weight:600;
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;
+  align-self:flex-start;
+}
+.a-body h3 { font-size:1.1rem; margin-bottom:10px; line-height:1.4; flex:1; }
+.article.featured .a-body h3 { font-size:1.35rem; }
+.a-body p  { color:var(--warm-dark); font-size:14px; line-height:1.65; margin-bottom:16px; }
+.a-meta    { display:flex; align-items:center; gap:10px; font-size:12px; color:var(--warm-stone); margin-top:auto; }
+.a-dot     { width:3px; height:3px; border-radius:50%; background:var(--warm-stone); }
+
+.a-link {
+  display:inline-flex; align-items:center; gap:4px;
+  color:var(--morning-teal); font-size:13px; font-weight:600;
+  margin-top:12px; transition:gap .2s;
+}
+.a-link:hover { gap:8px; }
+
+/* ══════════════════════════════════════════════
+   ⑤ PODCAST
+══════════════════════════════════════════════ */
+.podcast { background:var(--warm-mid); }
+
+/* Featured own podcast */
+.pod-featured {
+  display:grid; grid-template-columns:1fr 1fr;
+  border-radius:var(--radius-xl); overflow:hidden;
+  background:var(--deep-horizon);
+  margin-bottom:80px; min-height:420px;
+}
+.pod-art {
+  position:relative; display:flex;
+  align-items:center; justify-content:center;
+  background:var(--gradient-dusk); overflow:hidden;
+  padding:48px;
+}
+.pod-art-blob {
+  position:absolute; border-radius:50%;
+  filter:blur(70px); opacity:.18;
+}
+.pod-art-inner { position:relative; z-index:1; text-align:center; }
+.pod-icon {
+  width:96px; height:96px;
+  background:rgba(242,169,59,.18); border:1px solid rgba(242,169,59,.3);
+  border-radius:var(--radius-lg);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 18px;
+}
+.pod-title-art {
+  font-family:var(--font-display); font-size:1.5rem;
+  font-weight:700; color:var(--warm-light); max-width:200px;
+}
+.pod-sub-art { color:rgba(251,246,239,.45); font-size:13px; margin-top:6px; }
+
+.pod-info { padding:52px 48px; display:flex; flex-direction:column; justify-content:center; }
+.pod-info .label { color:var(--morning-teal-light); margin-bottom:14px; }
+.pod-info h2   { color:var(--warm-light); margin-bottom:16px; }
+.pod-info > p  { color:rgba(251,246,239,.65); margin-bottom:28px; line-height:1.75; }
+
+.pod-platforms { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+.platform-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:8px 16px; border-radius:var(--radius-full);
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.11);
+  font-size:13px; color:rgba(251,246,239,.75);
+  transition:all .2s;
+}
+.platform-pill:hover { background:rgba(255,255,255,.13); color:var(--warm-light); }
+
+/* Appearances */
+.appear-head { margin-bottom:32px; }
+.appear-head .label { color:var(--morning-teal); margin-bottom:10px; }
+.appear-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+}
+.appear-card {
+  background:#fff; border:1px solid var(--warm-mid);
+  border-radius:var(--radius-md); padding:24px;
+  transition:all .3s ease;
+}
+.appear-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+.appear-show {
+  font-size:11px; font-weight:600; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--morning-teal); margin-bottom:8px;
+}
+.appear-card h4 { font-size:1rem; margin-bottom:8px; line-height:1.4; }
+.appear-card p  { color:var(--warm-dark); font-size:13px; line-height:1.6; margin-bottom:14px; }
+.appear-link {
+  display:inline-flex; align-items:center; gap:4px;
+  color:var(--morning-teal); font-size:13px; font-weight:600;
+  transition:gap .2s;
+}
+.appear-link:hover { gap:8px; }
+
+/* ══════════════════════════════════════════════
+   ⑥ TED TALK
+══════════════════════════════════════════════ */
+.ted {
+  background:var(--night-sky); color:var(--warm-light);
+  position:relative; overflow:hidden;
+}
+.ted::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 75% 50%, rgba(59,165,165,.1) 0%, transparent 55%);
+  pointer-events:none;
+}
+.ted-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:72px; align-items:center; position:relative; z-index:1;
+}
+.ted-text .label { color:var(--living-coral-light); margin-bottom:16px; }
+.ted-text h2     { color:var(--warm-light); margin-bottom:18px; }
+.ted-text p      { color:rgba(251,246,239,.65); margin-bottom:32px; line-height:1.8; }
+.ted-video {
+  border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.55);
+  aspect-ratio:16/9; position:relative;
+}
+.ted-video iframe { width:100%; height:100%; border:none; display:block; }
+
+/* ══════════════════════════════════════════════
+   ⑦ BOOK
+══════════════════════════════════════════════ */
+.book { background:var(--warm-light); }
+.book-inner {
+  display:grid; grid-template-columns:auto 1fr;
+  gap:80px; align-items:center;
+}
+/* Stylized book cover */
+.book-cover-wrap { position:relative; flex-shrink:0; }
+.book-3d {
+  width:260px; height:380px;
+  background:var(--gradient-horizon);
+  border-radius:4px 16px 16px 4px;
+  box-shadow:-10px 10px 0 rgba(15,46,61,.18), 0 32px 80px rgba(15,46,61,.3);
+  display:flex; flex-direction:column;
+  align-items:flex-start; justify-content:space-between;
+  padding:36px 28px; position:relative; overflow:hidden;
+}
+.book-3d::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:var(--gradient-sunrise);
+}
+.book-3d::after {
+  content:''; position:absolute; bottom:-40px; right:-40px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(59,165,165,.18);
+}
+.book-the     { font-family:var(--font-display); font-size:1.3rem; font-weight:300; color:rgba(251,246,239,.55); }
+.book-title   { font-family:var(--font-display); font-size:2.1rem; font-weight:800; color:var(--warm-light); line-height:1.1; position:relative; z-index:1; }
+.book-authors { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:rgba(251,246,239,.5); position:relative; z-index:1; }
+
+.book-text .label { color:var(--morning-teal); margin-bottom:14px; }
+.book-text h2     { margin-bottom:20px; }
+.book-text p      { color:var(--warm-dark); margin-bottom:14px; max-width:50ch; }
+.book-text p:last-of-type { margin-bottom:36px; }
+.book-btns { display:flex; flex-wrap:wrap; gap:12px; }
+
+/* ══════════════════════════════════════════════
+   ⑧ RESOURCES
+══════════════════════════════════════════════ */
+.resources { background:var(--warm-mid); }
+.resources .sec-head-text .label { color:var(--morning-teal); }
+
+.res-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+.res-card {
+  background:#fff;
+  border:1px solid rgba(196,184,168,.25);
+  border-radius:var(--radius-lg); padding:36px;
+  position:relative; overflow:hidden;
+  transition:all .3s ease;
+}
+.res-card::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+}
+.res-card.gold::after  { background:var(--gradient-sunrise); }
+.res-card.teal::after  { background:var(--morning-teal); }
+.res-card.coral::after { background:var(--living-coral); }
+.res-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md); }
+
+.res-icon {
+  width:52px; height:52px; border-radius:var(--radius-md);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:20px;
+}
+.res-icon.gold  { background:rgba(242,169,59,.1); }
+.res-icon.teal  { background:rgba(59,165,165,.1); }
+.res-icon.coral { background:rgba(232,93,74,.1); }
+
+.res-badge {
+  display:inline-block; padding:4px 12px;
+  background:var(--warm-mid); border-radius:var(--radius-full);
+  font-size:11px; font-weight:600; text-transform:uppercase;
+  letter-spacing:1px; color:var(--warm-dark); margin-bottom:14px;
+}
+.res-card h3 { font-size:1.1rem; margin-bottom:10px; }
+.res-card p  { color:var(--warm-dark); font-size:14px; line-height:1.65; margin-bottom:20px; }
+.res-link {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:13px; font-weight:600; transition:gap .2s;
+}
+.res-link:hover { gap:9px; }
+.res-link.gold  { color:var(--sunrise-gold); }
+.res-link.teal  { color:var(--morning-teal); }
+.res-link.coral { color:var(--living-coral); }
+
+/* ══════════════════════════════════════════════
+   ⑨ NEWSLETTER
+══════════════════════════════════════════════ */
+.newsletter {
+  background:var(--gradient-dusk); color:var(--warm-light);
+  text-align:center; position:relative; overflow:hidden;
+}
+.newsletter::before {
+  content:''; position:absolute; top:-60%; left:50%; transform:translateX(-50%);
+  width:900px; height:900px; border-radius:50%;
+  background:radial-gradient(circle, rgba(242,169,59,.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.nl-inner { position:relative; z-index:1; max-width:560px; margin:0 auto; }
+.nl-inner .label { color:var(--sunrise-gold-light); margin-bottom:16px; }
+.nl-inner h2 { color:var(--warm-light); margin-bottom:18px; }
+.nl-inner > p { color:rgba(251,246,239,.65); margin-bottom:40px; line-height:1.8; }
+.nl-form {
+  display:flex; gap:12px;
+  max-width:460px; margin:0 auto;
+}
+.nl-input {
+  flex:1; padding:14px 20px; border-radius:var(--radius-full);
+  border:1.5px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  color:var(--warm-light); font-family:var(--font-body); font-size:14px;
+  outline:none; transition:border-color .2s;
+}
+.nl-input::placeholder { color:rgba(251,246,239,.38); }
+.nl-input:focus { border-color:rgba(242,169,59,.5); }
+
+/* ══════════════════════════════════════════════
+   ⑩ FOOTER
+══════════════════════════════════════════════ */
+.footer { background:var(--night-sky); color:var(--warm-light); padding:72px 0 32px; }
+.footer-top {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:64px; padding-bottom:56px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  margin-bottom:32px;
+}
+.footer-brand p {
+  color:rgba(251,246,239,.45); font-size:14px;
+  line-height:1.75; margin-top:16px; max-width:30ch;
+}
+.footer-col h5 {
+  font-family:var(--font-display); font-size:15px; font-weight:600;
+  margin-bottom:18px; color:var(--warm-light);
+}
+.footer-col ul { list-style:none; }
+.footer-col li { margin-bottom:10px; }
+.footer-col a  { color:rgba(251,246,239,.45); font-size:14px; transition:color .2s; }
+.footer-col a:hover { color:var(--morning-teal-light); }
+.footer-bottom {
+  display:flex; align-items:center;
+  justify-content:space-between; gap:20px; flex-wrap:wrap;
+}
+.footer-bottom p { color:rgba(251,246,239,.28); font-size:13px; }
+.socials { display:flex; gap:10px; }
+.social {
+  width:36px; height:36px; border-radius:50%;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08);
+  display:flex; align-items:center; justify-content:center;
+  transition:all .2s;
+}
+.social:hover { background:var(--morning-teal); border-color:var(--morning-teal); }
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width:1024px) {
+  .how-grid        { grid-template-columns:repeat(2,1fr); }
+  .testimonials-grid { grid-template-columns:repeat(2,1fr); }
+  .articles        { grid-template-columns:repeat(2,1fr); }
+  .article.featured { grid-column:span 2; }
+  .appear-grid     { grid-template-columns:repeat(2,1fr); }
+  .footer-top      { grid-template-columns:1fr 1fr; gap:40px; }
+  .book-inner      { gap:48px; }
+}
+@media (max-width:768px) {
+  .section { padding:72px 0; }
+  .nav-links  { display:none; }
+  .nav-hamburger { display:flex; }
+  .about-inner { grid-template-columns:1fr; }
+  .about-image-wrap { max-width:300px; margin:0 auto; }
+  .how-grid    { grid-template-columns:1fr; }
+  .testimonials-grid { grid-template-columns:1fr; }
+  .articles    { grid-template-columns:1fr; }
+  .article.featured { grid-column:span 1; }
+  .article.featured .a-img { aspect-ratio:16/9; }
+  .pod-featured  { grid-template-columns:1fr; }
+  .pod-art       { min-height:260px; }
+  .pod-info      { padding:36px 28px; }
+  .appear-grid   { grid-template-columns:1fr; }
+  .ted-inner     { grid-template-columns:1fr; }
+  .book-inner    { grid-template-columns:1fr; }
+  .book-cover-wrap { text-align:center; }
+  .book-3d       { width:220px; height:320px; margin:0 auto; }
+  .res-grid      { grid-template-columns:1fr; }
+  .nl-form       { flex-direction:column; }
+  .footer-top    { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+  .sec-head      { flex-direction:column; align-items:flex-start; }
+  .hero-stats    { gap:28px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<header>
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="var(--deep-horizon)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#podcast">Podcast</a></li>
+          <li><a href="#ted">TED Talk</a></li>
+          <li><a href="#book">Book</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#connect" class="nav-cta">Newsletter</a></li>
+        </ul>
+
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
+    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="#about"     onclick="closeMobileNav()">About</a>
+    <a href="#writing"   onclick="closeMobileNav()">Writing</a>
+    <a href="#podcast"   onclick="closeMobileNav()">Podcast</a>
+    <a href="#ted"       onclick="closeMobileNav()">TED Talk</a>
+    <a href="#book"      onclick="closeMobileNav()">Book</a>
+    <a href="#resources" onclick="closeMobileNav()">Resources</a>
+    <a href="#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     ① HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-aurora" aria-hidden="true">
+    <div class="aurora-blob ab1"></div>
+    <div class="aurora-blob ab2"></div>
+    <div class="aurora-blob ab3"></div>
+  </div>
+
+  <svg class="hero-arcs" viewBox="0 0 1440 360" fill="none" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-80 340 Q720 -60 1520 340" stroke="#F2A93B" stroke-width="2" fill="none"/>
+    <path d="M-80 360 Q720 -20 1520 360" stroke="#F2A93B" stroke-width="1" fill="none"/>
+    <path d="M-80 380 Q720 20 1520 380" stroke="#3BA5A5" stroke-width="1.5" fill="none"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow label fade-up">Thought Leadership · AI · Future of Work</div>
+
+      <h1 class="fade-up delay-1">
+        AI is changing<br>the world.<br>
+        <em>We can shape it.</em>
+      </h1>
+
+      <p class="hero-sub fade-up delay-2">
+        I help people prepare for the AI era through education, skills, advice, and practical tools.
+        Not fear, not hype — just honest guidance for the road ahead.
+      </p>
+
+      <div class="hero-buttons fade-up delay-3">
+        <a href="#about" class="btn btn-primary">
+          Start Here
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#book" class="btn btn-ghost">The Human Cloud →</a>
+      </div>
+
+      <div class="hero-stats fade-up delay-4">
+        <div>
+          <div class="hero-stat-num">10K+</div>
+          <div class="hero-stat-lbl label">People Reached</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">1</div>
+          <div class="hero-stat-lbl label">TED Talk</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">50+</div>
+          <div class="hero-stat-lbl label">Podcast Appearances</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">1</div>
+          <div class="hero-stat-lbl label">Book Published</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="label">Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ② ABOUT
+══════════════════════════════════════════ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-image-wrap fade-up">
+        <div class="about-image-glow"></div>
+        <div class="about-image">
+          <!-- Replace content below with: <img src="your-photo.jpg" alt="Matthew Mottola"> -->
+          <div class="about-image-ph">
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
+              <circle cx="36" cy="26" r="18" fill="var(--warm-stone)"/>
+              <ellipse cx="36" cy="64" rx="28" ry="18" fill="var(--warm-stone)"/>
+            </svg>
+            <p>Your photo here</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="label fade-up" style="color:var(--morning-teal)">About Me</div>
+        <h2 class="fade-up delay-1">Hi, I'm glad you're here.</h2>
+        <p class="fade-up delay-2">
+          I've spent years at the intersection of AI and what it means to be human in a world of
+          rapid technological change. My book, <em>The Human Cloud</em>, mapped the shift already
+          underway — where AI and new ways of working were quietly rewriting the rules.
+        </p>
+        <p class="fade-up delay-3">
+          Now I'm focused on something more urgent: helping real people navigate the AI era with
+          confidence and curiosity, not anxiety. I'm not here to sell you fear, and I'm not here to
+          promise that AI fixes everything. The truth is more interesting — and more actionable.
+        </p>
+        <p class="fade-up delay-4">
+          AI is a tool. You're the craftsperson. And craftspeople who understand their tools?
+          They build incredible things.
+        </p>
+        <div class="fade-up delay-5">
+          <a href="#writing" class="btn btn-outline">
+            Read My Writing
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ③ IMPACT
+══════════════════════════════════════════ -->
+<section class="section impact" id="impact">
+  <div class="container">
+
+    <div class="impact-header">
+      <div class="label fade-up">Real Impact</div>
+      <h2 class="fade-up delay-1">Here's how I've helped people</h2>
+      <p class="fade-up delay-2">Education that actually sticks. Perspective that actually helps. Tools you can use today.</p>
+    </div>
+
+    <div class="how-grid">
+      <div class="how-card fade-up">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Navigate AI at Work</h3>
+        <p>Helping professionals understand where AI fits in their job — and where it doesn't — so they can make smart decisions, not reactive ones.</p>
+      </div>
+
+      <div class="how-card fade-up delay-1">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" stroke="white" stroke-width="1.5"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Build Real Skills</h3>
+        <p>Teaching the skills that actually matter in the AI era — critical thinking, curiosity, collaboration — not just tool tutorials that go stale in six months.</p>
+      </div>
+
+      <div class="how-card fade-up delay-2">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Cut Through the Noise</h3>
+        <p>AI discourse is full of hype and doom. I offer a third path: honest, grounded perspective that helps you make real decisions about your real life and career.</p>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="t-card fade-up">
+        <p class="t-body">This is the first time someone made AI feel accessible and not terrifying. I walked away knowing exactly what to do next.</p>
+        <div class="t-author">
+          <div class="t-avatar">SL</div>
+          <div>
+            <div class="t-name">Sarah L.</div>
+            <div class="t-title">Marketing Director</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card fade-up delay-1">
+        <p class="t-body">I've read dozens of AI books. This is the one I actually recommend to my team. It's practical, human, and genuinely useful.</p>
+        <div class="t-author">
+          <div class="t-avatar">JR</div>
+          <div>
+            <div class="t-name">James R.</div>
+            <div class="t-title">Startup Founder</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card fade-up delay-2">
+        <p class="t-body">Changed how I think about my career. The framing of "AI as tool, you as craftsperson" really clicked. I stopped panicking and started building.</p>
+        <div class="t-author">
+          <div class="t-avatar">MP</div>
+          <div>
+            <div class="t-name">Maria P.</div>
+            <div class="t-title">Product Manager</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ④ WRITING
+══════════════════════════════════════════ -->
+<section class="section writing" id="writing">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="label fade-up">Thought Leadership</div>
+        <h2 class="fade-up delay-1">Writing that cuts through the hype</h2>
+      </div>
+      <a href="#" class="btn btn-outline fade-up">All Articles →</a>
+    </div>
+
+    <div class="articles">
+
+      <!-- Featured -->
+      <article class="article featured fade-up">
+        <div class="a-img">
+          <div class="a-img-overlay"></div>
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+            <path d="M8 14h36M8 22h28M8 30h32M8 38h20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="a-body">
+          <span class="a-tag">AI &amp; Work</span>
+          <h3>Why AI Won't Replace You — But Will Replace You If You Don't Use It</h3>
+          <p>The narrative has been binary for too long. Here's the more nuanced, more useful truth about what AI actually means for your career.</p>
+          <div class="a-meta">
+            <span>Feb 2025</span>
+            <span class="a-dot"></span>
+            <span>8 min read</span>
+          </div>
+          <a href="#" class="a-link">
+            Read article
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="article fade-up delay-1">
+        <div class="a-img">
+          <div class="a-img-overlay"></div>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="14" stroke="white" stroke-width="2"/>
+            <path d="M24 14v10l7 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="a-body">
+          <span class="a-tag">Skills</span>
+          <h3>The 5 Skills You Actually Need in the AI Era</h3>
+          <p>Forget prompt engineering tutorials. The real differentiators are the ones that have always mattered — now amplified.</p>
+          <div class="a-meta">
+            <span>Jan 2025</span>
+            <span class="a-dot"></span>
+            <span>6 min read</span>
+          </div>
+          <a href="#" class="a-link">Read article <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="article fade-up delay-2">
+        <div class="a-img">
+          <div class="a-img-overlay"></div>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M8 24a16 16 0 1032 0" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M36 14l4 4-4 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="a-body">
+          <span class="a-tag">Leadership</span>
+          <h3>How to Have an Honest Conversation With Your Team About AI</h3>
+          <p>Most leaders avoid this conversation. Here's a framework for having it in a way that builds trust, not anxiety.</p>
+          <div class="a-meta">
+            <span>Dec 2024</span>
+            <span class="a-dot"></span>
+            <span>5 min read</span>
+          </div>
+          <a href="#" class="a-link">Read article <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="article fade-up">
+        <div class="a-img">
+          <div class="a-img-overlay"></div>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M12 38V20M20 38V12M28 38V26M36 38V16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="a-body">
+          <span class="a-tag">Education</span>
+          <h3>The Real Reason Schools Are Getting AI Wrong</h3>
+          <p>Education is panicking about AI and asking the wrong questions. Here's what we should actually be focused on.</p>
+          <div class="a-meta">
+            <span>Nov 2024</span>
+            <span class="a-dot"></span>
+            <span>7 min read</span>
+          </div>
+          <a href="#" class="a-link">Read article <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+      <article class="article fade-up delay-1">
+        <div class="a-img">
+          <div class="a-img-overlay"></div>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <rect x="8" y="18" width="32" height="22" rx="3" stroke="white" stroke-width="2"/>
+            <path d="M16 18V13a8 8 0 0116 0v5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="24" cy="29" r="3" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="a-body">
+          <span class="a-tag">Tools</span>
+          <h3>My Honest AI Toolkit: What I Use, What I Ditched, and Why</h3>
+          <p>A no-fluff look at the AI tools that actually make a difference in my workflow — and the ones I've stopped using.</p>
+          <div class="a-meta">
+            <span>Oct 2024</span>
+            <span class="a-dot"></span>
+            <span>9 min read</span>
+          </div>
+          <a href="#" class="a-link">Read article <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑤ PODCAST
+══════════════════════════════════════════ -->
+<section class="section podcast" id="podcast">
+  <div class="container">
+
+    <!-- My Podcast -->
+    <div class="pod-featured fade-up">
+      <div class="pod-art">
+        <div class="pod-art-blob" style="width:320px;height:320px;background:var(--morning-teal);top:-80px;right:-80px;"></div>
+        <div class="pod-art-blob" style="width:220px;height:220px;background:var(--sunrise-gold);bottom:-40px;left:0;"></div>
+        <div class="pod-art-inner">
+          <div class="pod-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="20" r="8" stroke="var(--sunrise-gold)" stroke-width="2"/>
+              <path d="M12 20a12 12 0 0024 0" stroke="var(--sunrise-gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M8 20a16 16 0 0032 0" stroke="var(--sunrise-gold)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
+              <path d="M24 32v8M20 40h8" stroke="var(--sunrise-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="pod-title-art">Building Tomorrow, Today</div>
+          <div class="pod-sub-art">with GoodFuture.ai</div>
+        </div>
+      </div>
+
+      <div class="pod-info">
+        <div class="label">My Podcast</div>
+        <h2>Building Tomorrow, Today</h2>
+        <p>Real conversations about navigating the AI era. Practical insights, honest takes, and the occasional tough question. No hype, no doom — just the kind of conversation you'd have with a smart friend who happens to know a lot about where we're headed.</p>
+        <div class="pod-platforms">
+          <a href="#" class="platform-pill">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden="true">
+              <path d="M7.5 0C3.4 0 0 3.4 0 7.5S3.4 15 7.5 15 15 11.6 15 7.5 11.6 0 7.5 0zm0 2.5a5 5 0 110 10 5 5 0 010-10zm.5 2H7v4.5l3.5 2-.5-.8-3-1.7V4.5z" opacity=".8"/>
+            </svg>
+            Apple Podcasts
+          </a>
+          <a href="#" class="platform-pill">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden="true">
+              <path d="M7.5 0C3.4 0 0 3.4 0 7.5S3.4 15 7.5 15 15 11.6 15 7.5 11.6 0 7.5 0zm3.3 10.7c-.1.2-.4.3-.6.1-1.6-1-3.5-1.2-5.8-.7-.2.1-.4-.1-.5-.3-.1-.2.1-.4.3-.5 2.5-.6 4.6-.3 6.3.8.3.1.3.4.3.6zm.9-2c-.2.2-.5.3-.7.1-1.8-1.1-4.5-1.4-6.7-.8-.3.1-.5-.1-.6-.4-.1-.3.1-.5.4-.6 2.4-.7 5.4-.4 7.5.9.2.1.3.5.1.8zm.1-2.1c-2.2-1.3-5.8-1.4-7.9-.8-.3.1-.6-.1-.7-.4-.1-.3.1-.6.4-.7 2.4-.7 6.4-.6 8.9.9.3.2.4.5.2.8-.2.3-.6.4-.9.2z" opacity=".8"/>
+            </svg>
+            Spotify
+          </a>
+          <a href="#" class="platform-pill">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden="true">
+              <path d="M7.5 0C3.4 0 0 3.4 0 7.5S3.4 15 7.5 15 15 11.6 15 7.5 11.6 0 7.5 0zm-1.5 4.5l6 3-6 3V4.5z" opacity=".8"/>
+            </svg>
+            YouTube
+          </a>
+        </div>
+        <a href="#" class="btn btn-primary">Listen Now</a>
+      </div>
+    </div>
+
+    <!-- Podcast Appearances -->
+    <div>
+      <div class="appear-head fade-up">
+        <div class="label" style="color:var(--morning-teal)">On Other Shows</div>
+        <h2>Podcast Appearances</h2>
+      </div>
+
+      <div class="appear-grid">
+        <div class="appear-card fade-up">
+          <div class="appear-show">The Future of Work</div>
+          <h4>AI Isn't the Enemy — Complacency Is</h4>
+          <p>A deep conversation about why the biggest risk isn't AI taking jobs. It's people deciding they don't need to adapt.</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="appear-card fade-up delay-1">
+          <div class="appear-show">Work 3.0</div>
+          <h4>The Human Cloud: What We Got Right and Wrong</h4>
+          <p>Looking back at the predictions and what the last few years have actually taught us about the future of work.</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="appear-card fade-up delay-2">
+          <div class="appear-show">The Learning Curve</div>
+          <h4>Redesigning Education for the AI Generation</h4>
+          <p>What if we stopped asking how to keep AI out of classrooms and started asking how to use it to build better learners?</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="appear-card fade-up">
+          <div class="appear-show">Leadership Now</div>
+          <h4>What Great Leaders Do When Technology Disrupts Everything</h4>
+          <p>The leaders who navigate disruption best have one thing in common — and it's not being technical. It's being human.</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="appear-card fade-up delay-1">
+          <div class="appear-show">Startup Stories</div>
+          <h4>Building Companies in the Age of AI-First Everything</h4>
+          <p>What it means to build something new right now — and why the AI era might actually be the best time in history to start.</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="appear-card fade-up delay-2">
+          <div class="appear-show">The Career Lab</div>
+          <h4>Reskilling in Your 40s: A Real Conversation</h4>
+          <p>An honest, unvarnished conversation about mid-career transitions in the AI era — the fears, the opportunities, and what actually helps.</p>
+          <a href="#" class="appear-link">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑥ TED TALK
+══════════════════════════════════════════ -->
+<section class="section ted" id="ted">
+  <div class="container">
+    <div class="ted-inner">
+
+      <div class="ted-text">
+        <div class="label fade-up">TED Talk</div>
+        <h2 class="fade-up delay-1">Watch the talk that started the conversation</h2>
+        <p class="fade-up delay-2">
+          In this TED Talk, I explore what it means for humans to thrive alongside AI — not by
+          competing with machines, but by being more deeply, irreducibly human. It's been watched
+          by thousands of people navigating the same questions you might be asking right now.
+        </p>
+        <div class="fade-up delay-3">
+          <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc"
+             target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Watch on YouTube
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+              <path d="M13 7.5L2 13V2l11 5.5z" fill="white"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ted-video fade-up delay-2">
+        <iframe
+          src="https://www.youtube.com/embed/Hzy_GhX8_Cc"
+          title="TED Talk — GoodFuture.ai"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑦ BOOK
+══════════════════════════════════════════ -->
+<section class="section book" id="book">
+  <div class="container">
+    <div class="book-inner">
+
+      <div class="book-cover-wrap fade-up">
+        <div class="book-3d" aria-label="Book cover: The Human Cloud">
+          <div class="book-the">The</div>
+          <div class="book-title">Human<br>Cloud</div>
+          <div class="book-authors">Matthew Mottola<br>&amp; Matthew Coatney</div>
+        </div>
+      </div>
+
+      <div class="book-text">
+        <div class="label fade-up" style="color:var(--morning-teal)">The Book</div>
+        <h2 class="fade-up delay-1">The Human Cloud</h2>
+        <p class="fade-up delay-2">
+          Before AI became everyone's favorite buzzword, <em>The Human Cloud</em> was mapping
+          the seismic shift already underway — a world where AI and the talent economy were
+          quietly rewriting the rules of work.
+        </p>
+        <p class="fade-up delay-3">
+          It's not a tech book. It's a human book about technological change — full of real
+          stories, practical frameworks, and an honest look at what this all means for the way
+          we live and work. If you're trying to make sense of this moment, this is a good place
+          to start.
+        </p>
+        <div class="book-btns fade-up delay-4">
+          <a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Get the Book
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Learn More →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑧ RESOURCES
+══════════════════════════════════════════ -->
+<section class="section resources" id="resources">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="label fade-up">Tools &amp; Resources</div>
+        <h2 class="fade-up delay-1">Practical things to help you right now</h2>
+      </div>
+    </div>
+
+    <div class="res-grid">
+
+      <div class="res-card gold fade-up">
+        <div class="res-icon gold">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path d="M14 4l3 7h7l-5.5 4 2 7L14 18l-6.5 4 2-7L4 11h7z" stroke="var(--sunrise-gold)" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="res-badge">Free Guide</span>
+        <h3>AI Readiness Self-Assessment</h3>
+        <p>A practical, honest framework for understanding where you are with AI — and where to focus your energy. No rankings, no fluff.</p>
+        <a href="#" class="res-link gold">
+          Download Free
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M6.5 2v7M3 7l3.5 3.5L10 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="res-card teal fade-up delay-1">
+        <div class="res-icon teal">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <rect x="4" y="4" width="20" height="20" rx="3" stroke="var(--morning-teal)" stroke-width="1.5"/>
+            <path d="M9 14h10M9 9h6M9 19h8" stroke="var(--morning-teal)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="res-badge">Newsletter</span>
+        <h3>The Weekly Signal</h3>
+        <p>One email a week. Honest AI analysis and actionable insights. Read by thousands of professionals navigating the same questions you are.</p>
+        <a href="#connect" class="res-link teal">
+          Subscribe Free
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="res-card coral fade-up delay-2">
+        <div class="res-icon coral">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <path d="M14 4C8.5 4 4 8.5 4 14s4.5 10 10 10 10-4.5 10-10S19.5 4 14 4z" stroke="var(--living-coral)" stroke-width="1.5"/>
+            <path d="M10 14l3 3 5-6" stroke="var(--living-coral)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="res-badge">Coming Soon</span>
+        <h3>AI Skills Roadmap</h3>
+        <p>An interactive guide to building the right skills for the AI era — tailored to where you're starting from and where you want to go.</p>
+        <a href="#connect" class="res-link coral">
+          Get Notified
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑨ NEWSLETTER
+══════════════════════════════════════════ -->
+<section class="section newsletter" id="connect">
+  <div class="container">
+    <div class="nl-inner">
+      <div class="label fade-up">Stay Connected</div>
+      <h2 class="fade-up delay-1">The Weekly Signal</h2>
+      <p class="fade-up delay-2">
+        One email a week. Honest takes on AI, the future of work, and how to navigate
+        it all without losing your mind. No spam. No fluff. Just signal.
+      </p>
+      <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
+        <input
+          type="email"
+          class="nl-input"
+          placeholder="your@email.com"
+          required
+          aria-label="Email address"
+        />
+        <button type="submit" class="btn btn-primary">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑩ FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo" style="color:var(--warm-light)">
+          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="rgba(255,255,255,.08)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+        <p>Helping people prepare for the AI era through education, skills, and practical tools. AI is changing the world. We can shape it.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#podcast">Podcast</a></li>
+          <li><a href="#ted">TED Talk</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#book">The Human Cloud</a></li>
+          <li><a href="#resources">Free Guide</a></li>
+          <li><a href="#connect">Newsletter</a></li>
+          <li><a href="#resources">AI Roadmap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="mailto:hello@goodfuture.ai">Email</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 GoodFuture.ai · Built with optimism</p>
+      <div class="socials">
+        <a href="#" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="rgba(251,246,239,.65)" aria-hidden="true">
+            <path d="M3.3 1.8C2.6 1.8 2 2.4 2 3.1s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zM2 5.5h2.5v7.5H2V5.5zm4.7 0h2.3v1C9.5 5.9 10.4 5.4 11.5 5.4c2.2 0 3 1.5 3 3.5V13h-2.8V9.4c0-1.1-.4-1.7-1.3-1.7-.9 0-1.4.6-1.4 1.7V13H6.7V5.5z"/>
+          </svg>
+        </a>
+        <a href="#" class="social" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(251,246,239,.65)" aria-hidden="true">
+            <path d="M11.5 1h2L9 6l5.2 7H9.8L6.5 9 2.5 13H.5l4.8-5.2L.3 1h4l3 4.5z"/>
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" class="social" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="rgba(251,246,239,.65)" aria-hidden="true">
+            <path d="M14.5 4.5s-.2-1.2-.7-1.7c-.7-.7-1.4-.7-1.8-.8C10.5 2 8 2 8 2S5.5 2 4 2.1c-.4.1-1.1.1-1.8.8C1.7 3.4 1.5 4.5 1.5 4.5S1.3 5.9 1.3 7.3v1.3c0 1.4.2 2.8.2 2.8s.2 1.2.7 1.7c.7.7 1.6.7 2 .7C5.5 14 8 14 8 14s2.5 0 4-.1c.4-.1 1.1-.1 1.8-.8.5-.5.7-1.7.7-1.7s.2-1.4.2-2.8V7.3c0-1.4-.2-2.8-.2-2.8zM6.5 10V5.5l4.5 2.3L6.5 10z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Mobile nav
+const hamburger  = document.getElementById('hamburger');
+const mobileNav  = document.getElementById('mobileNav');
+const navClose   = document.getElementById('navClose');
+
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+
+navClose.addEventListener('click', closeMobileNav);
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+// Close on escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
+
+// Scroll-reveal animation
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
+
+// Hero elements trigger immediately on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 160);
+  });
+});
+
+// Active nav highlight
+const sections  = document.querySelectorAll('section[id]');
+const navAnchors = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 90) current = s.id;
+  });
+  navAnchors.forEach(a => {
+    const isActive = a.getAttribute('href') === `#${current}`;
+    a.style.opacity = isActive ? '1' : '0.65';
+    a.style.color   = isActive ? 'var(--morning-teal)' : '';
+  });
+}, { passive: true });
+
+// Newsletter form
+function handleSubscribe(e) {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const btn   = e.target.querySelector('button');
+  const orig  = btn.textContent;
+  btn.textContent = "You're in! ✓";
+  btn.style.background = 'var(--morning-teal)';
+  input.value = '';
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.style.background = '';
+  }, 3500);
+}
+</script>
+
+</body>
+</html>
