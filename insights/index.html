@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights — GoodFuture.ai</title>
+<meta name="description" content="Ideas, perspectives, and honest takes on the AI era — from someone who's been thinking about this for a while.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css">
+
+<style>
+/* ══════════════════════════════════════════════
+   INSIGHTS PAGE — SPECIFIC STYLES
+══════════════════════════════════════════════ */
+
+/* Page Hero */
+.page-hero {
+  background: var(--deep-horizon);
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(59,165,165,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.page-hero-inner { position: relative; z-index: 1; }
+.page-hero .label { color: var(--morning-teal-light); margin-bottom: 16px; }
+.page-hero h1 { color: var(--warm-light); margin-bottom: 18px; font-size: clamp(2rem, 5vw, 3.5rem); }
+.page-hero p  { color: rgba(251,246,239,.65); max-width: 50ch; line-height: 1.8; font-size: 1.1rem; }
+
+/* Tag Filters */
+.filters-bar {
+  background: var(--warm-mid);
+  padding: 20px 0;
+  position: sticky;
+  top: 66px; /* height of nav */
+  z-index: 100;
+  border-bottom: 1px solid rgba(196,184,168,.3);
+}
+.filters-inner {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 7px 16px; border-radius: var(--radius-full);
+  font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  background: transparent; border: 1.5px solid var(--warm-stone);
+  color: var(--warm-dark); cursor: pointer;
+  transition: all .2s ease;
+}
+.filter-btn:hover { border-color: var(--morning-teal); color: var(--morning-teal); }
+.filter-btn.active {
+  background: var(--morning-teal); border-color: var(--morning-teal); color: #fff;
+}
+.filters-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--warm-stone); margin-right: 6px;
+}
+
+/* Articles Grid */
+.insights-body { padding: 80px 0; }
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.insight-card {
+  background: #fff; border: 1px solid var(--warm-mid);
+  border-radius: var(--radius-lg); overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: all .3s ease; cursor: pointer;
+}
+.insight-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(59,165,165,.2); }
+.insight-card.featured { grid-column: span 2; }
+
+.ic-img {
+  aspect-ratio: 16/9; position: relative;
+  background: var(--gradient-horizon);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.insight-card.featured .ic-img { aspect-ratio: 21/9; }
+.ic-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(15,46,61,.7), rgba(59,165,165,.5));
+}
+.ic-img svg { position: relative; z-index: 1; opacity: .5; }
+.ic-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.ic-img .has-video {
+  position: absolute; bottom: 12px; right: 12px; z-index: 2;
+  background: rgba(0,0,0,.55); border-radius: var(--radius-sm);
+  padding: 4px 10px; color: #fff; font-size: 11px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.ic-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+.ic-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.ic-body h3 { font-size: 1.15rem; line-height: 1.4; margin-bottom: 10px; flex: 1; }
+.insight-card.featured .ic-body h3 { font-size: 1.4rem; }
+.ic-body p  { color: var(--warm-dark); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.ic-meta { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--warm-stone); margin-top: auto; }
+.ic-dot  { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-stone); }
+.ic-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--morning-teal); font-size: 13px; font-weight: 600;
+  margin-top: 14px; transition: gap .2s;
+}
+.ic-link:hover { gap: 8px; }
+
+/* Article Detail Overlay */
+.article-overlay {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(10,22,40,.8); backdrop-filter: blur(8px);
+  overflow-y: auto; padding: 40px 20px;
+}
+.article-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+.article-modal {
+  background: var(--warm-light); border-radius: var(--radius-xl);
+  max-width: 760px; width: 100%; padding: 64px;
+  position: relative; margin: auto;
+}
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--warm-mid); border: none; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s;
+}
+.modal-close:hover { background: var(--warm-stone); }
+.modal-label { color: var(--morning-teal); margin-bottom: 12px; }
+.modal-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+.modal-meta { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--warm-stone); margin-bottom: 36px; }
+.modal-dot  { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-stone); }
+.modal-body { color: var(--warm-dark); font-size: 1.05rem; line-height: 1.85; }
+.modal-body p { margin-bottom: 20px; }
+.modal-body p:last-child { margin-bottom: 0; }
+.modal-body strong { color: var(--deep-horizon); font-weight: 600; }
+.modal-cover {
+  width: 100%; aspect-ratio: 16/9; margin-bottom: 40px;
+  border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--gradient-horizon);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-cover img { width: 100%; height: 100%; object-fit: cover; }
+.modal-cover iframe { width: 100%; height: 100%; border: none; }
+.modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+
+/* Empty state */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center; padding: 80px 24px; color: var(--warm-stone);
+}
+.no-results h3 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 10px; color: var(--warm-dark); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .insights-grid { grid-template-columns: repeat(2, 1fr); }
+  .insight-card.featured { grid-column: span 2; }
+}
+@media (max-width: 768px) {
+  .insights-grid { grid-template-columns: 1fr; }
+  .insight-card.featured { grid-column: span 1; }
+  .insight-card.featured .ic-img { aspect-ratio: 16/9; }
+  .article-modal { padding: 40px 24px; }
+  .filters-bar { top: 66px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<header>
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-logo">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="var(--deep-horizon)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../insights/index.html" class="active">Insights</a></li>
+          <li><a href="../podcast/index.html">Podcast</a></li>
+          <li><a href="../resources/index.html">Resources</a></li>
+          <li><a href="../index.html#connect" class="nav-cta">Newsletter</a></li>
+        </ul>
+
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
+    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="../index.html#about"     onclick="closeMobileNav()">About</a>
+    <a href="../insights/index.html"  onclick="closeMobileNav()">Insights</a>
+    <a href="../podcast/index.html"   onclick="closeMobileNav()">Podcast</a>
+    <a href="../resources/index.html" onclick="closeMobileNav()">Resources</a>
+    <a href="../index.html#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     PAGE HERO
+══════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="label fade-up">Insights</div>
+      <h1 class="fade-up delay-1">Things worth thinking about</h1>
+      <p class="fade-up delay-2">
+        Ideas, perspectives, and honest takes on the AI era. I write when I have
+        something to say — not on a schedule. Quality over quantity.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TAG FILTERS
+══════════════════════════════════════════ -->
+<div class="filters-bar">
+  <div class="container">
+    <div class="filters-inner" id="filters-inner">
+      <span class="filters-label">Filter:</span>
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ARTICLES GRID
+══════════════════════════════════════════ -->
+<section class="insights-body">
+  <div class="container">
+    <div class="insights-grid" id="insights-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     NEWSLETTER CTA
+══════════════════════════════════════════ -->
+<section class="section newsletter" id="connect">
+  <div class="container">
+    <div class="nl-inner">
+      <div class="label fade-up">Stay in the Loop</div>
+      <h2 class="fade-up delay-1">New insights, direct to your inbox</h2>
+      <p class="fade-up delay-2">
+        One email a week. Honest takes, practical ideas, and a bit of perspective.
+        No spam. Unsubscribe whenever.
+      </p>
+      <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
+        <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address"/>
+        <button type="submit" class="btn btn-primary">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo" style="color:var(--warm-light)">
+          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="rgba(255,255,255,.08)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+        <p>I help people make sense of AI — and feel a little more hopeful about where we're headed.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../insights/index.html">Insights</a></li>
+          <li><a href="../podcast/index.html">Podcast</a></li>
+          <li><a href="../resources/index.html">Resources</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Stay in Touch</h5>
+        <ul>
+          <li><a href="../index.html#connect">Newsletter</a></li>
+          <li><a href="mailto:hello@goodfuture.ai">Email Me</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Also Worth Seeing</h5>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li>
+          <li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li>
+          <li><a href="../resources/index.html">All Resources</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 GoodFuture.ai · Built with optimism</p>
+      <div class="socials">
+        <a href="#" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M3.3 1.8C2.6 1.8 2 2.4 2 3.1s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zM2 5.5h2.5v7.5H2V5.5zm4.7 0h2.3v1C9.5 5.9 10.4 5.4 11.5 5.4c2.2 0 3 1.5 3 3.5V13h-2.8V9.4c0-1.1-.4-1.7-1.3-1.7-.9 0-1.4.6-1.4 1.7V13H6.7V5.5z"/></svg>
+        </a>
+        <a href="#" class="social" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M11.5 1h2L9 6l5.2 7H9.8L6.5 9 2.5 13H.5l4.8-5.2L.3 1h4l3 4.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Article Detail Overlay -->
+<div class="article-overlay" id="articleOverlay" role="dialog" aria-modal="true" aria-label="Article">
+  <div class="article-modal" id="articleModal">
+    <button class="modal-close" id="modalClose" aria-label="Close article">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Data + Rendering -->
+<script src="../data/insights.js"></script>
+<script>
+let activeTag = 'all';
+
+// ── BUILD FILTER BUTTONS ──
+function renderFilters() {
+  const container = document.getElementById('filters-inner');
+  const tags = getInsightTags();
+
+  const allBtn = `<button class="filter-btn active" data-tag="all" onclick="filterBy('all')">All</button>`;
+  const tagBtns = tags.map(t =>
+    `<button class="filter-btn" data-tag="${t}" onclick="filterBy('${t}')">${t}</button>`
+  ).join('');
+
+  container.innerHTML = `<span class="filters-label">Filter:</span>${allBtn}${tagBtns}`;
+}
+
+function filterBy(tag) {
+  activeTag = tag;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tag === tag);
+  });
+  renderGrid();
+}
+
+// ── RENDER ARTICLES GRID ──
+function renderGrid() {
+  const grid = document.getElementById('insights-grid');
+  const filtered = activeTag === 'all'
+    ? INSIGHTS
+    : INSIGHTS.filter(a => a.tags.includes(activeTag));
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="no-results">
+      <h3>Nothing here yet for "${activeTag}"</h3>
+      <p>Check back soon — or <button onclick="filterBy('all')" style="background:none;border:none;color:var(--morning-teal);font-weight:600;cursor:pointer;font-size:inherit;">browse all insights</button>.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((a, i) => {
+    const isFeatured = (i === 0 && activeTag === 'all' && a.featured);
+    const delay = (i % 3) + 1;
+    return `
+    <article class="insight-card${isFeatured ? ' featured' : ''} fade-up delay-${delay}"
+             id="card-${a.slug}"
+             onclick="openArticle('${a.slug}')"
+             role="button"
+             tabindex="0"
+             onkeydown="if(event.key==='Enter')openArticle('${a.slug}')">
+      <div class="ic-img">
+        ${a.coverImage
+          ? `<img src="${a.coverImage}" alt="${a.title}">`
+          : `<div class="ic-img-overlay"></div>
+             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+               <path d="M8 16h32M8 24h24M8 32h28M8 40h16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+             </svg>`}
+        ${a.youtubeId
+          ? `<div class="has-video">
+               <svg width="10" height="10" viewBox="0 0 10 10" fill="white"><path d="M2 1l7 4-7 4V1z"/></svg>
+               Video
+             </div>`
+          : ''}
+      </div>
+      <div class="ic-body">
+        <div class="ic-tags">${a.tags.map(t => `<span class="a-tag">${t}</span>`).join('')}</div>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+        <div class="ic-meta">
+          <span>${formatInsightDate(a.date)}</span>
+          <span class="ic-dot"></span>
+          <span>${a.readingTime}</span>
+        </div>
+        <span class="ic-link">
+          Read
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </article>`;
+  }).join('');
+
+  // Re-observe new elements
+  document.querySelectorAll('#insights-grid .fade-up').forEach(el => revealObserver.observe(el));
+
+  // Handle deep-link via hash
+  if (location.hash) {
+    const slug = location.hash.slice(1);
+    if (INSIGHTS.find(a => a.slug === slug)) openArticle(slug);
+  }
+}
+
+// ── ARTICLE DETAIL MODAL ──
+function openArticle(slug) {
+  const a = INSIGHTS.find(x => x.slug === slug);
+  if (!a) return;
+
+  history.replaceState(null, '', `#${slug}`);
+
+  let coverHtml = '';
+  if (a.youtubeId) {
+    coverHtml = `<div class="modal-cover">
+      <iframe src="https://www.youtube.com/embed/${a.youtubeId}"
+              title="${a.title}" allowfullscreen loading="lazy"></iframe>
+    </div>`;
+  } else if (a.coverImage) {
+    coverHtml = `<div class="modal-cover"><img src="${a.coverImage}" alt="${a.title}"></div>`;
+  }
+
+  document.getElementById('modal-content').innerHTML = `
+    ${coverHtml}
+    <div class="modal-label label">${a.tags.join(' · ')}</div>
+    <h2 class="modal-title">${a.title}</h2>
+    <div class="modal-meta">
+      <span>${formatInsightDate(a.date)}</span>
+      <span class="modal-dot"></span>
+      <span>${a.readingTime}</span>
+    </div>
+    <div class="modal-body">${a.body || `<p>${a.excerpt}</p>`}</div>`;
+
+  const overlay = document.getElementById('articleOverlay');
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalClose').focus();
+}
+
+function closeArticle() {
+  document.getElementById('articleOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  history.replaceState(null, '', location.pathname);
+}
+
+document.getElementById('modalClose').addEventListener('click', closeArticle);
+document.getElementById('articleOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeArticle();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticle(); });
+
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+const navClose  = document.getElementById('navClose');
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+navClose.addEventListener('click', closeMobileNav);
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
+
+// ── NEWSLETTER ──
+function handleSubscribe(e) {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const btn   = e.target.querySelector('button');
+  const orig  = btn.textContent;
+  btn.textContent = "You're in!";
+  btn.style.background = 'var(--morning-teal)';
+  input.value = '';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3500);
+}
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.page-hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 160);
+  });
+  renderFilters();
+  renderGrid();
+});
+</script>
+
+</body>
+</html>

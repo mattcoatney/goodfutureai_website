@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Podcast — GoodFuture.ai</title>
+<meta name="description" content="Building Tomorrow, Today — honest conversations about navigating the AI era. Plus appearances on other shows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css">
+
+<style>
+/* ══════════════════════════════════════════════
+   PODCAST PAGE — SPECIFIC STYLES
+══════════════════════════════════════════════ */
+
+/* Page Hero — dark with show art */
+.pod-page-hero {
+  background: var(--night-sky);
+  padding: 100px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.pod-page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 20% 60%, rgba(242,169,59,.12) 0%, transparent 55%);
+  pointer-events: none;
+}
+.pod-hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+  padding-bottom: 80px;
+}
+.pod-hero-art {
+  display: flex; align-items: center; justify-content: center;
+}
+.pod-show-card {
+  width: 280px; height: 280px;
+  background: var(--gradient-dusk);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 32px 80px rgba(0,0,0,.5);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; gap: 16px; padding: 32px;
+  position: relative; overflow: hidden;
+}
+.pod-show-card::before {
+  content: ''; position: absolute;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: rgba(59,165,165,.12);
+  top: -80px; right: -80px;
+  filter: blur(40px);
+}
+.pod-show-card::after {
+  content: ''; position: absolute;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: rgba(242,169,59,.1);
+  bottom: -60px; left: -60px;
+  filter: blur(40px);
+}
+.pod-show-icon {
+  width: 72px; height: 72px;
+  background: rgba(242,169,59,.15); border: 1px solid rgba(242,169,59,.25);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+}
+.pod-show-name {
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 700; color: var(--warm-light); line-height: 1.2;
+  position: relative; z-index: 1;
+}
+.pod-show-sub {
+  color: rgba(251,246,239,.45); font-size: 13px;
+  position: relative; z-index: 1;
+}
+
+.pod-hero-text .label { color: var(--morning-teal-light); margin-bottom: 14px; }
+.pod-hero-text h1 { color: var(--warm-light); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 18px; }
+.pod-hero-text p  { color: rgba(251,246,239,.65); line-height: 1.8; margin-bottom: 32px; max-width: 46ch; }
+.pod-platforms { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.platform-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: var(--radius-full);
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11);
+  font-size: 13px; color: rgba(251,246,239,.75);
+  transition: all .2s; text-decoration: none;
+}
+.platform-pill:hover { background: rgba(255,255,255,.13); color: var(--warm-light); }
+
+/* Episodes Section */
+.episodes-section { background: var(--warm-light); padding: 100px 0; }
+.episodes-section .label { color: var(--morning-teal); }
+.episode-coming {
+  background: #fff; border: 1px dashed var(--warm-stone);
+  border-radius: var(--radius-xl); padding: 64px;
+  text-align: center; max-width: 600px; margin: 0 auto;
+}
+.episode-coming .ec-icon {
+  width: 72px; height: 72px; border-radius: var(--radius-lg);
+  background: rgba(59,165,165,.1);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+}
+.episode-coming h3 {
+  font-family: var(--font-display); font-size: 1.5rem;
+  margin-bottom: 12px; color: var(--deep-horizon);
+}
+.episode-coming p { color: var(--warm-dark); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+
+/* Episode Card (used when episodes exist) */
+.episodes-grid { display: flex; flex-direction: column; gap: 20px; }
+.episode-card {
+  background: #fff; border: 1px solid var(--warm-mid);
+  border-radius: var(--radius-lg); overflow: hidden;
+  transition: all .3s ease;
+}
+.episode-card:hover { box-shadow: var(--shadow-md); border-color: rgba(59,165,165,.2); }
+.ep-inner {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 0;
+}
+.ep-number {
+  background: var(--gradient-horizon);
+  width: 72px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 12px;
+  font-family: var(--font-display); font-size: 1.4rem;
+  font-weight: 700; color: rgba(251,246,239,.5);
+  flex-shrink: 0;
+}
+.ep-body { padding: 28px 32px; }
+.ep-meta-row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--warm-stone); margin-bottom: 10px;
+}
+.ep-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-stone); }
+.ep-tags { display: flex; gap: 6px; margin-bottom: 10px; }
+.ep-body h3 { font-size: 1.2rem; margin-bottom: 8px; line-height: 1.4; }
+.ep-body p  { color: var(--warm-dark); font-size: 14px; line-height: 1.65; margin-bottom: 20px; }
+.ep-player  { margin-bottom: 16px; }
+.ep-player iframe {
+  width: 100%; height: 152px; border-radius: var(--radius-md);
+  border: none;
+}
+.ep-player.youtube iframe { height: 0; padding-bottom: 56.25%; position: relative; }
+.ep-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.ep-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--morning-teal);
+  transition: gap .2s;
+}
+.ep-link:hover { gap: 10px; }
+
+/* Appearances Section */
+.appearances-section { background: var(--warm-mid); padding: 100px 0; }
+.appearances-section .label { color: var(--morning-teal); }
+.appear-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-top: 16px;
+}
+.appear-card {
+  background: #fff; border: 1px solid var(--warm-mid);
+  border-radius: var(--radius-md); padding: 28px;
+  transition: all .3s ease;
+}
+.appear-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.appear-show {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--morning-teal); margin-bottom: 8px;
+}
+.appear-date {
+  font-size: 11px; color: var(--warm-stone);
+  margin-bottom: 10px;
+}
+.appear-card h4 { font-size: 1.05rem; margin-bottom: 8px; line-height: 1.4; }
+.appear-card p  { color: var(--warm-dark); font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+.appear-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--morning-teal); font-size: 13px; font-weight: 600;
+  transition: gap .2s;
+}
+.appear-link:hover { gap: 8px; }
+.appear-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .appear-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .pod-hero-inner { grid-template-columns: 1fr; }
+  .pod-hero-art { display: none; }
+  .appear-grid { grid-template-columns: 1fr; }
+  .ep-inner { grid-template-columns: 1fr; }
+  .ep-number { width: 100%; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: flex-start; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header>
+  <nav class="nav" id="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../index.html" class="nav-logo">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="var(--deep-horizon)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../insights/index.html">Insights</a></li>
+          <li><a href="../podcast/index.html" class="active">Podcast</a></li>
+          <li><a href="../resources/index.html">Resources</a></li>
+          <li><a href="../index.html#connect" class="nav-cta">Newsletter</a></li>
+        </ul>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
+    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="../index.html#about"     onclick="closeMobileNav()">About</a>
+    <a href="../insights/index.html"  onclick="closeMobileNav()">Insights</a>
+    <a href="../podcast/index.html"   onclick="closeMobileNav()">Podcast</a>
+    <a href="../resources/index.html" onclick="closeMobileNav()">Resources</a>
+    <a href="../index.html#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>
+  </div>
+</header>
+
+<!-- PAGE HERO: SHOW INFO -->
+<section class="pod-page-hero">
+  <div class="container">
+    <div class="pod-hero-inner">
+
+      <div class="pod-hero-art fade-up">
+        <div class="pod-show-card">
+          <div class="pod-show-icon">
+            <svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="20" r="8" stroke="var(--sunrise-gold)" stroke-width="2"/>
+              <path d="M12 20a12 12 0 0024 0" stroke="var(--sunrise-gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M8 20a16 16 0 0032 0" stroke="var(--sunrise-gold)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
+              <path d="M24 32v8M20 40h8" stroke="var(--sunrise-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="pod-show-name">Building Tomorrow,<br>Today</div>
+          <div class="pod-show-sub">with GoodFuture.ai</div>
+        </div>
+      </div>
+
+      <div class="pod-hero-text fade-up delay-1">
+        <div class="label">My Podcast</div>
+        <h1 id="show-name">Building Tomorrow, Today</h1>
+        <p id="show-desc">Loading...</p>
+        <div class="pod-platforms" id="show-platforms"><!-- Rendered by JS --></div>
+        <a href="#" class="btn btn-primary" id="show-listen-btn">Listen Now</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EPISODES -->
+<section class="episodes-section" id="episodes">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="label fade-up">Episodes</div>
+        <h2 class="fade-up delay-1">Latest conversations</h2>
+      </div>
+    </div>
+    <div id="episodes-list"><!-- Rendered by JS --></div>
+  </div>
+</section>
+
+<!-- APPEARANCES -->
+<section class="appearances-section" id="appearances">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-head-text">
+        <div class="label fade-up">Guest Appearances</div>
+        <h2 class="fade-up delay-1">Conversations I've been part of</h2>
+      </div>
+    </div>
+    <p class="fade-up" style="color:var(--warm-dark); max-width:50ch; margin-bottom:48px; line-height:1.75;">
+      I've had the chance to talk about AI, the future of work, and what it means to be human in a technological age on a lot of great shows. Here are a few of them.
+    </p>
+    <div class="appear-grid" id="appearances-grid"><!-- Rendered by JS --></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section newsletter" id="connect">
+  <div class="container">
+    <div class="nl-inner">
+      <div class="label fade-up">Don't Miss a Thing</div>
+      <h2 class="fade-up delay-1">Get notified when new episodes drop</h2>
+      <p class="fade-up delay-2">
+        Join The Weekly Signal — one email a week with honest takes on AI,
+        new episodes, and ideas worth your time.
+      </p>
+      <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
+        <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address"/>
+        <button type="submit" class="btn btn-primary">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo" style="color:var(--warm-light)">
+          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="11" fill="rgba(255,255,255,.08)"/>
+            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
+          </svg>
+          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
+        </a>
+        <p>I help people make sense of AI — and feel a little more hopeful about where we're headed.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../insights/index.html">Insights</a></li>
+          <li><a href="../podcast/index.html">Podcast</a></li>
+          <li><a href="../resources/index.html">Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Stay in Touch</h5>
+        <ul>
+          <li><a href="../index.html#connect">Newsletter</a></li>
+          <li><a href="mailto:hello@goodfuture.ai">Email Me</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Also Worth Seeing</h5>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li>
+          <li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li>
+          <li><a href="../resources/index.html">All Resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 GoodFuture.ai · Built with optimism</p>
+      <div class="socials">
+        <a href="#" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M3.3 1.8C2.6 1.8 2 2.4 2 3.1s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zM2 5.5h2.5v7.5H2V5.5zm4.7 0h2.3v1C9.5 5.9 10.4 5.4 11.5 5.4c2.2 0 3 1.5 3 3.5V13h-2.8V9.4c0-1.1-.4-1.7-1.3-1.7-.9 0-1.4.6-1.4 1.7V13H6.7V5.5z"/></svg>
+        </a>
+        <a href="#" class="social" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M11.5 1h2L9 6l5.2 7H9.8L6.5 9 2.5 13H.5l4.8-5.2L.3 1h4l3 4.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../data/podcast.js"></script>
+<script>
+// ── RENDER SHOW INFO ──
+function renderShowInfo() {
+  if (typeof PODCAST_SHOW === 'undefined') return;
+  document.getElementById('show-name').textContent = PODCAST_SHOW.name;
+  document.getElementById('show-desc').textContent = PODCAST_SHOW.description;
+
+  const listenBtn = document.getElementById('show-listen-btn');
+  listenBtn.href = PODCAST_SHOW.listenUrl || '#';
+
+  const platformsEl = document.getElementById('show-platforms');
+  platformsEl.innerHTML = PODCAST_SHOW.platforms.map(p =>
+    `<a href="${p.url}" class="platform-pill" target="_blank" rel="noopener noreferrer">
+       ${(typeof PLATFORM_ICONS !== 'undefined' && PLATFORM_ICONS[p.icon]) || ''}
+       ${p.name}
+     </a>`
+  ).join('');
+}
+
+// ── RENDER EPISODES ──
+function renderEpisodes() {
+  const container = document.getElementById('episodes-list');
+  if (!container || typeof PODCAST_EPISODES === 'undefined') return;
+
+  if (PODCAST_EPISODES.length === 0) {
+    container.innerHTML = `
+      <div class="episode-coming fade-up">
+        <div class="ec-icon">
+          <svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="20" r="8" stroke="var(--morning-teal)" stroke-width="2"/>
+            <path d="M12 20a12 12 0 0024 0" stroke="var(--morning-teal)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M24 32v8M20 40h8" stroke="var(--morning-teal)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>First episode coming soon</h3>
+        <p>
+          I'm working on something good. Subscribe to the newsletter and you'll be the first
+          to know when it drops.
+        </p>
+        <a href="../index.html#connect" class="btn btn-teal">Get notified →</a>
+      </div>`;
+    revealObserver.observe(container.querySelector('.episode-coming'));
+    return;
+  }
+
+  container.innerHTML = `<div class="episodes-grid">
+    ${PODCAST_EPISODES.map((ep, i) => {
+      let playerHtml = '';
+      if (ep.youtubeId) {
+        playerHtml = `<div class="ep-player">
+          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-md);">
+            <iframe src="https://www.youtube.com/embed/${ep.youtubeId}"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+                    title="${ep.title}" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </div>`;
+      } else if (ep.spotifyEmbedUrl) {
+        playerHtml = `<div class="ep-player">
+          <iframe src="${ep.spotifyEmbedUrl}"
+                  height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy" style="border-radius:var(--radius-md);border:none;width:100%;">
+          </iframe>
+        </div>`;
+      }
+
+      let linksHtml = '';
+      if (ep.applePodcastsUrl) {
+        linksHtml += `<a href="${ep.applePodcastsUrl}" class="ep-link" target="_blank" rel="noopener noreferrer">Apple Podcasts →</a>`;
+      }
+      if (ep.spotifyUrl) {
+        linksHtml += `<a href="${ep.spotifyUrl}" class="ep-link" target="_blank" rel="noopener noreferrer">Spotify →</a>`;
+      }
+
+      return `
+      <div class="episode-card fade-up delay-${(i % 3) + 1}">
+        <div class="ep-inner">
+          <div class="ep-number">${String(i + 1).padStart(2, '0')}</div>
+          <div class="ep-body">
+            <div class="ep-meta-row">
+              <span>${formatPodcastDate(ep.date)}</span>
+              ${ep.duration ? `<span class="ep-dot"></span><span>${ep.duration}</span>` : ''}
+            </div>
+            ${ep.tags && ep.tags.length ? `<div class="ep-tags">${ep.tags.map(t => `<span class="a-tag">${t}</span>`).join('')}</div>` : ''}
+            <h3>${ep.title}</h3>
+            <p>${ep.excerpt}</p>
+            ${playerHtml}
+            ${linksHtml ? `<div class="ep-links">${linksHtml}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+
+  document.querySelectorAll('#episodes-list .fade-up').forEach(el => revealObserver.observe(el));
+}
+
+// ── RENDER APPEARANCES ──
+function renderAppearances() {
+  const grid = document.getElementById('appearances-grid');
+  if (!grid || typeof PODCAST_APPEARANCES === 'undefined') return;
+
+  grid.innerHTML = PODCAST_APPEARANCES.map((app, i) => `
+    <div class="appear-card fade-up delay-${(i % 3) + 1}">
+      <div class="appear-show">${app.show}</div>
+      <div class="appear-date">${formatPodcastDate(app.date)}</div>
+      ${app.tags && app.tags.length ? `<div class="appear-tags">${app.tags.map(t => `<span class="a-tag">${t}</span>`).join('')}</div>` : ''}
+      <h4>${app.title}</h4>
+      <p>${app.description}</p>
+      <a href="${app.url}" class="appear-link">
+        Listen
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+          <path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>`).join('');
+
+  document.querySelectorAll('#appearances-grid .fade-up').forEach(el => revealObserver.observe(el));
+}
+
+// ── NAV ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+const navClose  = document.getElementById('navClose');
+hamburger.addEventListener('click', () => {
+  mobileNav.classList.add('open'); document.body.style.overflow = 'hidden';
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+navClose.addEventListener('click', closeMobileNav);
+function closeMobileNav() {
+  mobileNav.classList.remove('open'); document.body.style.overflow = '';
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
+
+// ── SCROLL REVEAL ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
+
+// ── NEWSLETTER ──
+function handleSubscribe(e) {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const btn   = e.target.querySelector('button');
+  const orig  = btn.textContent;
+  btn.textContent = "You're in!"; btn.style.background = 'var(--morning-teal)';
+  input.value = '';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3500);
+}
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.pod-page-hero .fade-up').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 160);
+  });
+  renderShowInfo();
+  renderEpisodes();
+  renderAppearances();
+});
+</script>
+
+</body>
+</html>
