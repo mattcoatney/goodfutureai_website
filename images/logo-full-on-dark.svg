@@ -1,0 +1,13 @@
+<!-- GoodFuture.ai full logo (mark + wordmark) — for dark backgrounds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 90" width="620" height="90">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700');</style>
+  <rect width="620" height="90" fill="#0F2E3D" rx="6"/>
+  <!-- Logomark circle -->
+  <circle cx="45" cy="45" r="40" fill="#3BA5A5"/>
+  <text x="10" y="60" font-family="Georgia, serif" font-size="32" font-weight="800" fill="#FBF6EF">GF</text>
+  <!-- Wordmark -->
+  <text x="108" y="70" font-family="Fraunces, Georgia, serif" font-size="60" font-weight="700">
+    <tspan fill="#FBF6EF">GoodFutur</tspan><tspan fill="#3BA5A5">e.ai</tspan>
+  </text>
+  <path d="M 396 26 Q 433 12 471 26" stroke="#F2A93B" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

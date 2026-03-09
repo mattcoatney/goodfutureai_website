@@ -1,0 +1,8 @@
+<!-- GoodFuture.ai wordmark — transparent bg, light text — for dark external backgrounds -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 90" width="492" height="90">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700');</style>
+  <text x="20" y="70" font-family="Fraunces, Georgia, serif" font-size="60" font-weight="700">
+    <tspan fill="#FBF6EF">GoodFutur</tspan><tspan fill="#3BA5A5">e.ai</tspan>
+  </text>
+  <path d="M 288 26 Q 325 12 363 26" stroke="#F2A93B" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

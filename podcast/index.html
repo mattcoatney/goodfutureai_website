@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Podcast — GoodFuture.ai</title>
-<meta name="description" content="Building Tomorrow, Today — honest conversations about navigating the AI era. Plus appearances on other shows.">
+<title>GoodFuture.ai - Podcast</title>
+<meta name="description" content="Building a Better Future Together, honest conversations about navigating the AI era. Plus appearances on other shows.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/main.css">
+<link rel="icon" type="image/png" href="favicon.png">
 
 <style>
 /* ══════════════════════════════════════════════
@@ -204,40 +205,7 @@
 <body>
 
 <!-- NAVIGATION -->
-<header>
-  <nav class="nav" id="nav">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="../index.html" class="nav-logo">
-          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <circle cx="17" cy="21" r="11" fill="var(--deep-horizon)"/>
-            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
-          </svg>
-          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="../index.html#about">About</a></li>
-          <li><a href="../insights/index.html">Insights</a></li>
-          <li><a href="../podcast/index.html" class="active">Podcast</a></li>
-          <li><a href="../resources/index.html">Resources</a></li>
-          <li><a href="../index.html#connect" class="nav-cta">Newsletter</a></li>
-        </ul>
-        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
-    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">✕</button>
-    <a href="../index.html#about"     onclick="closeMobileNav()">About</a>
-    <a href="../insights/index.html"  onclick="closeMobileNav()">Insights</a>
-    <a href="../podcast/index.html"   onclick="closeMobileNav()">Podcast</a>
-    <a href="../resources/index.html" onclick="closeMobileNav()">Resources</a>
-    <a href="../index.html#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>
-  </div>
-</header>
+<header></header>
 
 <!-- PAGE HERO: SHOW INFO -->
 <section class="pod-page-hero">
@@ -245,26 +213,19 @@
     <div class="pod-hero-inner">
 
       <div class="pod-hero-art fade-up">
-        <div class="pod-show-card">
-          <div class="pod-show-icon">
-            <svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <circle cx="24" cy="20" r="8" stroke="var(--sunrise-gold)" stroke-width="2"/>
-              <path d="M12 20a12 12 0 0024 0" stroke="var(--sunrise-gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <path d="M8 20a16 16 0 0032 0" stroke="var(--sunrise-gold)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
-              <path d="M24 32v8M20 40h8" stroke="var(--sunrise-gold)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="pod-show-name">Building Tomorrow,<br>Today</div>
-          <div class="pod-show-sub">with GoodFuture.ai</div>
-        </div>
+        <img src="../images/podcast-cover-1400.png"
+             alt="The GoodFuture.ai Podcast with Matt Coatney"
+             style="width:280px;height:280px;object-fit:cover;border-radius:var(--radius-xl);box-shadow:0 32px 80px rgba(0,0,0,.5);">
       </div>
 
       <div class="pod-hero-text fade-up delay-1">
-        <div class="label">My Podcast</div>
-        <h1 id="show-name">Building Tomorrow, Today</h1>
+        <div class="label">Podcast</div>
+        <h1 id="show-name">Building a Better Future Together</h1>
         <p id="show-desc">Loading...</p>
-        <div class="pod-platforms" id="show-platforms"><!-- Rendered by JS --></div>
+        <!-- platform pills: uncomment when podcast is live
+        <div class="pod-platforms" id="show-platforms"></div>
         <a href="#" class="btn btn-primary" id="show-listen-btn">Listen Now</a>
+        -->
       </div>
 
     </div>
@@ -290,11 +251,11 @@
     <div class="sec-head">
       <div class="sec-head-text">
         <div class="label fade-up">Guest Appearances</div>
-        <h2 class="fade-up delay-1">Conversations I've been part of</h2>
+        <h2 class="fade-up delay-1">Conversations we've been part of</h2>
       </div>
     </div>
     <p class="fade-up" style="color:var(--warm-dark); max-width:50ch; margin-bottom:48px; line-height:1.75;">
-      I've had the chance to talk about AI, the future of work, and what it means to be human in a technological age on a lot of great shows. Here are a few of them.
+      We have had the chance to talk about AI, the future of work, and what it means to be human in a technological age on a lot of great shows. Here are a few.
     </p>
     <div class="appear-grid" id="appearances-grid"><!-- Rendered by JS --></div>
   </div>
@@ -304,11 +265,11 @@
 <section class="section newsletter" id="connect">
   <div class="container">
     <div class="nl-inner">
-      <div class="label fade-up">Don't Miss a Thing</div>
-      <h2 class="fade-up delay-1">Get notified when new episodes drop</h2>
+      <div class="label fade-up">Stay Connected</div>
+      <h2 class="fade-up delay-1">The AI Signal</h2>
       <p class="fade-up delay-2">
-        Join The Weekly Signal — one email a week with honest takes on AI,
-        new episodes, and ideas worth your time.
+        One email every few weeks. Honest takes on AI, practical ideas you can use, and
+        a little perspective on where we're all headed. No spam, no fluff.
       </p>
       <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
         <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address"/>
@@ -319,60 +280,10 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="../index.html" class="nav-logo" style="color:var(--warm-light)">
-          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <circle cx="17" cy="21" r="11" fill="rgba(255,255,255,.08)"/>
-            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
-          </svg>
-          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
-        </a>
-        <p>I help people make sense of AI — and feel a little more hopeful about where we're headed.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <ul>
-          <li><a href="../index.html#about">About</a></li>
-          <li><a href="../insights/index.html">Insights</a></li>
-          <li><a href="../podcast/index.html">Podcast</a></li>
-          <li><a href="../resources/index.html">Resources</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Stay in Touch</h5>
-        <ul>
-          <li><a href="../index.html#connect">Newsletter</a></li>
-          <li><a href="mailto:hello@goodfuture.ai">Email Me</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Also Worth Seeing</h5>
-        <ul>
-          <li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li>
-          <li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li>
-          <li><a href="../resources/index.html">All Resources</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 GoodFuture.ai · Built with optimism</p>
-      <div class="socials">
-        <a href="#" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M3.3 1.8C2.6 1.8 2 2.4 2 3.1s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zM2 5.5h2.5v7.5H2V5.5zm4.7 0h2.3v1C9.5 5.9 10.4 5.4 11.5 5.4c2.2 0 3 1.5 3 3.5V13h-2.8V9.4c0-1.1-.4-1.7-1.3-1.7-.9 0-1.4.6-1.4 1.7V13H6.7V5.5z"/></svg>
-        </a>
-        <a href="#" class="social" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(251,246,239,.65)" aria-hidden="true"><path d="M11.5 1h2L9 6l5.2 7H9.8L6.5 9 2.5 13H.5l4.8-5.2L.3 1h4l3 4.5z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+<footer class="footer"></footer>
+
+<!-- Shared layout -->
+<script src="../assets/js/layout.js"></script>
 
 <script src="../data/podcast.js"></script>
 <script>
@@ -382,16 +293,13 @@ function renderShowInfo() {
   document.getElementById('show-name').textContent = PODCAST_SHOW.name;
   document.getElementById('show-desc').textContent = PODCAST_SHOW.description;
 
-  const listenBtn = document.getElementById('show-listen-btn');
-  listenBtn.href = PODCAST_SHOW.listenUrl || '#';
-
-  const platformsEl = document.getElementById('show-platforms');
-  platformsEl.innerHTML = PODCAST_SHOW.platforms.map(p =>
-    `<a href="${p.url}" class="platform-pill" target="_blank" rel="noopener noreferrer">
-       ${(typeof PLATFORM_ICONS !== 'undefined' && PLATFORM_ICONS[p.icon]) || ''}
-       ${p.name}
-     </a>`
-  ).join('');
+  // platform links commented out until podcast is live
+  // const listenBtn = document.getElementById('show-listen-btn');
+  // listenBtn.href = PODCAST_SHOW.listenUrl || '#';
+  // const platformsEl = document.getElementById('show-platforms');
+  // platformsEl.innerHTML = PODCAST_SHOW.platforms.map(p =>
+  //   `<a href="${p.url}" class="platform-pill" ...>${p.name}</a>`
+  // ).join('');
 }
 
 // ── RENDER EPISODES ──
@@ -493,24 +401,6 @@ function renderAppearances() {
 
   document.querySelectorAll('#appearances-grid .fade-up').forEach(el => revealObserver.observe(el));
 }
-
-// ── NAV ──
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
-
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobileNav');
-const navClose  = document.getElementById('navClose');
-hamburger.addEventListener('click', () => {
-  mobileNav.classList.add('open'); document.body.style.overflow = 'hidden';
-  hamburger.setAttribute('aria-expanded', 'true');
-});
-navClose.addEventListener('click', closeMobileNav);
-function closeMobileNav() {
-  mobileNav.classList.remove('open'); document.body.style.overflow = '';
-  hamburger.setAttribute('aria-expanded', 'false');
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
 
 // ── SCROLL REVEAL ──
 const revealObserver = new IntersectionObserver((entries) => {

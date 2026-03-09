@@ -1,0 +1,6 @@
+<!-- GoodFuture.ai wordmark — monochrome light — for dark single-color applications -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 90" width="492" height="90">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@700');</style>
+  <text x="20" y="70" font-family="Fraunces, Georgia, serif" font-size="60" font-weight="700" fill="#FBF6EF">GoodFuture.ai</text>
+  <path d="M 288 26 Q 325 12 363 26" stroke="#FBF6EF" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

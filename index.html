@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoodFuture.ai — AI Education & Ideas</title>
+<title>GoodFuture.ai - Home</title>
 <meta name="description" content="I help people move from fear about AI into confidence — with honest education, practical ideas, and a friend who's been thinking about this for a while.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
+<link rel="icon" type="image/png" href="favicon.png">
 
 <style>
 /* ══════════════════════════════════════════════
@@ -245,7 +246,19 @@
   box-shadow:0 32px 80px rgba(0,0,0,.55);
   aspect-ratio:16/9; position:relative;
 }
-.ted-video iframe { width:100%; height:100%; border:none; display:block; }
+.ted-video a { display:block; width:100%; height:100%; }
+.ted-video img { width:100%; height:100%; object-fit:cover; display:block; }
+.ted-play {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.3); transition:background .2s;
+}
+.ted-video:hover .ted-play { background:rgba(0,0,0,.15); }
+.ted-play-btn {
+  width:72px; height:72px; border-radius:50%;
+  background:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 24px rgba(0,0,0,.4); transition:transform .2s, box-shadow .2s;
+}
+.ted-video:hover .ted-play-btn { transform:scale(1.08); box-shadow:0 8px 32px rgba(0,0,0,.5); }
 
 /* RESPONSIVE — HOME PAGE */
 @media (max-width:1024px) {
@@ -274,43 +287,7 @@
 <!-- ══════════════════════════════════════════
      NAVIGATION
 ══════════════════════════════════════════ -->
-<header>
-  <nav class="nav" id="nav">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="index.html" class="nav-logo">
-          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <circle cx="17" cy="21" r="11" fill="var(--deep-horizon)"/>
-            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
-          </svg>
-          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
-        </a>
-
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="insights/index.html">Insights</a></li>
-          <li><a href="podcast/index.html">Podcast</a></li>
-          <li><a href="resources/index.html">Resources</a></li>
-          <li><a href="#connect" class="nav-cta">Newsletter</a></li>
-        </ul>
-
-        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">
-    <button class="mobile-nav-close" id="navClose" aria-label="Close menu">✕</button>
-    <a href="#about"      onclick="closeMobileNav()">About</a>
-    <a href="insights/index.html"  onclick="closeMobileNav()">Insights</a>
-    <a href="podcast/index.html"   onclick="closeMobileNav()">Podcast</a>
-    <a href="resources/index.html" onclick="closeMobileNav()">Resources</a>
-    <a href="#connect"    onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>
-  </div>
-</header>
+<header></header>
 
 <!-- ══════════════════════════════════════════
      ① HERO
@@ -330,7 +307,7 @@
 
   <div class="container">
     <div class="hero-content">
-      <div class="hero-eyebrow label fade-up">AI Education &amp; Ideas</div>
+      <div class="hero-eyebrow label fade-up">AI Insights &amp; Discussion</div>
 
       <h1 class="fade-up delay-1">
         The AI era is here.<br>
@@ -339,7 +316,8 @@
 
       <p class="hero-sub fade-up delay-2">
         Whether you're curious, a little overwhelmed, or just trying to figure out
-        what this all means for you — you're in the right place. I'm here to help.
+        what this all means for you, you're in the right place. We explore the future of 
+        AI and how to ensure its power is used for good. 
       </p>
 
       <div class="hero-buttons fade-up delay-3">
@@ -349,7 +327,7 @@
             <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="insights/index.html" class="btn btn-ghost">Read My Insights →</a>
+        <a href="insights/index.html" class="btn btn-ghost">Insights →</a>
       </div>
 
       <div class="hero-stats fade-up delay-4">
@@ -358,11 +336,11 @@
           <div class="hero-stat-lbl label">People Reached</div>
         </div>
         <div>
-          <div class="hero-stat-num">50+</div>
+          <div class="hero-stat-num">100+</div>
           <div class="hero-stat-lbl label">Podcast Appearances</div>
         </div>
         <div>
-          <div class="hero-stat-num">10+</div>
+          <div class="hero-stat-num">25+</div>
           <div class="hero-stat-lbl label">Keynotes & Talks</div>
         </div>
       </div>
@@ -378,66 +356,14 @@
 </section>
 
 <!-- ══════════════════════════════════════════
-     ② ABOUT
-══════════════════════════════════════════ -->
-<section class="section about" id="about">
-  <div class="container">
-    <div class="about-inner">
-
-      <div class="about-image-wrap fade-up">
-        <div class="about-image-glow"></div>
-        <div class="about-image">
-          <!-- Replace with: <img src="/assets/images/matthew-mottola.jpg" alt="Matthew Mottola"> -->
-          <div class="about-image-ph">
-            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-hidden="true">
-              <circle cx="36" cy="26" r="18" fill="var(--warm-stone)"/>
-              <ellipse cx="36" cy="64" rx="28" ry="18" fill="var(--warm-stone)"/>
-            </svg>
-            <p>Your photo here</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-text">
-        <div class="label fade-up" style="color:var(--morning-teal)">About Me</div>
-        <h2 class="fade-up delay-1">Hi, I'm glad you're here.</h2>
-        <p class="fade-up delay-2">
-          I've spent years at the intersection of AI and what it means to be human in a world of
-          rapid change. My book, <em>The Human Cloud</em>, mapped the shift that was quietly
-          rewriting the rules of work — before AI became everyone's main topic of conversation.
-        </p>
-        <p class="fade-up delay-3">
-          Now I'm focused on something I care about deeply: helping real people navigate the AI era
-          with curiosity rather than anxiety. Not as an authority with all the answers, but as a
-          fellow traveler who's been thinking about this for a while and wants to share what I've learned.
-        </p>
-        <p class="fade-up delay-4">
-          AI is a tool. You're the one who decides what to do with it. And people who understand
-          their tools? They build really interesting things.
-        </p>
-        <div class="fade-up delay-5">
-          <a href="insights/index.html" class="btn btn-outline">
-            Read My Insights
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     ③ INSIGHTS PREVIEW
+     ② INSIGHTS PREVIEW
 ══════════════════════════════════════════ -->
 <section class="section insights" id="insights">
   <div class="container">
     <div class="sec-head">
       <div class="sec-head-text">
         <div class="label fade-up">Insights</div>
-        <h2 class="fade-up delay-1">Things I keep thinking about</h2>
+        <!-- <h2 class="fade-up delay-1">Things I keep thinking about</h2> -->
       </div>
       <a href="insights/index.html" class="btn btn-outline fade-up">All Insights →</a>
     </div>
@@ -456,27 +382,15 @@
 
     <!-- My Podcast -->
     <div class="pod-featured fade-up">
-      <div class="pod-art">
-        <div class="pod-art-blob" style="width:320px;height:320px;background:var(--morning-teal);top:-80px;right:-80px;"></div>
-        <div class="pod-art-blob" style="width:220px;height:220px;background:var(--sunrise-gold);bottom:-40px;left:0;"></div>
-        <div class="pod-art-inner">
-          <div class="pod-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <circle cx="24" cy="20" r="8" stroke="var(--sunrise-gold)" stroke-width="2"/>
-              <path d="M12 20a12 12 0 0024 0" stroke="var(--sunrise-gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <path d="M8 20a16 16 0 0032 0" stroke="var(--sunrise-gold)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".5"/>
-              <path d="M24 32v8M20 40h8" stroke="var(--sunrise-gold)" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="pod-title-art">Building Tomorrow, Today</div>
-          <div class="pod-sub-art">with GoodFuture.ai</div>
-        </div>
+      <div class="pod-art" style="padding:0;">
+        <img src="images/podcast-cover-1400.png" alt="The GoodFuture.ai Podcast with Matt Coatney" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
 
       <div class="pod-info">
-        <div class="label">My Podcast</div>
-        <h2>Building Tomorrow, Today</h2>
-        <p>Real conversations about navigating the AI era — without the hype and without the doom. The kind of talk you'd have with a friend who's been thinking about this stuff for a while.</p>
+        <div class="label">Podcast</div>
+        <h2>Building a Better Future Together</h2>
+        <p>Real conversations about navigating the AI era, without the hype and without the doom.</p>
+        <!--
         <div class="pod-platforms">
           <a href="#" class="platform-pill">
             <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden="true"><path d="M7.5 0C3.4 0 0 3.4 0 7.5S3.4 15 7.5 15 15 11.6 15 7.5 11.6 0 7.5 0zm0 2.5a5 5 0 110 10 5 5 0 010-10zm.5 2H7v4.5l3.5 2-.5-.8-3-1.7V4.5z" opacity=".8"/></svg>
@@ -491,6 +405,7 @@
             YouTube
           </a>
         </div>
+        -->
         <a href="podcast/index.html" class="btn btn-primary">Explore the Podcast</a>
       </div>
     </div>
@@ -498,8 +413,8 @@
     <!-- 3 selected appearances -->
     <div>
       <div class="appear-head fade-up">
-        <div class="label" style="color:var(--morning-teal)">Conversations I've been part of</div>
-        <h2>A few recent appearances</h2>
+        <div class="label" style="color:var(--morning-teal)">Key Conversations</div>
+        <h2>Recent discussions that resonate</h2>
       </div>
 
       <div class="appear-grid" id="home-appearances-grid">
@@ -507,7 +422,7 @@
       </div>
 
       <div class="podcast-page-link fade-up">
-        <a href="podcast/index.html" class="btn btn-outline">See all appearances on the Podcast page →</a>
+        <a href="podcast/index.html" class="btn btn-outline">See all conversations on the Podcast page →</a>
       </div>
     </div>
 
@@ -523,11 +438,11 @@
 
       <div class="ted-text">
         <div class="label fade-up">TED Talk</div>
-        <h2 class="fade-up delay-1">Watch the talk that started this conversation</h2>
+        <h2 class="fade-up delay-1">The talk that started the conversation</h2>
         <p class="fade-up delay-2">
-          What does it mean to thrive alongside AI — not by competing with machines,
-          but by being more fully human? This talk has reached people who were asking
-          the same questions you might be sitting with right now.
+          What does it mean to thrive alongside AI. Not by competing with machines,
+          but by being more fully human? This talk has reached over 6,000 people
+          asking the same question.
         </p>
         <div class="fade-up delay-3">
           <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc"
@@ -541,13 +456,63 @@
       </div>
 
       <div class="ted-video fade-up delay-2">
-        <iframe
-          src="https://www.youtube.com/embed/Hzy_GhX8_Cc"
-          title="TED Talk — GoodFuture.ai"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+        <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer" aria-label="Watch TED Talk on YouTube">
+          <img src="images/ted_talk.jpg" alt="TED Talk — watch on YouTube" loading="lazy">
+          <div class="ted-play">
+            <div class="ted-play-btn">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <path d="M10 7l14 7-14 7V7z" fill="#0F2E3D"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ⑤ ABOUT
+══════════════════════════════════════════ -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-image-wrap fade-up">
+        <div class="about-image-glow"></div>
+        <div class="about-image">
+          <div class="about-image-ph">
+            <img src="images/bio_1.jpg" alt="Matt Coatney" width="200"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="label fade-up" style="color:var(--morning-teal)">About Me</div>
+        <h2 class="fade-up delay-1">I'm glad you're here.</h2>
+        <p class="fade-up delay-2">
+          I've spent years at the intersection of AI and what it means to be human in a world of
+          rapid change. My book, <em>The Human Cloud</em>, mapped the shift that was quietly
+          rewriting the rules of work before AI became everyone's main topic of conversation.
+        </p>
+        <p class="fade-up delay-3">
+          Now I'm focused on something I care about deeply: helping real people navigate the AI era
+          with curiosity rather than anxiety. Not as an authority with all the answers, but as a
+          fellow traveler who's been thinking about this for a while and wants to share what I've learned.
+        </p>
+        <p class="fade-up delay-4">
+          AI is a tool. You're the one who decides what to do with it. And people who understand
+          how to get the most out of AI? They build great things.
+        </p>
+        <div class="fade-up delay-5">
+          <a href="insights/index.html" class="btn btn-outline">
+            Read Insights
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
     </div>
@@ -561,9 +526,9 @@
   <div class="container">
     <div class="nl-inner">
       <div class="label fade-up">Stay Connected</div>
-      <h2 class="fade-up delay-1">The Weekly Signal</h2>
+      <h2 class="fade-up delay-1">The AI Signal</h2>
       <p class="fade-up delay-2">
-        One email a week. Honest takes on AI, practical ideas you can use, and
+        One email every few weeks. Honest takes on AI, practical ideas you can use, and
         a little perspective on where we're all headed. No spam, no fluff.
       </p>
       <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
@@ -583,75 +548,10 @@
 <!-- ══════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-top">
+<footer class="footer"></footer>
 
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo" style="color:var(--warm-light)">
-          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-            <circle cx="17" cy="21" r="11" fill="rgba(255,255,255,.08)"/>
-            <path d="M6 21 Q17 5 28 21" stroke="var(--sunrise-gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <text x="8" y="26" font-family="Georgia,serif" font-size="12" font-weight="800" fill="var(--warm-light)">GF</text>
-          </svg>
-          GoodFuture<span style="color:var(--morning-teal)">.ai</span>
-        </a>
-        <p>I help people make sense of AI — and feel a little more hopeful about where we're headed.</p>
-      </div>
-
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="insights/index.html">Insights</a></li>
-          <li><a href="podcast/index.html">Podcast</a></li>
-          <li><a href="resources/index.html">Resources</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Stay in Touch</h5>
-        <ul>
-          <li><a href="#connect">Newsletter</a></li>
-          <li><a href="mailto:hello@goodfuture.ai">Email Me</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Also Worth Seeing</h5>
-        <ul>
-          <li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li>
-          <li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li>
-          <li><a href="resources/index.html">All Resources</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2025 GoodFuture.ai · Built with optimism</p>
-      <div class="socials">
-        <a href="#" class="social" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" viewBox="0 0 15 15" fill="rgba(251,246,239,.65)" aria-hidden="true">
-            <path d="M3.3 1.8C2.6 1.8 2 2.4 2 3.1s.6 1.3 1.3 1.3 1.3-.6 1.3-1.3-.6-1.3-1.3-1.3zM2 5.5h2.5v7.5H2V5.5zm4.7 0h2.3v1C9.5 5.9 10.4 5.4 11.5 5.4c2.2 0 3 1.5 3 3.5V13h-2.8V9.4c0-1.1-.4-1.7-1.3-1.7-.9 0-1.4.6-1.4 1.7V13H6.7V5.5z"/>
-          </svg>
-        </a>
-        <a href="#" class="social" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(251,246,239,.65)" aria-hidden="true">
-            <path d="M11.5 1h2L9 6l5.2 7H9.8L6.5 9 2.5 13H.5l4.8-5.2L.3 1h4l3 4.5z"/>
-          </svg>
-        </a>
-        <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" class="social" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="rgba(251,246,239,.65)" aria-hidden="true">
-            <path d="M14.5 4.5s-.2-1.2-.7-1.7c-.7-.7-1.4-.7-1.8-.8C10.5 2 8 2 8 2S5.5 2 4 2.1c-.4.1-1.1.1-1.8.8C1.7 3.4 1.5 4.5 1.5 4.5S1.3 5.9 1.3 7.3v1.3c0 1.4.2 2.8.2 2.8s.2 1.2.7 1.7c.7.7 1.6.7 2 .7C5.5 14 8 14 8 14s2.5 0 4-.1c.4-.1 1.1-.1 1.8-.8.5-.5.7-1.7.7-1.7s.2-1.4.2-2.8V7.3c0-1.4-.2-2.8-.2-2.8zM6.5 10V5.5l4.5 2.3L6.5 10z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</footer>
+<!-- Shared layout -->
+<script src="assets/js/layout.js"></script>
 
 <!-- Data + Rendering -->
 <script src="data/insights.js"></script>
@@ -724,30 +624,6 @@ function renderHomeAppearances() {
   document.querySelectorAll('#home-appearances-grid .fade-up')
     .forEach(el => revealObserver.observe(el));
 }
-
-// ── NAV SCROLL ──
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
-// ── MOBILE NAV ──
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobileNav');
-const navClose  = document.getElementById('navClose');
-
-hamburger.addEventListener('click', () => {
-  mobileNav.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  hamburger.setAttribute('aria-expanded', 'true');
-});
-navClose.addEventListener('click', closeMobileNav);
-function closeMobileNav() {
-  mobileNav.classList.remove('open');
-  document.body.style.overflow = '';
-  hamburger.setAttribute('aria-expanded', 'false');
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
 
 // ── SCROLL-REVEAL ──
 const revealObserver = new IntersectionObserver((entries) => {

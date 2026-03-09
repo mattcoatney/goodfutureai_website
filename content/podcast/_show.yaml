@@ -1,0 +1,22 @@
+# Podcast show configuration
+# Edit these fields when platform links are live.
+
+name: "Building a Better Future Together"
+tagline: "with GoodFuture.ai"
+description: >
+  Real conversations about navigating the AI era — without the hype and without the doom.
+  Just honest talk about where we're headed, what it means for real people, and how to
+  feel a little more confident about the future.
+
+platforms:
+  - name: "Apple Podcasts"
+    url: "#"
+    icon: "apple"
+  - name: "Spotify"
+    url: "#"
+    icon: "spotify"
+  - name: "YouTube"
+    url: "#"
+    icon: "youtube"
+
+listenUrl: "#"
