@@ -279,6 +279,40 @@
   .ted-inner { grid-template-columns:1fr; }
   .hero-stats { gap:28px; }
 }
+
+/* Third Peak Studio CTA */
+.tps-section { background: var(--warm-light); padding: 80px 0; }
+.tps-card {
+  display: flex; align-items: center; gap: 64px;
+  background: var(--deep-horizon); border-radius: var(--radius-xl);
+  padding: 56px 64px; position: relative; overflow: hidden;
+}
+.tps-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 8% 50%, rgba(232,93,74,.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.tps-logo-wrap { flex-shrink: 0; position: relative; z-index: 1; }
+.tps-logo-wrap img { width: 140px; display: block; }
+.tps-divider {
+  width: 1px; align-self: stretch; flex-shrink: 0;
+  background: rgba(255,255,255,.1); position: relative; z-index: 1;
+}
+.tps-content { position: relative; z-index: 1; }
+.tps-content .label { color: var(--living-coral); margin-bottom: 12px; }
+.tps-content h2 {
+  color: var(--warm-light); font-size: clamp(1.4rem, 2.5vw, 2rem);
+  line-height: 1.25; margin-bottom: 14px;
+}
+.tps-content p {
+  color: rgba(251,246,239,.6); line-height: 1.75;
+  margin-bottom: 28px; max-width: 44ch;
+}
+@media (max-width: 768px) {
+  .tps-card { flex-direction: column; gap: 32px; padding: 40px 28px; }
+  .tps-divider { display: none; }
+  .tps-logo-wrap img { width: 110px; }
+}
 </style>
 </head>
 
@@ -541,6 +575,31 @@
         />
         <button type="submit" class="btn btn-primary">Subscribe →</button>
       </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     THIRD PEAK STUDIO CTA
+══════════════════════════════════════════ -->
+<section class="tps-section">
+  <div class="container">
+    <div class="tps-card fade-up">
+      <div class="tps-logo-wrap">
+        <img src="https://thirdpeakstudio.com/images/logo-stacked-coral.png" alt="Third Peak Studio">
+      </div>
+      <div class="tps-divider"></div>
+      <div class="tps-content">
+        <div class="label">Need Personalized Help?</div>
+        <h2>Ready to put AI to work for your organization?</h2>
+        <p>
+          Third Peak Studio works with teams to design and implement AI solutions
+          that fit the way you actually work: practical, purposeful, and built for humans.
+        </p>
+        <a href="https://thirdpeakstudio.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Visit Third Peak Studio →
+        </a>
+      </div>
     </div>
   </div>
 </section>

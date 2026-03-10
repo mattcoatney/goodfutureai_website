@@ -14,10 +14,10 @@ function handleSubscribe(e) {
   const orig = btn.textContent;
   btn.textContent = 'Sending\u2026';
   btn.disabled = true;
-  fetch('https://api.kit.com/v4/forms/9188945/subscribers', {
+  fetch('https://api.convertkit.com/v3/forms/9188945/subscribe', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-Kit-Api-Key': 'TkhCZ9YQzyGHWRGH6Wwz0A' },
-    body: JSON.stringify({ email_address: email })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ api_key: 'TkhCZ9YQzyGHWRGH6Wwz0A', email: email })
   })
   .then(res => {
     if (res.ok) {
