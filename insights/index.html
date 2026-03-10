@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/main.css">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
 
 <style>
 /* ══════════════════════════════════════════════
@@ -75,6 +75,7 @@
   border-radius: var(--radius-lg); overflow: hidden;
   display: flex; flex-direction: column;
   transition: all .3s ease; cursor: pointer;
+  text-decoration: none; color: inherit;
 }
 .insight-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(59,165,165,.2); }
 .insight-card.featured { grid-column: span 2; }
@@ -112,44 +113,6 @@
   margin-top: 14px; transition: gap .2s;
 }
 .ic-link:hover { gap: 8px; }
-
-/* Article Detail Overlay */
-.article-overlay {
-  display: none; position: fixed; inset: 0; z-index: 2000;
-  background: rgba(10,22,40,.8); backdrop-filter: blur(8px);
-  overflow-y: auto; padding: 40px 20px;
-}
-.article-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
-.article-modal {
-  background: var(--warm-light); border-radius: var(--radius-xl);
-  max-width: 760px; width: 100%; padding: 64px;
-  position: relative; margin: auto;
-}
-.modal-close {
-  position: absolute; top: 20px; right: 20px;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--warm-mid); border: none; font-size: 18px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background .2s;
-}
-.modal-close:hover { background: var(--warm-stone); }
-.modal-label { color: var(--morning-teal); margin-bottom: 12px; }
-.modal-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-.modal-meta { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--warm-stone); margin-bottom: 36px; }
-.modal-dot  { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-stone); }
-.modal-body { color: var(--warm-dark); font-size: 1.05rem; line-height: 1.85; }
-.modal-body p { margin-bottom: 20px; }
-.modal-body p:last-child { margin-bottom: 0; }
-.modal-body strong { color: var(--deep-horizon); font-weight: 600; }
-.modal-cover {
-  width: 100%; aspect-ratio: 16/9; margin-bottom: 40px;
-  border-radius: var(--radius-lg); overflow: hidden;
-  background: var(--gradient-horizon);
-  display: flex; align-items: center; justify-content: center;
-}
-.modal-cover img { width: 100%; height: 100%; object-fit: cover; }
-.modal-cover iframe { width: 100%; height: 100%; border: none; }
-.modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
 
 /* Empty state */
 .no-results {
@@ -243,14 +206,6 @@
 ══════════════════════════════════════════ -->
 <footer class="footer"></footer>
 
-<!-- Article Detail Overlay -->
-<div class="article-overlay" id="articleOverlay" role="dialog" aria-modal="true" aria-label="Article">
-  <div class="article-modal" id="articleModal">
-    <button class="modal-close" id="modalClose" aria-label="Close article">✕</button>
-    <div id="modal-content"></div>
-  </div>
-</div>
-
 <!-- Shared layout -->
 <script src="../assets/js/layout.js"></script>
 
@@ -299,12 +254,9 @@ function renderGrid() {
     const isFeatured = (i === 0 && activeTag === 'all' && a.featured);
     const delay = (i % 3) + 1;
     return `
-    <article class="insight-card${isFeatured ? ' featured' : ''} fade-up delay-${delay}"
-             id="card-${a.slug}"
-             onclick="openArticle('${a.slug}')"
-             role="button"
-             tabindex="0"
-             onkeydown="if(event.key==='Enter')openArticle('${a.slug}')">
+    <a class="insight-card${isFeatured ? ' featured' : ''} fade-up delay-${delay}"
+       id="card-${a.slug}"
+       href="${a.slug}/">
       <div class="ic-img">
         ${a.coverImage
           ? `<img src="${a.coverImage}" alt="${a.title}">`
@@ -335,65 +287,14 @@ function renderGrid() {
           </svg>
         </span>
       </div>
-    </article>`;
+    </a>`;
   }).join('');
 
   // Re-observe new elements
   document.querySelectorAll('#insights-grid .fade-up').forEach(el => revealObserver.observe(el));
 
-  // Handle deep-link via hash
-  if (location.hash) {
-    const slug = location.hash.slice(1);
-    if (INSIGHTS.find(a => a.slug === slug)) openArticle(slug);
-  }
+
 }
-
-// ── ARTICLE DETAIL MODAL ──
-function openArticle(slug) {
-  const a = INSIGHTS.find(x => x.slug === slug);
-  if (!a) return;
-
-  history.replaceState(null, '', `#${slug}`);
-
-  let coverHtml = '';
-  if (a.youtubeId) {
-    coverHtml = `<div class="modal-cover">
-      <iframe src="https://www.youtube.com/embed/${a.youtubeId}"
-              title="${a.title}" allowfullscreen loading="lazy"></iframe>
-    </div>`;
-  } else if (a.coverImage) {
-    coverHtml = `<div class="modal-cover"><img src="${a.coverImage}" alt="${a.title}"></div>`;
-  }
-
-  document.getElementById('modal-content').innerHTML = `
-    ${coverHtml}
-    <div class="modal-label label">${a.tags.join(' · ')}</div>
-    <h2 class="modal-title">${a.title}</h2>
-    <div class="modal-meta">
-      <span>${formatInsightDate(a.date)}</span>
-      <span class="modal-dot"></span>
-      <span>${a.readingTime}</span>
-    </div>
-    <div class="modal-body">${a.body || `<p>${a.excerpt}</p>`}</div>`;
-
-  const overlay = document.getElementById('articleOverlay');
-  overlay.classList.add('open');
-  overlay.scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-  document.getElementById('modalClose').focus();
-}
-
-function closeArticle() {
-  document.getElementById('articleOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  history.replaceState(null, '', location.pathname);
-}
-
-document.getElementById('modalClose').addEventListener('click', closeArticle);
-document.getElementById('articleOverlay').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeArticle();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticle(); });
 
 // ── SCROLL REVEAL ──
 const revealObserver = new IntersectionObserver((entries) => {

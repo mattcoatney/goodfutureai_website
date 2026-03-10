@@ -37,7 +37,38 @@ const PODCAST_EPISODES = [
  * Fields: show, title, date, description, url, tags
  */
 const PODCAST_APPEARANCES = [
-
+  {
+    show:        "The Wired Garage with Pops",
+    title:       "Chatbots Were the Trailer, Agents Are the Movie",
+    date:        "2026-02-17",
+    description: "AI has moved well beyond chatbots — today's agents can plan, execute, and iterate on complex tasks with minimal human intervention. We explored the real productivity gains happening in software development, why clear specifications matter more than ever, and the honest ethical questions that come with automating more of our work.",
+    url:         "https://podcasts.apple.com/gm/podcast/chatbots-were-the-trailer-agents-are-the-movie/id1861572678?i=1000750125404",
+    tags:        ["AI & Work", "Tools"],
+  },
+  {
+    show:        "The Wired Garage with Pops",
+    title:       "Unleashing Human Creativity with Agentic AI",
+    date:        "2025-12-15",
+    description: "How does agentic AI change the way we work — and what does it mean for human creativity? We talked through how AI enhances collaboration rather than replacing it, the necessity of human judgment in high-stakes decisions, and what skills leaders need to cultivate as autonomous systems become more capable.",
+    url:         "https://podcasts.apple.com/gm/podcast/unleashing-human-creativity-with-agentic-a/id1861572678?i=1000741426777",
+    tags:        ["AI & Work", "Leadership"],
+  },
+  {
+    show:        "Product Mastery Now",
+    title:       "Using AI in Risk-Averse Industries",
+    date:        "2025-03-01",
+    description: "Healthcare, finance, legal — highly regulated industries can't just move fast and break things. In episode 531 of Product Mastery Now, we talked about how to introduce AI thoughtfully in risk-averse environments, where to start, what guardrails matter, and how to build trust with teams that are understandably cautious.",
+    url:         "https://productmasterynow.com/blog/531-using-ai-in-risk-adverse-industries-with-matt-coatney/",
+    tags:        ["AI & Work", "Strategy", "Leadership"],
+  },
+  {
+    show:        "The Forward Slash Podcast",
+    title:       "AI: The Jagged Frontier",
+    date:        "2024-11-27",
+    description: "The \"jagged frontier\" of AI captures something real — it's remarkably capable in some areas and surprisingly brittle in others. We talked through what data foundations companies actually need before chasing AI, where generative AI reliably delivers business value, and how to set honest expectations with your team about what it can and can't do.",
+    url:         "https://podcasts.apple.com/us/podcast/ai-the-jagged-frontier/id1744372906?i=1000678409487",
+    tags:        ["AI & Work", "Strategy"],
+  }
 ];
 
 /* Helper: format date for display */

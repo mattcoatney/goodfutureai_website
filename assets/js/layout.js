@@ -8,15 +8,21 @@
 
 (function () {
   // Compute path prefix back to site root.
-  // e.g. at /insights/index.html → root = '../'
+  // e.g. at /insights/ → root = '../'
   //      at /index.html          → root = './'
+  // Strip trailing slash, split into segments.
+  // Also strip a trailing filename (has '.') so file:// URLs work the same as HTTP.
   var parts = window.location.pathname.replace(/\/$/, '').split('/').filter(Boolean);
-  // On GitHub Pages with custom domain, pathname for root is '/' → parts=[]
-  // For file:// it includes the full path segments up to filename
-  // We only care about the last 0 or 1 directory segment (insights/, podcast/, resources/)
-  var subdir = (parts.length >= 1 && ['insights','podcast','resources'].indexOf(parts[parts.length - 1]) !== -1)
-    || (parts.length >= 2 && ['insights','podcast','resources'].indexOf(parts[parts.length - 2]) !== -1);
-  var root = subdir ? '../' : './';
+  if (parts.length > 0 && parts[parts.length - 1].indexOf('.') !== -1) {
+    parts = parts.slice(0, -1);
+  }
+  var known = ['insights', 'podcast', 'resources'];
+  var last       = parts.length > 0 ? parts[parts.length - 1] : '';
+  var secondLast = parts.length > 1 ? parts[parts.length - 2] : '';
+  // root page → './'  |  /insights/ → '../'  |  /insights/{slug}/ → '../../'
+  var root = known.indexOf(last) !== -1 ? '../'
+           : known.indexOf(secondLast) !== -1 ? '../../'
+           : './';
 
   // ── HEADER ──────────────────────────────────────────────────────────────
   var path = window.location.pathname;
@@ -30,15 +36,15 @@
   var headerHTML =
     '<nav class="nav" id="nav">' +
     '<div class="container"><div class="nav-inner">' +
-    '<a href="' + root + 'index.html" class="nav-logo">' +
+    '<a href="' + root + '" class="nav-logo">' +
     '<img src="' + root + 'images/wordmark-on-light.png" alt="GoodFuture.ai">' +
     '</a>' +
     '<ul class="nav-links">' +
-    '<li><a href="' + root + 'insights/index.html"' + activeClass('insights') + '>Insights</a></li>' +
-    '<li><a href="' + root + 'podcast/index.html"'  + activeClass('podcast')  + '>Podcast</a></li>' +
-    '<li><a href="' + root + 'resources/index.html"'+ activeClass('resources')+ '>Resources</a></li>' +
-    '<li><a href="' + root + 'index.html#about">About</a></li>' +
-    '<li><a href="' + root + 'index.html#connect" class="nav-cta">Newsletter</a></li>' +
+    '<li><a href="' + root + 'insights/"' + activeClass('insights') + '>Insights</a></li>' +
+    '<li><a href="' + root + 'podcast/"'  + activeClass('podcast')  + '>Podcast</a></li>' +
+    '<li><a href="' + root + 'resources/"'+ activeClass('resources')+ '>Resources</a></li>' +
+    '<li><a href="' + root + '#about">About</a></li>' +
+    '<li><a href="' + root + '#connect" class="nav-cta">Newsletter</a></li>' +
     '</ul>' +
     '<button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">' +
     '<span></span><span></span><span></span>' +
@@ -46,36 +52,36 @@
     '</div></div></nav>' +
     '<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation">' +
     '<button class="mobile-nav-close" id="navClose" aria-label="Close menu">\u2715</button>' +
-    '<a href="' + root + 'insights/index.html"  onclick="closeMobileNav()">Insights</a>' +
-    '<a href="' + root + 'podcast/index.html"   onclick="closeMobileNav()">Podcast</a>' +
-    '<a href="' + root + 'resources/index.html" onclick="closeMobileNav()">Resources</a>' +
-    '<a href="' + root + 'index.html#about"     onclick="closeMobileNav()">About</a>' +
-    '<a href="' + root + 'index.html#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>' +
+    '<a href="' + root + 'insights/"  onclick="closeMobileNav()">Insights</a>' +
+    '<a href="' + root + 'podcast/"   onclick="closeMobileNav()">Podcast</a>' +
+    '<a href="' + root + 'resources/" onclick="closeMobileNav()">Resources</a>' +
+    '<a href="' + root + '#about"     onclick="closeMobileNav()">About</a>' +
+    '<a href="' + root + '#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a>' +
     '</div>';
 
   // ── FOOTER ──────────────────────────────────────────────────────────────
   var footerHTML =
     '<div class="container"><div class="footer-top">' +
     '<div class="footer-brand">' +
-    '<a href="' + root + 'index.html" class="nav-logo">' +
+    '<a href="' + root + '" class="nav-logo">' +
     '<img src="' + root + 'images/wordmark-transparent-dark-text.png" alt="GoodFuture.ai">' +
     '</a>' +
     '<p>We help people make sense of AI \u2014 and feel a little more hopeful about where we\'re headed.</p>' +
     '</div>' +
     '<div class="footer-col"><h5>Explore</h5><ul>' +
-    '<li><a href="' + root + 'insights/index.html">Insights</a></li>' +
-    '<li><a href="' + root + 'podcast/index.html">Podcast</a></li>' +
-    '<li><a href="' + root + 'resources/index.html">Resources</a></li>' +
-    '<li><a href="' + root + 'index.html#about">About</a></li>' +
+    '<li><a href="' + root + 'insights/">Insights</a></li>' +
+    '<li><a href="' + root + 'podcast/">Podcast</a></li>' +
+    '<li><a href="' + root + 'resources/">Resources</a></li>' +
+    '<li><a href="' + root + '#about">About</a></li>' +
     '</ul></div>' +
     '<div class="footer-col"><h5>Stay in Touch</h5><ul>' +
-    '<li><a href="' + root + 'index.html#connect">Newsletter</a></li>' +
+    '<li><a href="' + root + '#connect">Newsletter</a></li>' +
     '<li><a href="mailto:hello@goodfuture.ai">Email Me</a></li>' +
     '</ul></div>' +
     '<div class="footer-col"><h5>Also Worth Seeing</h5><ul>' +
     '<li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li>' +
     '<li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li>' +
-    '<li><a href="' + root + 'resources/index.html">All Resources</a></li>' +
+    '<li><a href="' + root + 'resources/">All Resources</a></li>' +
     '</ul></div>' +
     '</div>' +
     '<div class="footer-bottom">' +

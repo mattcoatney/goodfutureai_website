@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage? — GoodFuture.ai</title>
+<meta name="description" content="For decades, every new tool promised to let non-developers build real software. Generative AI is the closest we've gotten — but the gap between prototype and production is still very real.">
+<link rel="canonical" href="https://goodfuture.ai/insights/ai-no-code-promise/">
+
+<!-- Open Graph / LinkedIn / Twitter -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?">
+<meta property="og:description" content="For decades, every new tool promised to let non-developers build real software. Generative AI is the closest we've gotten — but the gap between prototype and production is still very real.">
+<meta property="og:url" content="https://goodfuture.ai/insights/ai-no-code-promise/">
+<meta property="og:site_name" content="GoodFuture.ai">
+<meta property="og:image" content="https://goodfuture.ai/images/cover/desert_mirage.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?">
+<meta name="twitter:description" content="For decades, every new tool promised to let non-developers build real software. Generative AI is the closest we've gotten — but the gap between prototype and production is still very real.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="icon" type="image/png" href="../../favicon.png">
+
+<style>
+.article-hero {
+  background: var(--deep-horizon);
+  padding: 100px 0 56px;
+  position: relative; overflow: hidden;
+}
+.article-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(59,165,165,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.article-hero-inner { position: relative; z-index: 1; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(251,246,239,.5); font-size: 13px; font-weight: 600;
+  text-decoration: none; margin-bottom: 28px;
+  transition: color .2s;
+}
+.back-link:hover { color: var(--warm-light); }
+.art-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.a-tag-inv {
+  background: rgba(59,165,165,.18); border: 1px solid rgba(59,165,165,.3);
+  color: var(--morning-teal-light);
+  padding: 4px 12px; border-radius: var(--radius-full);
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+}
+.art-title {
+  color: var(--warm-light);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2; margin-bottom: 20px;
+}
+.art-meta {
+  color: rgba(251,246,239,.5); font-size: 13px;
+  display: flex; align-items: center; gap: 10px;
+}
+.art-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(251,246,239,.35); }
+.article-wrap { max-width: 760px; margin: 0 auto; padding: 64px 24px 80px; }
+.article-cover {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 48px;
+}
+.article-cover img { width: 100%; height: 100%; object-fit: cover; }
+.article-cover iframe { width: 100%; height: 100%; border: none; }
+.article-body { font-size: 1.05rem; line-height: 1.85; color: var(--warm-dark); }
+.article-body p { margin-bottom: 1.4em; }
+.article-body p:last-child { margin-bottom: 0; }
+.article-body h2 {
+  font-family: var(--font-display); font-size: 1.5rem;
+  color: var(--deep-horizon); margin: 2em 0 0.6em; line-height: 1.3;
+}
+.article-body h3 {
+  font-family: var(--font-display); font-size: 1.2rem;
+  color: var(--deep-horizon); margin: 1.5em 0 0.5em;
+}
+.article-body strong { color: var(--deep-horizon); font-weight: 600; }
+.article-body ul, .article-body ol { padding-left: 1.6em; margin-bottom: 1.4em; }
+.article-body li { margin-bottom: 0.5em; }
+.article-body a { color: var(--morning-teal); }
+.article-body a:hover { text-decoration: underline; }
+.article-body blockquote {
+  border-left: 3px solid var(--morning-teal);
+  margin: 1.5em 0; padding: 0.5em 1.2em;
+  color: var(--warm-stone); font-style: italic;
+}
+@media (max-width: 768px) {
+  .article-wrap { padding: 40px 20px 60px; }
+  .article-hero { padding: 80px 0 48px; }
+}
+</style>
+</head>
+
+<body>
+<header></header>
+
+<div class="article-hero">
+  <div class="container">
+    <div class="article-hero-inner">
+      <a href="../../insights/" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M10 7H4M6 4L3 7l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        All Insights
+      </a>
+      <div class="art-tags"><span class="a-tag a-tag-inv">AI & Work</span><span class="a-tag a-tag-inv">Tools</span><span class="a-tag a-tag-inv">Strategy</span></div>
+      <h1 class="art-title">Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?</h1>
+      <div class="art-meta"><span>Sep 2025</span><span class="art-meta-dot"></span><span>2 min read</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="article-wrap">
+  <div class="article-cover"><img src="../../images/cover/desert_mirage.png" alt="Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?"></div>
+  <div class="article-body"><p>For as long as I can remember, the technology industry has promised to democratize software development. BI dashboards. Workflow builders. Drag-and-drop platforms. Each wave arrived with the same pitch: <em>you won't need developers for this.</em> Each wave eventually required them anyway, when the simple things got complicated and the prototype needed to become something real.</p>
+<p>Generative AI feels different — and in some ways, it genuinely is. For the first time, non-developers can describe what they want in plain language and get functional code back. That's not nothing. That's actually remarkable.</p>
+<p>But remarkable isn't the same as ready for production.</p>
+<h2>Where It Actually Works</h2>
+<p>The most honest framing I've found is this: generative AI is an extraordinary prototyping tool. It can get you from idea to working demo faster than anything that's come before it. For small internal tools — the kind a team of five to twenty people actually uses — it may be all you need.</p>
+<p>The challenge is when organizations mistake the prototype for the product. A napkin sketch and a finished blueprint serve different purposes. When a lightweight internal tool needs to scale, handle edge cases, maintain security, and be supported over time, you still need engineering investment. The AI didn't change that — it just made the napkin sketch a lot easier to produce.</p>
+<h2>What Leaders Should Do</h2>
+<p>Avoid both failure modes here. Don't oversell what AI can do (your engineering team will pay the price when expectations meet reality). But don't dismiss it either — the teams exploring these tools right now are developing instincts that will matter a lot in the next few years.</p>
+<p>Encourage experimentation with guardrails. Protect privacy and IP. And when a prototype shows genuine promise, treat it as the starting point for real investment — not the finished product.</p>
+<p>Don't throw away the napkin. But don't build on it either.</p></div>
+</div>
+
+<section class="section newsletter" id="connect">
+  <div class="container">
+    <div class="nl-inner">
+      <div class="label">Stay Connected</div>
+      <h2>The AI Signal</h2>
+      <p>
+        One email every few weeks. Honest takes on AI, practical ideas you can use, and
+        a little perspective on where we're all headed. No spam, no fluff.
+      </p>
+      <form class="nl-form" onsubmit="handleSubscribe(event)" novalidate>
+        <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address">
+        <button type="submit" class="btn btn-primary">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"></footer>
+
+<script src="../../assets/js/layout.js"></script>
+<script>
+function handleSubscribe(e) {
+  e.preventDefault();
+  var input = e.target.querySelector('input');
+  var btn   = e.target.querySelector('button');
+  var orig  = btn.textContent;
+  btn.textContent = "You're in!";
+  btn.style.background = 'var(--morning-teal)';
+  input.value = '';
+  setTimeout(function() { btn.textContent = orig; btn.style.background = ''; }, 3500);
+}
+</script>
+
+</body>
+</html>
