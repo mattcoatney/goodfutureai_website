@@ -68,6 +68,30 @@ const PODCAST_APPEARANCES = [
     description: "The \"jagged frontier\" of AI captures something real — it's remarkably capable in some areas and surprisingly brittle in others. We talked through what data foundations companies actually need before chasing AI, where generative AI reliably delivers business value, and how to set honest expectations with your team about what it can and can't do.",
     url:         "https://podcasts.apple.com/us/podcast/ai-the-jagged-frontier/id1744372906?i=1000678409487",
     tags:        ["AI & Work", "Strategy"],
+  },
+  {
+    show:        "The Geek In Review",
+    title:       "The Human Cloud: The World of Projects and Freelancers",
+    date:        "2021-11-11",
+    description: "Episode 136 of The Geek In Review, a legal technology podcast. We explored how freelancing and project-based work combined with AI and machine learning are disrupting how work gets done — including inside law firms, where legal matters are essentially projects and contract attorneys are already functioning as freelancers. Plus a look at what organizations risk if they don't prepare for this shift.",
+    url:         "https://podcasts.apple.com/us/podcast/matthew-coatney-the-human-cloud-the-world/id1401505293?i=1000541457900",
+    tags:        ["AI & Work", "Strategy"],
+  },
+  {
+    show:        "Futurized",
+    title:       "Orchestrating the Freelance Economy",
+    date:        "2021-05-04",
+    description: "A conversation with host Trond Arne Undheim about how AI and the rise of freelance work are transforming employment. We covered the shift from assembly-line roles to project-based work, the enabling technologies making distributed teams possible at scale, and why orchestration — the skill of managing complex, distributed work — is becoming one of the most valuable capabilities anyone can develop.",
+    url:         "https://www.podbean.com/media/share/pb-23532-ff9a12",
+    tags:        ["AI & Work", "Strategy"],
+  },
+  {
+    show:        "Product Mastery Now",
+    title:       "The Coming Work Paradigm Shift",
+    date:        "2021-04-12",
+    description: "Episode 330 of Product Mastery Now (formerly The Everyday Innovator). We talked about how the future of work is being reshaped by technology, the gig economy, and AI — and what that means for product managers and business leaders. The conversation centered on the concept of \"Changemakers\": people who thrive not by clinging to job titles, but by driving value through an entrepreneurial mindset in a project-based world.",
+    url:         "https://productmasterynow.com/blog/tei-330-the-coming-work-paradigm-shift-with-matt-coatney/",
+    tags:        ["AI & Work", "Strategy", "Leadership"],
   }
 ];
 
