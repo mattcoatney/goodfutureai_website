@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -130,7 +130,6 @@
   .insights-grid { grid-template-columns: 1fr; }
   .insight-card.featured { grid-column: span 1; }
   .insight-card.featured .ic-img { aspect-ratio: 16/9; }
-  .article-modal { padding: 40px 24px; }
 }
 </style>
 </head>
@@ -138,9 +137,9 @@
 <body>
 
 <!-- ══════════════════════════════════════════
-     NAVIGATION
+     NAVIGATION (static — maintained by build scripts)
 ══════════════════════════════════════════ -->
-<header></header>
+<header><nav class="nav" id="nav"><div class="container"><div class="nav-inner"><a href="../" class="nav-logo"><img src="../images/wordmark-on-light.png" alt="GoodFuture.ai"></a><ul class="nav-links"><li><a href="../insights/" class="active">Insights</a></li><li><a href="../podcast/">Podcast</a></li><li><a href="../resources/">Resources</a></li><li><a href="../#about">About</a></li><li><a href="../#connect" class="nav-cta">Newsletter</a></li></ul><button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div></div></nav><div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation"><button class="mobile-nav-close" id="navClose" aria-label="Close menu">&#x2715;</button><a href="../insights/"  onclick="closeMobileNav()">Insights</a><a href="../podcast/"   onclick="closeMobileNav()">Podcast</a><a href="../resources/" onclick="closeMobileNav()">Resources</a><a href="../#about"     onclick="closeMobileNav()">About</a><a href="../#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a></div></header>
 
 <!-- ══════════════════════════════════════════
      PAGE HERO
@@ -164,8 +163,16 @@
 <div class="filters-bar">
   <div class="container">
     <div class="filters-inner" id="filters-inner">
+<!-- GF:FILTERS:START -->
       <span class="filters-label">Filter:</span>
-      <!-- Rendered by JS -->
+      <button class="filter-btn active" data-tag="all" onclick="filterBy('all')">All</button>
+      <button class="filter-btn" data-tag="AI &amp; Work" onclick="filterBy('AI &amp; Work')">AI &amp; Work</button>
+      <button class="filter-btn" data-tag="Education" onclick="filterBy('Education')">Education</button>
+      <button class="filter-btn" data-tag="Leadership" onclick="filterBy('Leadership')">Leadership</button>
+      <button class="filter-btn" data-tag="Skills" onclick="filterBy('Skills')">Skills</button>
+      <button class="filter-btn" data-tag="Strategy" onclick="filterBy('Strategy')">Strategy</button>
+      <button class="filter-btn" data-tag="Tools" onclick="filterBy('Tools')">Tools</button>
+<!-- GF:FILTERS:END -->
     </div>
   </div>
 </div>
@@ -176,7 +183,48 @@
 <section class="insights-body">
   <div class="container">
     <div class="insights-grid" id="insights-grid">
-      <!-- Rendered by JS -->
+<!-- GF:INSIGHTS_GRID:START -->
+    <a class="insight-card featured fade-up delay-1" id="card-do-something-ai-isnt-strategy" href="do-something-ai-isnt-strategy/">
+      <div class="ic-img"><img src="../images/cover/do_something.png" alt="&quot;Do Something with AI!&quot; Isn't a Strategy"></div>
+      <div class="ic-body">
+        <div class="ic-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Leadership</span><span class="a-tag">Strategy</span></div>
+        <h3>&quot;Do Something with AI!&quot; Isn't a Strategy</h3>
+        <p>Vague AI mandates from the top don't inspire action — they create confusion. Here's what leaders actually need to do.</p>
+        <div class="ic-meta"><span>Sep 2025</span><span class="ic-dot"></span><span>2 min read</span></div>
+        <span class="ic-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+    <a class="insight-card fade-up delay-2" id="card-ai-no-code-promise" href="ai-no-code-promise/">
+      <div class="ic-img"><img src="../images/cover/desert_mirage.png" alt="Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?"></div>
+      <div class="ic-body">
+        <div class="ic-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Tools</span><span class="a-tag">Strategy</span></div>
+        <h3>Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?</h3>
+        <p>For decades, every new tool promised to let non-developers build real software. Generative AI is the closest we've gotten — but the gap between prototype and production is still very real.</p>
+        <div class="ic-meta"><span>Sep 2025</span><span class="ic-dot"></span><span>2 min read</span></div>
+        <span class="ic-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+    <a class="insight-card fade-up delay-3" id="card-personal-ai-revolution" href="personal-ai-revolution/">
+      <div class="ic-img"><img src="../images/cover/homebrew.jpg" alt="The Personal AI Revolution"></div>
+      <div class="ic-body">
+        <div class="ic-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Education</span></div>
+        <h3>The Personal AI Revolution</h3>
+        <p>Before PCs, computers were for governments and corporations. We're at a similar inflection point with AI — and the implications are just as profound.</p>
+        <div class="ic-meta"><span>Aug 2025</span><span class="ic-dot"></span><span>2 min read</span></div>
+        <span class="ic-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+    <a class="insight-card fade-up delay-1" id="card-why-algorithms-develop-bias" href="why-algorithms-develop-bias/">
+      <div class="ic-img"><img src="../images/cover/discrimination.jpg" alt="Why Algorithms Develop Bias, and How to Combat It"></div>
+      <div class="ic-body">
+        <div class="ic-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Skills</span><span class="a-tag">Education</span></div>
+        <h3>Why Algorithms Develop Bias, and How to Combat It</h3>
+        <p>Algorithms learn from human-generated data — which means they inherit human prejudices. Understanding why is the first step to building something better.</p>
+        <div class="ic-meta"><span>Jul 2025</span><span class="ic-dot"></span><span>2 min read</span></div>
+        <span class="ic-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+<!-- GF:INSIGHTS_GRID:END -->
     </div>
   </div>
 </section>
@@ -188,46 +236,34 @@
   <div class="container">
     <div class="nl-inner">
       <div class="label fade-up">Stay Connected</div>
-      <h2 class="fade-up delay-1">The AI Signal</h2>
+      <h2 class="fade-up delay-1">The GoodFuture.ai Newsletter</h2>
       <p class="fade-up delay-2">
         One email every few weeks. Honest takes on AI, practical ideas you can use, and
         a little perspective on where we're all headed. No spam, no fluff.
       </p>
       <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
         <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address"/>
-        <button type="submit" class="btn btn-primary">Subscribe →</button>
+        <button type="submit" class="btn btn-primary">Subscribe &rarr;</button>
       </form>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     FOOTER
+     FOOTER (static — maintained by build scripts)
 ══════════════════════════════════════════ -->
-<footer class="footer"></footer>
+<footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="../" class="nav-logo"><img src="../images/wordmark-transparent-dark-text.png" alt="GoodFuture.ai"></a><p>We help people make sense of AI &mdash; and feel a little more hopeful about where we&rsquo;re headed.</p></div><div class="footer-col"><h5>Explore</h5><ul><li><a href="../insights/">Insights</a></li><li><a href="../podcast/">Podcast</a></li><li><a href="../resources/">Resources</a></li><li><a href="../#about">About</a></li></ul></div><div class="footer-col"><h5>Stay in Touch</h5><ul><li><a href="../#connect">Newsletter</a></li><li><a href="mailto:hello@goodfuture.ai">Email Me</a></li></ul></div><div class="footer-col"><h5>Also Worth Seeing</h5><ul><li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li><li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li><li><a href="../resources/">All Resources</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 GoodFuture.ai &middot; Built with optimism</p></div></div></footer>
 
-<!-- Shared layout -->
+<!-- layout.js: nav scroll + mobile menu behaviour -->
 <script src="../assets/js/layout.js"></script>
 <script src="../assets/js/newsletter.js"></script>
 
-<!-- Data + Rendering -->
+<!-- insights.js: needed for interactive tag filtering -->
 <script src="../data/insights.js"></script>
 <script>
 let activeTag = 'all';
 
-// ── BUILD FILTER BUTTONS ──
-function renderFilters() {
-  const container = document.getElementById('filters-inner');
-  const tags = getInsightTags();
-
-  const allBtn = `<button class="filter-btn active" data-tag="all" onclick="filterBy('all')">All</button>`;
-  const tagBtns = tags.map(t =>
-    `<button class="filter-btn" data-tag="${t}" onclick="filterBy('${t}')">${t}</button>`
-  ).join('');
-
-  container.innerHTML = `<span class="filters-label">Filter:</span>${allBtn}${tagBtns}`;
-}
-
+// ── TAG FILTER (re-renders grid dynamically when a filter is clicked) ──
 function filterBy(tag) {
   activeTag = tag;
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -236,7 +272,6 @@ function filterBy(tag) {
   renderGrid();
 }
 
-// ── RENDER ARTICLES GRID ──
 function renderGrid() {
   const grid = document.getElementById('insights-grid');
   const filtered = activeTag === 'all'
@@ -250,6 +285,8 @@ function renderGrid() {
     </div>`;
     return;
   }
+
+  const arrowSvg = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   grid.innerHTML = filtered.map((a, i) => {
     const isFeatured = (i === 0 && activeTag === 'all' && a.featured);
@@ -281,20 +318,12 @@ function renderGrid() {
           <span class="ic-dot"></span>
           <span>${a.readingTime}</span>
         </div>
-        <span class="ic-link">
-          Read
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
+        <span class="ic-link">Read ${arrowSvg}</span>
       </div>
     </a>`;
   }).join('');
 
-  // Re-observe new elements
   document.querySelectorAll('#insights-grid .fade-up').forEach(el => revealObserver.observe(el));
-
-
 }
 
 // ── SCROLL REVEAL ──
@@ -306,17 +335,13 @@ const revealObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
 
-// ── NEWSLETTER: see assets/js/newsletter.js ──
-
-// ── INIT ──
+// ── INIT — observe static cards already in the DOM ──
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.page-hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 100 + i * 160);
   });
-  renderFilters();
-  renderGrid();
+  document.querySelectorAll('#insights-grid .fade-up').forEach(el => revealObserver.observe(el));
 });
 </script>
 

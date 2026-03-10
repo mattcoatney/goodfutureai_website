@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -38,48 +38,6 @@
 .pod-hero-art {
   display: flex; align-items: center; justify-content: center;
 }
-.pod-show-card {
-  width: 280px; height: 280px;
-  background: var(--gradient-dusk);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 32px 80px rgba(0,0,0,.5);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; gap: 16px; padding: 32px;
-  position: relative; overflow: hidden;
-}
-.pod-show-card::before {
-  content: ''; position: absolute;
-  width: 240px; height: 240px; border-radius: 50%;
-  background: rgba(59,165,165,.12);
-  top: -80px; right: -80px;
-  filter: blur(40px);
-}
-.pod-show-card::after {
-  content: ''; position: absolute;
-  width: 180px; height: 180px; border-radius: 50%;
-  background: rgba(242,169,59,.1);
-  bottom: -60px; left: -60px;
-  filter: blur(40px);
-}
-.pod-show-icon {
-  width: 72px; height: 72px;
-  background: rgba(242,169,59,.15); border: 1px solid rgba(242,169,59,.25);
-  border-radius: var(--radius-md);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; z-index: 1;
-}
-.pod-show-name {
-  font-family: var(--font-display); font-size: 1.4rem;
-  font-weight: 700; color: var(--warm-light); line-height: 1.2;
-  position: relative; z-index: 1;
-}
-.pod-show-sub {
-  color: rgba(251,246,239,.45); font-size: 13px;
-  position: relative; z-index: 1;
-}
-
 .pod-hero-text .label { color: var(--morning-teal-light); margin-bottom: 14px; }
 .pod-hero-text h1 { color: var(--warm-light); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 18px; }
 .pod-hero-text p  { color: rgba(251,246,239,.65); line-height: 1.8; margin-bottom: 32px; max-width: 46ch; }
@@ -113,7 +71,7 @@
 }
 .episode-coming p { color: var(--warm-dark); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
 
-/* Episode Card (used when episodes exist) */
+/* Episode Card */
 .episodes-grid { display: flex; flex-direction: column; gap: 20px; }
 .episode-card {
   background: #fff; border: 1px solid var(--warm-mid);
@@ -148,7 +106,6 @@
   width: 100%; height: 152px; border-radius: var(--radius-md);
   border: none;
 }
-.ep-player.youtube iframe { height: 0; padding-bottom: 56.25%; position: relative; }
 .ep-links { display: flex; gap: 12px; flex-wrap: wrap; }
 .ep-link {
   display: inline-flex; align-items: center; gap: 6px;
@@ -204,8 +161,10 @@
 
 <body>
 
-<!-- NAVIGATION -->
-<header></header>
+<!-- ══════════════════════════════════════════
+     NAVIGATION (static — maintained by build scripts)
+══════════════════════════════════════════ -->
+<header><nav class="nav" id="nav"><div class="container"><div class="nav-inner"><a href="../" class="nav-logo"><img src="../images/wordmark-on-light.png" alt="GoodFuture.ai"></a><ul class="nav-links"><li><a href="../insights/">Insights</a></li><li><a href="../podcast/" class="active">Podcast</a></li><li><a href="../resources/">Resources</a></li><li><a href="../#about">About</a></li><li><a href="../#connect" class="nav-cta">Newsletter</a></li></ul><button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div></div></nav><div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation"><button class="mobile-nav-close" id="navClose" aria-label="Close menu">&#x2715;</button><a href="../insights/"  onclick="closeMobileNav()">Insights</a><a href="../podcast/"   onclick="closeMobileNav()">Podcast</a><a href="../resources/" onclick="closeMobileNav()">Resources</a><a href="../#about"     onclick="closeMobileNav()">About</a><a href="../#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a></div></header>
 
 <!-- PAGE HERO: SHOW INFO -->
 <section class="pod-page-hero">
@@ -220,8 +179,11 @@
 
       <div class="pod-hero-text fade-up delay-1">
         <div class="label">Podcast</div>
-        <h1 id="show-name">Building a Better Future Together</h1>
-        <p id="show-desc">Loading...</p>
+        <h1>Building a Better Future Together</h1>
+        <p id="show-desc"><!-- GF:SHOW_DESC:START -->
+Real conversations about navigating the AI era — without the hype and without the doom. Just honest talk about where we're headed, what it means for real people, and how to feel a little more confident about the future.
+
+<!-- GF:SHOW_DESC:END --></p>
         <!-- platform pills: uncomment when podcast is live
         <div class="pod-platforms" id="show-platforms"></div>
         <a href="#" class="btn btn-primary" id="show-listen-btn">Listen Now</a>
@@ -241,7 +203,16 @@
         <h2 class="fade-up delay-1">Latest conversations</h2>
       </div>
     </div>
-    <div id="episodes-list"><!-- Rendered by JS --></div>
+    <div id="episodes-list">
+<!-- GF:EPISODES:START -->
+      <div class="episode-coming fade-up">
+        <div class="ec-icon"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="20" r="8" stroke="var(--morning-teal)" stroke-width="2"/><path d="M12 20a12 12 0 0024 0" stroke="var(--morning-teal)" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 32v8M20 40h8" stroke="var(--morning-teal)" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>First episode coming soon</h3>
+        <p>I&rsquo;m working on something good. Subscribe to the newsletter and you&rsquo;ll be the first to know when it drops.</p>
+        <a href="../#connect" class="btn btn-teal">Get notified &rarr;</a>
+      </div>
+<!-- GF:EPISODES:END -->
+    </div>
   </div>
 </section>
 
@@ -257,7 +228,66 @@
     <p class="fade-up" style="color:var(--warm-dark); max-width:50ch; margin-bottom:48px; line-height:1.75;">
       We have had the chance to talk about AI, the future of work, and what it means to be human in a technological age on a lot of great shows. Here are a few.
     </p>
-    <div class="appear-grid" id="appearances-grid"><!-- Rendered by JS --></div>
+    <div class="appear-grid" id="appearances-grid">
+<!-- GF:APPEARANCES:START -->
+      <div class="appear-card fade-up delay-1">
+        <div class="appear-show">The Wired Garage with Pops</div>
+        <div class="appear-date">Feb 2026</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Tools</span></div>
+        <h4>Chatbots Were the Trailer, Agents Are the Movie</h4>
+        <p>AI has moved well beyond chatbots — today's agents can plan, execute, and iterate on complex tasks with minimal human intervention. We explored the real productivity gains happening in software development, why clear specifications matter more than ever, and the honest ethical questions that come with automating more of our work.</p>
+        <a href="https://podcasts.apple.com/gm/podcast/chatbots-were-the-trailer-agents-are-the-movie/id1861572678?i=1000750125404" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-2">
+        <div class="appear-show">The Wired Garage with Pops</div>
+        <div class="appear-date">Dec 2025</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Leadership</span></div>
+        <h4>Unleashing Human Creativity with Agentic AI</h4>
+        <p>How does agentic AI change the way we work — and what does it mean for human creativity? We talked through how AI enhances collaboration rather than replacing it, the necessity of human judgment in high-stakes decisions, and what skills leaders need to cultivate as autonomous systems become more capable.</p>
+        <a href="https://podcasts.apple.com/gm/podcast/unleashing-human-creativity-with-agentic-a/id1861572678?i=1000741426777" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-3">
+        <div class="appear-show">Product Mastery Now</div>
+        <div class="appear-date">Mar 2025</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span><span class="a-tag">Leadership</span></div>
+        <h4>Using AI in Risk-Averse Industries</h4>
+        <p>Healthcare, finance, legal — highly regulated industries can't just move fast and break things. In episode 531 of Product Mastery Now, we talked about how to introduce AI thoughtfully in risk-averse environments, where to start, what guardrails matter, and how to build trust with teams that are understandably cautious.</p>
+        <a href="https://productmasterynow.com/blog/531-using-ai-in-risk-adverse-industries-with-matt-coatney/" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-1">
+        <div class="appear-show">The Forward Slash Podcast</div>
+        <div class="appear-date">Nov 2024</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
+        <h4>AI: The Jagged Frontier</h4>
+        <p>The &quot;jagged frontier&quot; of AI captures something real — it's remarkably capable in some areas and surprisingly brittle in others. We talked through what data foundations companies actually need before chasing AI, where generative AI reliably delivers business value, and how to set honest expectations with your team about what it can and can't do.</p>
+        <a href="https://podcasts.apple.com/us/podcast/ai-the-jagged-frontier/id1744372906?i=1000678409487" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-2">
+        <div class="appear-show">The Geek In Review</div>
+        <div class="appear-date">Nov 2021</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
+        <h4>The Human Cloud: The World of Projects and Freelancers</h4>
+        <p>Episode 136 of The Geek In Review, a legal technology podcast. We explored how freelancing and project-based work combined with AI and machine learning are disrupting how work gets done — including inside law firms, where legal matters are essentially projects and contract attorneys are already functioning as freelancers. Plus a look at what organizations risk if they don't prepare for this shift.</p>
+        <a href="https://podcasts.apple.com/us/podcast/matthew-coatney-the-human-cloud-the-world/id1401505293?i=1000541457900" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-3">
+        <div class="appear-show">Futurized</div>
+        <div class="appear-date">May 2021</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
+        <h4>Orchestrating the Freelance Economy</h4>
+        <p>A conversation with host Trond Arne Undheim about how AI and the rise of freelance work are transforming employment. We covered the shift from assembly-line roles to project-based work, the enabling technologies making distributed teams possible at scale, and why orchestration — the skill of managing complex, distributed work — is becoming one of the most valuable capabilities anyone can develop.</p>
+        <a href="https://www.podbean.com/media/share/pb-23532-ff9a12" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-1">
+        <div class="appear-show">Product Mastery Now</div>
+        <div class="appear-date">Apr 2021</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span><span class="a-tag">Leadership</span></div>
+        <h4>The Coming Work Paradigm Shift</h4>
+        <p>Episode 330 of Product Mastery Now (formerly The Everyday Innovator). We talked about how the future of work is being reshaped by technology, the gig economy, and AI — and what that means for product managers and business leaders. The conversation centered on the concept of &quot;Changemakers&quot;: people who thrive not by clinging to job titles, but by driving value through an entrepreneurial mindset in a project-based world.</p>
+        <a href="https://productmasterynow.com/blog/tei-330-the-coming-work-paradigm-shift-with-matt-coatney/" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+<!-- GF:APPEARANCES:END -->
+    </div>
   </div>
 </section>
 
@@ -266,161 +296,42 @@
   <div class="container">
     <div class="nl-inner">
       <div class="label fade-up">Stay Connected</div>
-      <h2 class="fade-up delay-1">The AI Signal</h2>
+      <h2 class="fade-up delay-1">The GoodFuture.ai Newsletter</h2>
       <p class="fade-up delay-2">
         One email every few weeks. Honest takes on AI, practical ideas you can use, and
         a little perspective on where we're all headed. No spam, no fluff.
       </p>
       <form class="nl-form fade-up delay-3" onsubmit="handleSubscribe(event)" novalidate>
         <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address"/>
-        <button type="submit" class="btn btn-primary">Subscribe →</button>
+        <button type="submit" class="btn btn-primary">Subscribe &rarr;</button>
       </form>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer"></footer>
+<!-- ══════════════════════════════════════════
+     FOOTER (static — maintained by build scripts)
+══════════════════════════════════════════ -->
+<footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="../" class="nav-logo"><img src="../images/wordmark-transparent-dark-text.png" alt="GoodFuture.ai"></a><p>We help people make sense of AI &mdash; and feel a little more hopeful about where we&rsquo;re headed.</p></div><div class="footer-col"><h5>Explore</h5><ul><li><a href="../insights/">Insights</a></li><li><a href="../podcast/">Podcast</a></li><li><a href="../resources/">Resources</a></li><li><a href="../#about">About</a></li></ul></div><div class="footer-col"><h5>Stay in Touch</h5><ul><li><a href="../#connect">Newsletter</a></li><li><a href="mailto:hello@goodfuture.ai">Email Me</a></li></ul></div><div class="footer-col"><h5>Also Worth Seeing</h5><ul><li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li><li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li><li><a href="../resources/">All Resources</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 GoodFuture.ai &middot; Built with optimism</p></div></div></footer>
 
-<!-- Shared layout -->
 <script src="../assets/js/layout.js"></script>
 <script src="../assets/js/newsletter.js"></script>
 
-<script src="../data/podcast.js"></script>
 <script>
-// ── RENDER SHOW INFO ──
-function renderShowInfo() {
-  if (typeof PODCAST_SHOW === 'undefined') return;
-  document.getElementById('show-name').textContent = PODCAST_SHOW.name;
-  document.getElementById('show-desc').textContent = PODCAST_SHOW.description;
-
-  // platform links commented out until podcast is live
-  // const listenBtn = document.getElementById('show-listen-btn');
-  // listenBtn.href = PODCAST_SHOW.listenUrl || '#';
-  // const platformsEl = document.getElementById('show-platforms');
-  // platformsEl.innerHTML = PODCAST_SHOW.platforms.map(p =>
-  //   `<a href="${p.url}" class="platform-pill" ...>${p.name}</a>`
-  // ).join('');
-}
-
-// ── RENDER EPISODES ──
-function renderEpisodes() {
-  const container = document.getElementById('episodes-list');
-  if (!container || typeof PODCAST_EPISODES === 'undefined') return;
-
-  if (PODCAST_EPISODES.length === 0) {
-    container.innerHTML = `
-      <div class="episode-coming fade-up">
-        <div class="ec-icon">
-          <svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <circle cx="24" cy="20" r="8" stroke="var(--morning-teal)" stroke-width="2"/>
-            <path d="M12 20a12 12 0 0024 0" stroke="var(--morning-teal)" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path d="M24 32v8M20 40h8" stroke="var(--morning-teal)" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>First episode coming soon</h3>
-        <p>
-          I'm working on something good. Subscribe to the newsletter and you'll be the first
-          to know when it drops.
-        </p>
-        <a href="../#connect" class="btn btn-teal">Get notified →</a>
-      </div>`;
-    revealObserver.observe(container.querySelector('.episode-coming'));
-    return;
-  }
-
-  container.innerHTML = `<div class="episodes-grid">
-    ${PODCAST_EPISODES.map((ep, i) => {
-      let playerHtml = '';
-      if (ep.youtubeId) {
-        playerHtml = `<div class="ep-player">
-          <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-md);">
-            <iframe src="https://www.youtube.com/embed/${ep.youtubeId}"
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-                    title="${ep.title}" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>`;
-      } else if (ep.spotifyEmbedUrl) {
-        playerHtml = `<div class="ep-player">
-          <iframe src="${ep.spotifyEmbedUrl}"
-                  height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy" style="border-radius:var(--radius-md);border:none;width:100%;">
-          </iframe>
-        </div>`;
-      }
-
-      let linksHtml = '';
-      if (ep.applePodcastsUrl) {
-        linksHtml += `<a href="${ep.applePodcastsUrl}" class="ep-link" target="_blank" rel="noopener noreferrer">Apple Podcasts →</a>`;
-      }
-      if (ep.spotifyUrl) {
-        linksHtml += `<a href="${ep.spotifyUrl}" class="ep-link" target="_blank" rel="noopener noreferrer">Spotify →</a>`;
-      }
-
-      return `
-      <div class="episode-card fade-up delay-${(i % 3) + 1}">
-        <div class="ep-inner">
-          <div class="ep-number">${String(i + 1).padStart(2, '0')}</div>
-          <div class="ep-body">
-            <div class="ep-meta-row">
-              <span>${formatPodcastDate(ep.date)}</span>
-              ${ep.duration ? `<span class="ep-dot"></span><span>${ep.duration}</span>` : ''}
-            </div>
-            ${ep.tags && ep.tags.length ? `<div class="ep-tags">${ep.tags.map(t => `<span class="a-tag">${t}</span>`).join('')}</div>` : ''}
-            <h3>${ep.title}</h3>
-            <p>${ep.excerpt}</p>
-            ${playerHtml}
-            ${linksHtml ? `<div class="ep-links">${linksHtml}</div>` : ''}
-          </div>
-        </div>
-      </div>`;
-    }).join('')}
-  </div>`;
-
-  document.querySelectorAll('#episodes-list .fade-up').forEach(el => revealObserver.observe(el));
-}
-
-// ── RENDER APPEARANCES ──
-function renderAppearances() {
-  const grid = document.getElementById('appearances-grid');
-  if (!grid || typeof PODCAST_APPEARANCES === 'undefined') return;
-
-  grid.innerHTML = PODCAST_APPEARANCES.map((app, i) => `
-    <div class="appear-card fade-up delay-${(i % 3) + 1}">
-      <div class="appear-show">${app.show}</div>
-      <div class="appear-date">${formatPodcastDate(app.date)}</div>
-      ${app.tags && app.tags.length ? `<div class="appear-tags">${app.tags.map(t => `<span class="a-tag">${t}</span>`).join('')}</div>` : ''}
-      <h4>${app.title}</h4>
-      <p>${app.description}</p>
-      <a href="${app.url}" class="appear-link" target="_blank" rel="noopener noreferrer">
-        Listen
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-          <path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>`).join('');
-
-  document.querySelectorAll('#appearances-grid .fade-up').forEach(el => revealObserver.observe(el));
-}
-
-// ── SCROLL REVEAL ──
+// ── SCROLL REVEAL (all content is static — just animate on scroll) ──
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
 
-// ── NEWSLETTER: see assets/js/newsletter.js ──
-
-// ── INIT ──
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.pod-page-hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 100 + i * 160);
   });
-  renderShowInfo();
-  renderEpisodes();
-  renderAppearances();
+  document.querySelectorAll('.episodes-section .fade-up, .appearances-section .fade-up, .episode-coming').forEach(el => {
+    revealObserver.observe(el);
+  });
 });
 </script>
 

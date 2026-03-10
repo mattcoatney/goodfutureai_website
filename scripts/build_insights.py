@@ -3,8 +3,15 @@
 build_insights.py
 ─────────────────
 Reads every .md file in content/insights/ (skipping _template.md and any
-file starting with _), converts the body to HTML, and regenerates
-data/insights.js.
+file starting with _), converts the body to HTML, and:
+
+  1. Regenerates data/insights.js  (for the interactive filter on insights/)
+  2. Writes/updates insights/{slug}/index.html  (standalone article pages)
+  3. Updates the static content sections in insights/index.html
+  4. Updates the insights preview section in index.html (home page)
+
+Sections in HTML pages are delimited by comment markers:
+    <!-- GF:MARKER:START --> ... <!-- GF:MARKER:END -->
 
 Usage:
     python scripts/build_insights.py
@@ -12,7 +19,6 @@ Usage:
 Run this whenever you add or update a file in content/insights/.
 """
 
-import os
 import sys
 import re
 import yaml
@@ -20,57 +26,95 @@ import markdown
 from pathlib import Path
 from datetime import date
 
-# ── Paths (relative to repo root) ─────────────────────────────────────────
+# Allow importing sibling module html_parts
+sys.path.insert(0, str(Path(__file__).parent))
+from html_parts import nav_html, footer_html, replace_section
+
+# ── Paths ──────────────────────────────────────────────────────────────────
 ROOT        = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content" / "insights"
 OUTPUT_FILE = ROOT / "data" / "insights.js"
-PAGES_DIR   = ROOT / "insights"           # where slug/index.html pages are written
+PAGES_DIR   = ROOT / "insights"
+HOME_FILE   = ROOT / "index.html"
 SITE_URL    = "https://goodfuture.ai"
+
+FONTS_URL = (
+    "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@"
+    "0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;"
+    "0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600"
+    "&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;"
+    "1,400;1,500&display=swap"
+)
 
 # ── Markdown converter ─────────────────────────────────────────────────────
 MD = markdown.Markdown(extensions=["extra", "nl2br"])
 
+MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
-def parse_md_file(path: Path) -> dict:
-    """Parse a markdown file with YAML frontmatter. Returns a dict."""
+# SVG constants (no curly braces so safe in f-strings)
+ARROW_SVG = (
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">'
+    '<path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>'
+    '</svg>'
+)
+DOC_SVG_LG = (
+    '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
+    '<path d="M8 16h32M8 24h24M8 32h28M8 40h16" stroke="white" stroke-width="2" stroke-linecap="round"/>'
+    '</svg>'
+)
+DOC_SVG_SM = (
+    '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
+    '<path d="M8 14h32M8 22h24M8 30h28M8 38h16" stroke="white" stroke-width="2" stroke-linecap="round"/>'
+    '</svg>'
+)
+VIDEO_BADGE = (
+    '<div class="has-video">'
+    '<svg width="10" height="10" viewBox="0 0 10 10" fill="white"><path d="M2 1l7 4-7 4V1z"/></svg>'
+    ' Video</div>'
+)
+
+
+# ── Parsing helpers ────────────────────────────────────────────────────────
+
+def parse_md_file(path: Path) -> tuple:
     text = path.read_text(encoding="utf-8")
-
-    # Split frontmatter from body
     if not text.startswith("---"):
         raise ValueError(f"{path.name}: missing YAML frontmatter (must start with ---)")
-
     parts = text.split("---", 2)
     if len(parts) < 3:
         raise ValueError(f"{path.name}: malformed frontmatter (need opening and closing ---)")
-
-    fm_raw, body_raw = parts[1], parts[2].strip()
-
     try:
-        fm = yaml.safe_load(fm_raw)
+        fm = yaml.safe_load(parts[1])
     except yaml.YAMLError as e:
         raise ValueError(f"{path.name}: YAML parse error — {e}")
-
     if not isinstance(fm, dict):
         raise ValueError(f"{path.name}: frontmatter is not a YAML mapping")
-
-    return fm, body_raw
+    return fm, parts[2].strip()
 
 
 def md_to_html(text: str) -> str:
-    """Convert markdown body to HTML."""
     MD.reset()
     return MD.convert(text)
 
 
 def estimate_reading_time(html: str) -> str:
-    """Estimate reading time from word count (200 wpm)."""
     words = len(re.sub(r"<[^>]+>", "", html).split())
     minutes = max(1, round(words / 200))
     return f"{minutes} min read"
 
 
+def html_esc(s: str) -> str:
+    return (s or "").replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def format_date(date_val) -> str:
+    d = date_val if hasattr(date_val, "month") else date.fromisoformat(str(date_val))
+    return f"{MONTHS[d.month - 1]} {d.year}"
+
+
+# ── JS rendering (data/insights.js) ───────────────────────────────────────
+
 def js_string(value) -> str:
-    """Render a Python value as a JS literal (string, null, bool, array)."""
     if value is None:
         return "null"
     if isinstance(value, bool):
@@ -80,7 +124,6 @@ def js_string(value) -> str:
         return f"[{items}]"
     if isinstance(value, (int, float)):
         return str(value)
-    # String — escape backticks and backslashes for a JS template literal
     s = (str(value)
          .replace("\\", "\\\\")
          .replace('"', '\\"')
@@ -92,46 +135,154 @@ def js_string(value) -> str:
 
 
 def js_body(html: str) -> str:
-    """Render body HTML as a JS template literal (backtick string)."""
     escaped = html.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
     return f"`{escaped}`"
 
 
-def render_entry(entry: dict) -> str:
+def render_js_entry(entry: dict) -> str:
     lines = [
-    "  {",
-    f"    slug:        {js_string(entry['slug'])},",
-    f"    title:       {js_string(entry['title'])},",
-    f"    date:        {js_string(str(entry['date']))},",
-    f"    tags:        {js_string(entry.get('tags', []))},",
-    f"    excerpt:     {js_string(entry.get('excerpt', ''))},",
-    f"    body:        {js_body(entry['body'])},",
-    f"    coverImage:  {js_string(entry.get('coverImage'))},",
-    f"    youtubeId:   {js_string(entry.get('youtubeId'))},",
-    f"    readingTime: {js_string(entry.get('readingTime', ''))},",
-    f"    featured:    {js_string(entry.get('featured', False))},",
-    "  }",
+        "  {",
+        f"    slug:        {js_string(entry['slug'])},",
+        f"    title:       {js_string(entry['title'])},",
+        f"    date:        {js_string(str(entry['date']))},",
+        f"    tags:        {js_string(entry.get('tags', []))},",
+        f"    excerpt:     {js_string(entry.get('excerpt', ''))},",
+        f"    body:        {js_body(entry['body'])},",
+        f"    coverImage:  {js_string(entry.get('coverImage'))},",
+        f"    youtubeId:   {js_string(entry.get('youtubeId'))},",
+        f"    readingTime: {js_string(entry.get('readingTime', ''))},",
+        f"    featured:    {js_string(entry.get('featured', False))},",
+        "  }",
     ]
     return "\n".join(lines)
 
 
-FONTS_URL = ("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@"
-             "0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;"
-             "0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600"
-             "&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;"
-             "1,400;1,500&display=swap")
+# ── Static HTML rendering for list pages ──────────────────────────────────
+
+def render_filter_buttons(entries: list) -> str:
+    """Render the filter bar buttons for insights/index.html."""
+    tags = sorted(set(t for e in entries for t in e.get("tags", [])))
+    all_btn = '<button class="filter-btn active" data-tag="all" onclick="filterBy(\'all\')">All</button>'
+    tag_btns = "\n      ".join(
+        f'<button class="filter-btn" data-tag="{html_esc(t)}" onclick="filterBy(\'{html_esc(t)}\')">{html_esc(t)}</button>'
+        for t in tags
+    )
+    return f'      <span class="filters-label">Filter:</span>\n      {all_btn}\n      {tag_btns}'
 
 
-def html_esc(s: str) -> str:
-    """Escape a string for use in an HTML attribute value."""
-    return (s or "").replace("&", "&amp;").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
+def render_insight_card(entry: dict, is_featured: bool, delay: int) -> str:
+    """Render a single article card for the insights list page."""
+    title   = html_esc(entry["title"])
+    excerpt = html_esc(entry["excerpt"])
+    slug    = entry["slug"]
+    date_d  = format_date(entry["date"])
+    rt      = entry.get("readingTime", "")
+    cover   = entry.get("coverImage") or ""
+    youtube = entry.get("youtubeId") or ""
+    tags    = entry.get("tags", [])
+
+    featured_cls = " featured" if is_featured else ""
+    tags_html    = "".join(f'<span class="a-tag">{html_esc(t)}</span>' for t in tags)
+
+    if cover:
+        img_html = f'<img src="{html_esc(cover)}" alt="{title}">'
+    else:
+        img_html = f'<div class="ic-img-overlay"></div>{DOC_SVG_LG}'
+
+    video_html = VIDEO_BADGE if youtube else ""
+
+    return (
+        f'    <a class="insight-card{featured_cls} fade-up delay-{delay}" id="card-{slug}" href="{slug}/">\n'
+        f'      <div class="ic-img">{img_html}{video_html}</div>\n'
+        f'      <div class="ic-body">\n'
+        f'        <div class="ic-tags">{tags_html}</div>\n'
+        f'        <h3>{title}</h3>\n'
+        f'        <p>{excerpt}</p>\n'
+        f'        <div class="ic-meta">'
+        f'<span>{date_d}</span><span class="ic-dot"></span><span>{rt}</span>'
+        f'</div>\n'
+        f'        <span class="ic-link">Read {ARROW_SVG}</span>\n'
+        f'      </div>\n'
+        f'    </a>'
+    )
 
 
-def format_date(date_val) -> str:
-    MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-    d = date_val if hasattr(date_val, "month") else date.fromisoformat(str(date_val))
-    return f"{MONTHS[d.month - 1]} {d.year}"
+def render_insights_grid(entries: list) -> str:
+    """Render all article cards for the GF:INSIGHTS_GRID section."""
+    if not entries:
+        return (
+            '    <div class="no-results">\n'
+            '      <h3>No articles yet</h3>\n'
+            '      <p>Check back soon.</p>\n'
+            '    </div>'
+        )
+    cards = []
+    for i, entry in enumerate(entries):
+        is_featured = (i == 0 and entry.get("featured"))
+        delay       = (i % 3) + 1
+        cards.append(render_insight_card(entry, is_featured, delay))
+    return "\n".join(cards)
 
+
+def render_home_insight_card(entry: dict, is_featured: bool, delay_cls: str) -> str:
+    """Render an article card for the home page preview (uses .article CSS classes)."""
+    title   = html_esc(entry["title"])
+    excerpt = html_esc(entry["excerpt"])
+    slug    = entry["slug"]
+    date_d  = format_date(entry["date"])
+    rt      = entry.get("readingTime", "")
+    cover   = entry.get("coverImage") or ""
+    tags    = entry.get("tags", [])
+
+    # Cover image paths are relative to insights/ — adjust to root
+    if cover.startswith("../"):
+        cover_from_root = cover[3:]  # strip leading ../
+    else:
+        cover_from_root = cover
+
+    featured_cls = " featured" if is_featured else ""
+    first_tag    = html_esc(tags[0]) if tags else ""
+
+    if cover_from_root:
+        img_html = f'<img src="{html_esc(cover_from_root)}" alt="{title}">'
+    else:
+        img_html = f'<div class="a-img-overlay"></div>{DOC_SVG_SM}'
+
+    tag_html = f'<span class="a-tag">{first_tag}</span>' if first_tag else ""
+
+    return (
+        f'    <a class="article{featured_cls} fade-up{delay_cls}" href="insights/{slug}/">\n'
+        f'      <div class="a-img">{img_html}</div>\n'
+        f'      <div class="a-body">\n'
+        f'        {tag_html}\n'
+        f'        <h3>{title}</h3>\n'
+        f'        <p>{excerpt}</p>\n'
+        f'        <div class="a-meta">'
+        f'<span>{date_d}</span><span class="a-dot"></span><span>{rt}</span>'
+        f'</div>\n'
+        f'        <span class="a-link">Read {ARROW_SVG}</span>\n'
+        f'      </div>\n'
+        f'    </a>'
+    )
+
+
+def render_home_insights(entries: list) -> str:
+    """Render featured + 2 cards for GF:HOME_INSIGHTS section on index.html."""
+    if not entries:
+        return ""
+    featured = next((e for e in entries if e.get("featured")), entries[0])
+    others   = [e for e in entries if e is not featured][:2]
+    to_show  = [featured] + others
+
+    cards = []
+    for i, entry in enumerate(to_show):
+        is_feat   = (i == 0 and entry.get("featured"))
+        delay_cls = f" delay-{i}" if i > 0 else ""
+        cards.append(render_home_insight_card(entry, is_feat, delay_cls))
+    return "\n".join(cards)
+
+
+# ── Standalone article page ────────────────────────────────────────────────
 
 def render_article_page(entry: dict) -> str:
     """Return full HTML for a standalone article page at insights/{slug}/index.html."""
@@ -143,24 +294,15 @@ def render_article_page(entry: dict) -> str:
     rt       = entry.get("readingTime", "")
     cover    = entry.get("coverImage") or ""
     youtube  = entry.get("youtubeId") or ""
-    date_str = str(entry["date"])
-
     date_display = format_date(entry["date"])
 
-    # Tags HTML — displayed on dark hero background
-    tags_html = "".join(
-        f'<span class="a-tag a-tag-inv">{t}</span>' for t in tags
-    )
+    tags_html = "".join(f'<span class="a-tag a-tag-inv">{t}</span>' for t in tags)
 
-    # Meta row (date + reading time)
     meta_parts = [date_display]
     if rt:
         meta_parts.append(rt)
-    meta_html = '<span class="art-meta-dot"></span>'.join(
-        f"<span>{p}</span>" for p in meta_parts
-    )
+    meta_html = '<span class="art-meta-dot"></span>'.join(f"<span>{p}</span>" for p in meta_parts)
 
-    # Cover image — path adjustment from ../images/ (insights-relative) to ../../images/
     og_image_tag = ""
     cover_html   = ""
     if youtube:
@@ -184,6 +326,8 @@ def render_article_page(entry: dict) -> str:
         og_image_tag = f'<meta property="og:image" content="{html_esc(abs_src)}">' if abs_src else ""
 
     canonical = f"{SITE_URL}/insights/{slug}/"
+    nav       = nav_html("../../", active="insights")
+    foot      = footer_html("../../")
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -284,7 +428,7 @@ def render_article_page(entry: dict) -> str:
 </head>
 
 <body>
-<header></header>
+{nav}
 
 <div class="article-hero">
   <div class="container">
@@ -311,20 +455,20 @@ def render_article_page(entry: dict) -> str:
   <div class="container">
     <div class="nl-inner">
       <div class="label">Stay Connected</div>
-      <h2>The AI Signal</h2>
+      <h2>The GoodFuture.ai Newsletter</h2>
       <p>
         One email every few weeks. Honest takes on AI, practical ideas you can use, and
         a little perspective on where we're all headed. No spam, no fluff.
       </p>
       <form class="nl-form" onsubmit="handleSubscribe(event)" novalidate>
         <input type="email" class="nl-input" placeholder="your@email.com" required aria-label="Email address">
-        <button type="submit" class="btn btn-primary">Subscribe →</button>
+        <button type="submit" class="btn btn-primary">Subscribe &rarr;</button>
       </form>
     </div>
   </div>
 </section>
 
-<footer class="footer"></footer>
+{foot}
 
 <script src="../../assets/js/layout.js"></script>
 <script src="../../assets/js/newsletter.js"></script>
@@ -332,6 +476,8 @@ def render_article_page(entry: dict) -> str:
 </body>
 </html>"""
 
+
+# ── Main build ─────────────────────────────────────────────────────────────
 
 def build():
     if not CONTENT_DIR.exists():
@@ -356,19 +502,15 @@ def build():
             errors.append(str(e))
             continue
 
-        # Required fields
         for field in ("slug", "title", "date"):
             if field not in fm:
                 errors.append(f"{path.name}: missing required field '{field}'")
                 continue
 
-        # Convert body
-        body_html = md_to_html(body_raw)
-
-        # Auto reading time if not set
+        body_html    = md_to_html(body_raw)
         reading_time = fm.get("readingTime") or estimate_reading_time(body_html)
 
-        entry = {
+        entries.append({
             "slug":        fm["slug"],
             "title":       fm["title"],
             "date":        fm["date"],
@@ -379,23 +521,21 @@ def build():
             "youtubeId":   fm.get("youtubeId"),
             "readingTime": reading_time,
             "featured":    fm.get("featured", False),
-        }
-        entries.append(entry)
+        })
 
     if errors:
         print("Errors found — fix these before continuing:\n", file=sys.stderr)
         for e in errors:
-            print(f"  • {e}", file=sys.stderr)
+            print(f"  * {e}", file=sys.stderr)
         sys.exit(1)
 
     # Sort newest first
     entries.sort(key=lambda e: str(e["date"]), reverse=True)
 
-    # Enforce at most one featured (most recent wins if multiple are set)
+    # Enforce at most one featured article
     featured_count = sum(1 for e in entries if e.get("featured"))
     if featured_count > 1:
-        print(f"Warning: {featured_count} articles marked featured=true. "
-              "Only the first (most recent) will be kept featured.")
+        print(f"Warning: {featured_count} articles marked featured=true. Only the first (newest) will be kept.")
         found = False
         for e in entries:
             if e.get("featured"):
@@ -404,8 +544,8 @@ def build():
                 else:
                     found = True
 
-    # ── Generate JS file ───────────────────────────────────────────────────
-    entry_blocks = ",\n".join(render_entry(e) for e in entries)
+    # ── 1. Generate data/insights.js ───────────────────────────────────────
+    entry_blocks = ",\n".join(render_js_entry(e) for e in entries)
 
     js = f"""\
 /**
@@ -439,15 +579,36 @@ function getInsightTags() {{
 """
 
     OUTPUT_FILE.write_text(js, encoding="utf-8")
-    print(f"OK: Wrote {len(entries)} insight(s) to {OUTPUT_FILE.relative_to(ROOT)}")
+    print(f"OK  data/insights.js ({len(entries)} article(s))")
 
-    # ── Generate standalone HTML pages ─────────────────────────────────────
+    # ── 2. Generate standalone article pages ───────────────────────────────
     for entry in entries:
         page_dir  = PAGES_DIR / entry["slug"]
         page_dir.mkdir(parents=True, exist_ok=True)
-        page_html = render_article_page(entry)
-        (page_dir / "index.html").write_text(page_html, encoding="utf-8")
-        print(f"   + insights/{entry['slug']}/index.html")
+        (page_dir / "index.html").write_text(render_article_page(entry), encoding="utf-8")
+        print(f"    + insights/{entry['slug']}/index.html")
+
+    # ── 3. Update insights/index.html static sections ──────────────────────
+    insights_index = PAGES_DIR / "index.html"
+    if insights_index.exists():
+        try:
+            replace_section(insights_index, "FILTERS",       render_filter_buttons(entries))
+            replace_section(insights_index, "INSIGHTS_GRID", render_insights_grid(entries))
+            print(f"OK  insights/index.html (filters + grid updated)")
+        except ValueError as e:
+            print(f"Warning: {e}", file=sys.stderr)
+    else:
+        print(f"Warning: {insights_index} not found — skipping static list update", file=sys.stderr)
+
+    # ── 4. Update home page insights preview ───────────────────────────────
+    if HOME_FILE.exists():
+        try:
+            replace_section(HOME_FILE, "HOME_INSIGHTS", render_home_insights(entries))
+            print(f"OK  index.html (home insights preview updated)")
+        except ValueError as e:
+            print(f"Warning: {e}", file=sys.stderr)
+    else:
+        print(f"Warning: {HOME_FILE} not found — skipping home insights update", file=sys.stderr)
 
 
 if __name__ == "__main__":

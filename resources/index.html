@@ -180,8 +180,8 @@
 
 <body>
 
-<!-- NAVIGATION -->
-<header></header>
+<!-- NAVIGATION (static — maintained by build scripts) -->
+<header><nav class="nav" id="nav"><div class="container"><div class="nav-inner"><a href="../" class="nav-logo"><img src="../images/wordmark-on-light.png" alt="GoodFuture.ai"></a><ul class="nav-links"><li><a href="../insights/">Insights</a></li><li><a href="../podcast/">Podcast</a></li><li><a href="../resources/" class="active">Resources</a></li><li><a href="../#about">About</a></li><li><a href="../#connect" class="nav-cta">Newsletter</a></li></ul><button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div></div></nav><div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation"><button class="mobile-nav-close" id="navClose" aria-label="Close menu">&#x2715;</button><a href="../insights/"  onclick="closeMobileNav()">Insights</a><a href="../podcast/"   onclick="closeMobileNav()">Podcast</a><a href="../resources/" onclick="closeMobileNav()">Resources</a><a href="../#about"     onclick="closeMobileNav()">About</a><a href="../#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a></div></header>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -229,7 +229,7 @@
             <div class="ted-stat-lbl label">Official TED Stage</div>
           </div>
           <div>
-            <div class="ted-stat-num">3K+</div>
+            <div class="ted-stat-num">6K+</div>
             <div class="ted-stat-lbl label">People Reached</div>
           </div>
         </div>
@@ -237,7 +237,7 @@
 
       <div class="ted-video fade-up delay-2">
         <a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer" aria-label="Watch TED Talk on YouTube">
-          <img src="/images/ted_talk.jpg" alt="TED Talk — watch on YouTube" loading="lazy">
+          <img src="../images/ted_talk.jpg" alt="TED Talk — watch on YouTube" loading="lazy">
           <div class="ted-play">
             <div class="ted-play-btn">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -258,11 +258,8 @@
     <div class="book-inner">
 
       <div class="book-cover-wrap fade-up">
-        <div class="book-3d" aria-label="Book cover: The Human Cloud">
-          <div class="book-the">The</div>
-          <div class="book-title">Human<br>Cloud</div>
-          <div class="book-authors">Matthew Mottola<br>&amp; Matthew Coatney</div>
-        </div>
+        <img src="../images/human_cloud.png" alt="The Human Cloud book cover"
+             style="width:260px; border-radius:var(--radius-md); box-shadow:-10px 10px 0 rgba(15,46,61,.18), 0 32px 80px rgba(15,46,61,.3);">
       </div>
 
       <div class="book-text">
@@ -280,7 +277,7 @@
           this is a good place to start.
         </p>
         <div class="book-btns fade-up delay-4">
-          <a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <a href="https://www.amazon.com/Human-Cloud-Changemakers-Artificial-Intelligence-ebook/dp/B085XN8DK6" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
             Get the Book
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -294,7 +291,7 @@
   </div>
 </section>
 
-<!-- OTHER RESOURCES -->
+<!-- OTHER RESOURCES — commented out until content is ready
 <section class="section more-section" id="more">
   <div class="container">
     <div class="sec-head">
@@ -331,7 +328,7 @@
           </svg>
         </div>
         <span class="res-badge">Newsletter</span>
-        <h3>The Weekly Signal</h3>
+        <h3>The GoodFuture.ai Newsletter</h3>
         <p>One email a week. Honest takes on AI and the future of work, written for people who want to stay informed without being overwhelmed. Read by thousands of professionals.</p>
         <a href="../#connect" class="res-link teal">
           Subscribe Free
@@ -362,13 +359,14 @@
     </div>
   </div>
 </section>
+-->
 
 <!-- NEWSLETTER -->
 <section class="section newsletter" id="connect">
   <div class="container">
     <div class="nl-inner">
       <div class="label fade-up">Stay Connected</div>
-      <h2 class="fade-up delay-1">The Weekly Signal</h2>
+      <h2 class="fade-up delay-1">The GoodFuture.ai Newsletter</h2>
       <p class="fade-up delay-2">
         New resources, honest takes on AI, and practical ideas — one email a week.
         No fluff, no spam, unsubscribe anytime.
@@ -381,8 +379,8 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer"></footer>
+<!-- FOOTER (static — maintained by build scripts) -->
+<footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="../" class="nav-logo"><img src="../images/wordmark-transparent-dark-text.png" alt="GoodFuture.ai"></a><p>We help people make sense of AI &mdash; and feel a little more hopeful about where we&rsquo;re headed.</p></div><div class="footer-col"><h5>Explore</h5><ul><li><a href="../insights/">Insights</a></li><li><a href="../podcast/">Podcast</a></li><li><a href="../resources/">Resources</a></li><li><a href="../#about">About</a></li></ul></div><div class="footer-col"><h5>Stay in Touch</h5><ul><li><a href="../#connect">Newsletter</a></li><li><a href="mailto:hello@goodfuture.ai">Email Me</a></li></ul></div><div class="footer-col"><h5>Also Worth Seeing</h5><ul><li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li><li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li><li><a href="../resources/">All Resources</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 GoodFuture.ai &middot; Built with optimism</p></div></div></footer>
 
 <!-- Shared layout -->
 <script src="../assets/js/layout.js"></script>

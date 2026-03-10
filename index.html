@@ -319,9 +319,9 @@
 <body>
 
 <!-- ══════════════════════════════════════════
-     NAVIGATION
+     NAVIGATION (static — maintained by build scripts)
 ══════════════════════════════════════════ -->
-<header></header>
+<header><nav class="nav" id="nav"><div class="container"><div class="nav-inner"><a href="./" class="nav-logo"><img src="./images/wordmark-on-light.png" alt="GoodFuture.ai"></a><ul class="nav-links"><li><a href="./insights/">Insights</a></li><li><a href="./podcast/">Podcast</a></li><li><a href="./resources/">Resources</a></li><li><a href="./#about">About</a></li><li><a href="./#connect" class="nav-cta">Newsletter</a></li></ul><button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div></div></nav><div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Navigation"><button class="mobile-nav-close" id="navClose" aria-label="Close menu">&#x2715;</button><a href="./insights/"  onclick="closeMobileNav()">Insights</a><a href="./podcast/"   onclick="closeMobileNav()">Podcast</a><a href="./resources/" onclick="closeMobileNav()">Resources</a><a href="./#about"     onclick="closeMobileNav()">About</a><a href="./#connect"   onclick="closeMobileNav()" style="color:var(--morning-teal)">Newsletter</a></div></header>
 
 <!-- ══════════════════════════════════════════
      ① HERO
@@ -355,13 +355,13 @@
       </p>
 
       <div class="hero-buttons fade-up delay-3">
-        <a href="#about" class="btn btn-primary">
+        <a href="insights/" class="btn btn-primary">
           Start Here
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="insights/" class="btn btn-ghost">Insights →</a>
+        <a href="podcast/" class="btn btn-ghost">Podcast →</a>
       </div>
 
       <div class="hero-stats fade-up delay-4">
@@ -403,7 +403,38 @@
     </div>
 
     <div class="articles" id="home-insights-grid">
-      <!-- Rendered by JS from data/insights.js -->
+<!-- GF:HOME_INSIGHTS:START -->
+    <a class="article featured fade-up" href="insights/do-something-ai-isnt-strategy/">
+      <div class="a-img"><img src="images/cover/do_something.png" alt="&quot;Do Something with AI!&quot; Isn't a Strategy"></div>
+      <div class="a-body">
+        <span class="a-tag">AI &amp; Work</span>
+        <h3>&quot;Do Something with AI!&quot; Isn't a Strategy</h3>
+        <p>Vague AI mandates from the top don't inspire action — they create confusion. Here's what leaders actually need to do.</p>
+        <div class="a-meta"><span>Sep 2025</span><span class="a-dot"></span><span>2 min read</span></div>
+        <span class="a-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+    <a class="article fade-up delay-1" href="insights/ai-no-code-promise/">
+      <div class="a-img"><img src="images/cover/desert_mirage.png" alt="Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?"></div>
+      <div class="a-body">
+        <span class="a-tag">AI &amp; Work</span>
+        <h3>Is AI Finally Delivering on the No-Code Promise? Or Just Another Mirage?</h3>
+        <p>For decades, every new tool promised to let non-developers build real software. Generative AI is the closest we've gotten — but the gap between prototype and production is still very real.</p>
+        <div class="a-meta"><span>Sep 2025</span><span class="a-dot"></span><span>2 min read</span></div>
+        <span class="a-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+    <a class="article fade-up delay-2" href="insights/personal-ai-revolution/">
+      <div class="a-img"><img src="images/cover/homebrew.jpg" alt="The Personal AI Revolution"></div>
+      <div class="a-body">
+        <span class="a-tag">AI &amp; Work</span>
+        <h3>The Personal AI Revolution</h3>
+        <p>Before PCs, computers were for governments and corporations. We're at a similar inflection point with AI — and the implications are just as profound.</p>
+        <div class="a-meta"><span>Aug 2025</span><span class="a-dot"></span><span>2 min read</span></div>
+        <span class="a-link">Read <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+<!-- GF:HOME_INSIGHTS:END -->
     </div>
   </div>
 </section>
@@ -452,7 +483,32 @@
       </div>
 
       <div class="appear-grid" id="home-appearances-grid">
-        <!-- Rendered by JS -->
+<!-- GF:HOME_APPEARANCES:START -->
+      <div class="appear-card fade-up delay-1">
+        <div class="appear-show">The Wired Garage with Pops</div>
+        <div class="appear-date">Feb 2026</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Tools</span></div>
+        <h4>Chatbots Were the Trailer, Agents Are the Movie</h4>
+        <p>AI has moved well beyond chatbots — today's agents can plan, execute, and iterate on complex tasks with minimal human intervention. We explored the real productivity gains happening in software development, why clear specifications matter more than ever, and the honest ethical questions that come with automating more of our work.</p>
+        <a href="https://podcasts.apple.com/gm/podcast/chatbots-were-the-trailer-agents-are-the-movie/id1861572678?i=1000750125404" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-2">
+        <div class="appear-show">The Wired Garage with Pops</div>
+        <div class="appear-date">Dec 2025</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Leadership</span></div>
+        <h4>Unleashing Human Creativity with Agentic AI</h4>
+        <p>How does agentic AI change the way we work — and what does it mean for human creativity? We talked through how AI enhances collaboration rather than replacing it, the necessity of human judgment in high-stakes decisions, and what skills leaders need to cultivate as autonomous systems become more capable.</p>
+        <a href="https://podcasts.apple.com/gm/podcast/unleashing-human-creativity-with-agentic-a/id1861572678?i=1000741426777" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="appear-card fade-up delay-3">
+        <div class="appear-show">Product Mastery Now</div>
+        <div class="appear-date">Mar 2025</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span><span class="a-tag">Leadership</span></div>
+        <h4>Using AI in Risk-Averse Industries</h4>
+        <p>Healthcare, finance, legal — highly regulated industries can't just move fast and break things. In episode 531 of Product Mastery Now, we talked about how to introduce AI thoughtfully in risk-averse environments, where to start, what guardrails matter, and how to build trust with teams that are understandably cautious.</p>
+        <a href="https://productmasterynow.com/blog/531-using-ai-in-risk-adverse-industries-with-matt-coatney/" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+<!-- GF:HOME_APPEARANCES:END -->
       </div>
 
       <div class="podcast-page-link fade-up">
@@ -560,7 +616,7 @@
   <div class="container">
     <div class="nl-inner">
       <div class="label fade-up">Stay Connected</div>
-      <h2 class="fade-up delay-1">The AI Signal</h2>
+      <h2 class="fade-up delay-1">The GoodFuture.ai Newsletter</h2>
       <p class="fade-up delay-2">
         One email every few weeks. Honest takes on AI, practical ideas you can use, and
         a little perspective on where we're all headed. No spam, no fluff.
@@ -605,87 +661,16 @@
 </section>
 
 <!-- ══════════════════════════════════════════
-     FOOTER
+     FOOTER (static — maintained by build scripts)
 ══════════════════════════════════════════ -->
-<footer class="footer"></footer>
+<footer class="footer"><div class="container"><div class="footer-top"><div class="footer-brand"><a href="./" class="nav-logo"><img src="./images/wordmark-transparent-dark-text.png" alt="GoodFuture.ai"></a><p>We help people make sense of AI &mdash; and feel a little more hopeful about where we&rsquo;re headed.</p></div><div class="footer-col"><h5>Explore</h5><ul><li><a href="./insights/">Insights</a></li><li><a href="./podcast/">Podcast</a></li><li><a href="./resources/">Resources</a></li><li><a href="./#about">About</a></li></ul></div><div class="footer-col"><h5>Stay in Touch</h5><ul><li><a href="./#connect">Newsletter</a></li><li><a href="mailto:hello@goodfuture.ai">Email Me</a></li></ul></div><div class="footer-col"><h5>Also Worth Seeing</h5><ul><li><a href="https://www.youtube.com/watch?v=Hzy_GhX8_Cc" target="_blank" rel="noopener noreferrer">My TED Talk</a></li><li><a href="https://www.humancloudbook.com/" target="_blank" rel="noopener noreferrer">The Human Cloud</a></li><li><a href="./resources/">All Resources</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 GoodFuture.ai &middot; Built with optimism</p></div></div></footer>
 
-<!-- Shared layout -->
 <script src="assets/js/layout.js"></script>
 <script src="assets/js/newsletter.js"></script>
 
-<!-- Data + Rendering -->
-<script src="data/insights.js"></script>
-<script src="data/podcast.js"></script>
 <script>
 // ── RENDER HOME INSIGHTS (featured + 2) ──
-function renderHomeInsights() {
-  const grid = document.getElementById('home-insights-grid');
-  if (!grid || typeof INSIGHTS === 'undefined') return;
-
-  const featured = INSIGHTS.find(a => a.featured) || INSIGHTS[0];
-  const others   = INSIGHTS.filter(a => a !== featured).slice(0, 2);
-  const toShow   = [featured, ...others];
-
-  grid.innerHTML = toShow.map((a, i) => {
-    const isFeatured = (i === 0 && a.featured);
-    const delay      = i > 0 ? ` delay-${i}` : '';
-    return `
-    <article class="article${isFeatured ? ' featured' : ''} fade-up${delay}">
-      <div class="a-img">
-        ${a.coverImage
-          ? `<img src="${a.coverImage}" alt="${a.title}">`
-          : `<div class="a-img-overlay"></div>
-             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-               <path d="M8 14h32M8 22h24M8 30h28M8 38h16" stroke="white" stroke-width="2" stroke-linecap="round"/>
-             </svg>`}
-      </div>
-      <div class="a-body">
-        <span class="a-tag">${a.tags[0]}</span>
-        <h3>${a.title}</h3>
-        <p>${a.excerpt}</p>
-        <div class="a-meta">
-          <span>${formatInsightDate(a.date)}</span>
-          <span class="a-dot"></span>
-          <span>${a.readingTime}</span>
-        </div>
-        <a href="insights/#${a.slug}" class="a-link">
-          Read
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </article>`;
-  }).join('');
-
-  // Trigger scroll observer on newly created elements
-  document.querySelectorAll('#home-insights-grid .fade-up')
-    .forEach(el => revealObserver.observe(el));
-}
-
-// ── RENDER 3 HOME APPEARANCES ──
-function renderHomeAppearances() {
-  const grid = document.getElementById('home-appearances-grid');
-  if (!grid || typeof PODCAST_APPEARANCES === 'undefined') return;
-
-  grid.innerHTML = PODCAST_APPEARANCES.slice(0, 3).map((app, i) => `
-    <div class="appear-card fade-up delay-${i + 1}">
-      <div class="appear-show">${app.show}</div>
-      <h4>${app.title}</h4>
-      <p>${app.description}</p>
-      <a href="${app.url}" class="appear-link" target="_blank" rel="noopener noreferrer">
-        Listen
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-          <path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>`).join('');
-
-  document.querySelectorAll('#home-appearances-grid .fade-up')
-    .forEach(el => revealObserver.observe(el));
-}
-
-// ── SCROLL-REVEAL ──
+// ── SCROLL-REVEAL (content is now static — just observe existing elements) ──
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -695,31 +680,14 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
 
-document.querySelectorAll('.fade-up').forEach(el => revealObserver.observe(el));
-
 window.addEventListener('DOMContentLoaded', () => {
+  // Hero animates immediately on load
   document.querySelectorAll('.hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 100 + i * 160);
   });
-  renderHomeInsights();
-  renderHomeAppearances();
+  // Observe all other fade-up elements (static HTML from build scripts)
+  document.querySelectorAll('.fade-up:not(.hero .fade-up)').forEach(el => revealObserver.observe(el));
 });
-
-// ── ACTIVE NAV HIGHLIGHT ──
-const sections   = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 90) current = s.id;
-  });
-  navAnchors.forEach(a => {
-    const href = a.getAttribute('href');
-    const isActive = href === `#${current}`;
-    a.style.opacity = isActive ? '1' : '0.65';
-    a.style.color   = isActive ? 'var(--morning-teal)' : '';
-  });
-}, { passive: true });
 
 // ── NEWSLETTER: see assets/js/newsletter.js ──
 </script>
