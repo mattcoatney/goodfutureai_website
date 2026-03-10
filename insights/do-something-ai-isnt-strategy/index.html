@@ -149,18 +149,7 @@
 <footer class="footer"></footer>
 
 <script src="../../assets/js/layout.js"></script>
-<script>
-function handleSubscribe(e) {
-  e.preventDefault();
-  var input = e.target.querySelector('input');
-  var btn   = e.target.querySelector('button');
-  var orig  = btn.textContent;
-  btn.textContent = "You're in!";
-  btn.style.background = 'var(--morning-teal)';
-  input.value = '';
-  setTimeout(function() { btn.textContent = orig; btn.style.background = ''; }, 3500);
-}
-</script>
+<script src="../../assets/js/newsletter.js"></script>
 
 </body>
 </html>

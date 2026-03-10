@@ -386,6 +386,7 @@
 
 <!-- Shared layout -->
 <script src="../assets/js/layout.js"></script>
+<script src="../assets/js/newsletter.js"></script>
 
 <script>
 
@@ -403,16 +404,7 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// ── NEWSLETTER ──
-function handleSubscribe(e) {
-  e.preventDefault();
-  const input = e.target.querySelector('input');
-  const btn   = e.target.querySelector('button');
-  const orig  = btn.textContent;
-  btn.textContent = "You're in!"; btn.style.background = 'var(--morning-teal)';
-  input.value = '';
-  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3500);
-}
+// ── NEWSLETTER: see assets/js/newsletter.js ──
 </script>
 
 </body>
