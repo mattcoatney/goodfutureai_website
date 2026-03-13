@@ -4,7 +4,7 @@ title: '"Do Something with AI!" Isn''t a Strategy'
 date: 2025-09-24
 tags: ["AI & Work", "Leadership", "Strategy"]
 excerpt: Vague AI mandates from the top don't inspire action — they create confusion. Here's what leaders actually need to do.
-featured: true
+featured: false
 coverImage: ../images/cover/do_something.png
 ---
 

@@ -51,72 +51,30 @@
 }
 .platform-pill:hover { background: rgba(255,255,255,.13); color: var(--warm-light); }
 
-/* Episodes Section */
-.episodes-section { background: var(--warm-light); padding: 100px 0; }
-.episodes-section .label { color: var(--morning-teal); }
-.episode-coming {
-  background: #fff; border: 1px dashed var(--warm-stone);
-  border-radius: var(--radius-xl); padding: 64px;
-  text-align: center; max-width: 600px; margin: 0 auto;
-}
-.episode-coming .ec-icon {
-  width: 72px; height: 72px; border-radius: var(--radius-lg);
-  background: rgba(59,165,165,.1);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 24px;
-}
-.episode-coming h3 {
-  font-family: var(--font-display); font-size: 1.5rem;
-  margin-bottom: 12px; color: var(--deep-horizon);
-}
-.episode-coming p { color: var(--warm-dark); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
 
-/* Episode Card */
-.episodes-grid { display: flex; flex-direction: column; gap: 20px; }
-.episode-card {
-  background: #fff; border: 1px solid var(--warm-mid);
-  border-radius: var(--radius-lg); overflow: hidden;
-  transition: all .3s ease;
-}
-.episode-card:hover { box-shadow: var(--shadow-md); border-color: rgba(59,165,165,.2); }
-.ep-inner {
-  display: grid; grid-template-columns: auto 1fr;
-  gap: 0;
-}
-.ep-number {
-  background: var(--gradient-horizon);
-  width: 72px; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 24px 12px;
-  font-family: var(--font-display); font-size: 1.4rem;
-  font-weight: 700; color: rgba(251,246,239,.5);
-  flex-shrink: 0;
-}
-.ep-body { padding: 28px 32px; }
-.ep-meta-row {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 12px; color: var(--warm-stone); margin-bottom: 10px;
-}
-.ep-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--warm-stone); }
-.ep-tags { display: flex; gap: 6px; margin-bottom: 10px; }
-.ep-body h3 { font-size: 1.2rem; margin-bottom: 8px; line-height: 1.4; }
-.ep-body p  { color: var(--warm-dark); font-size: 14px; line-height: 1.65; margin-bottom: 20px; }
-.ep-player  { margin-bottom: 16px; }
-.ep-player iframe {
-  width: 100%; height: 152px; border-radius: var(--radius-md);
-  border: none;
-}
-.ep-links { display: flex; gap: 12px; flex-wrap: wrap; }
-.ep-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; color: var(--morning-teal);
-  transition: gap .2s;
-}
-.ep-link:hover { gap: 10px; }
+/* Conversations Section */
+.conversations-section { background: var(--warm-light); padding: 64px 0 100px; }
+.conversations-section .label { color: var(--morning-teal); }
 
-/* Appearances Section */
-.appearances-section { background: var(--warm-mid); padding: 100px 0; }
-.appearances-section .label { color: var(--morning-teal); }
+/* Conversation type badge */
+.conv-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+  padding: 3px 10px; border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+.conv-badge-mine {
+  background: rgba(59,165,165,.1); color: var(--morning-teal);
+  border: 1px solid rgba(59,165,165,.25);
+}
+.conv-badge-guest {
+  background: var(--warm-mid); color: var(--warm-stone);
+  border: 1px solid rgba(196,184,168,.5);
+}
+.appear-card.conv-mine {
+  background: rgba(59,165,165,.03);
+  border-color: rgba(59,165,165,.18);
+}
 .appear-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 20px; margin-top: 16px;
@@ -152,9 +110,9 @@
 @media (max-width: 768px) {
   .pod-hero-inner { grid-template-columns: 1fr; }
   .pod-hero-art { display: none; }
+  .pod-photo-strip { gap: 8px; }
+  .pod-photo-strip img { height: 80px; width: 120px; }
   .appear-grid { grid-template-columns: 1fr; }
-  .ep-inner { grid-template-columns: 1fr; }
-  .ep-number { width: 100%; flex-direction: row; gap: 8px; padding: 14px 24px; justify-content: flex-start; }
 }
 </style>
 </head>
@@ -191,46 +149,42 @@ Real conversations about navigating the AI era — without the hype and without 
       </div>
 
     </div>
+
   </div>
 </section>
 
-<!-- EPISODES -->
-<section class="episodes-section" id="episodes">
-  <div class="container">
-    <div class="sec-head">
-      <div class="sec-head-text">
-        <div class="label fade-up">Episodes</div>
-        <h2 class="fade-up delay-1">Latest conversations</h2>
-      </div>
-    </div>
-    <div id="episodes-list">
-<!-- GF:EPISODES:START -->
-      <div class="episode-coming fade-up">
-        <div class="ec-icon"><svg width="36" height="36" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="20" r="8" stroke="var(--morning-teal)" stroke-width="2"/><path d="M12 20a12 12 0 0024 0" stroke="var(--morning-teal)" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 32v8M20 40h8" stroke="var(--morning-teal)" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <h3>First episode coming soon</h3>
-        <p>I&rsquo;m working on something good. Subscribe to the newsletter and you&rsquo;ll be the first to know when it drops.</p>
-        <a href="../#connect" class="btn btn-teal">Get notified &rarr;</a>
-      </div>
-<!-- GF:EPISODES:END -->
-    </div>
-  </div>
-</section>
 
-<!-- APPEARANCES -->
-<section class="appearances-section" id="appearances">
+<!-- CONVERSATIONS -->
+<section class="conversations-section" id="conversations">
   <div class="container">
     <div class="sec-head">
       <div class="sec-head-text">
-        <div class="label fade-up">Guest Appearances</div>
-        <h2 class="fade-up delay-1">Conversations we've been part of</h2>
+        <div class="label fade-up">Conversations</div>
+        <h2 class="fade-up delay-1">On mic — mine and others</h2>
       </div>
     </div>
-    <p class="fade-up" style="color:var(--warm-dark); max-width:50ch; margin-bottom:48px; line-height:1.75;">
-      We have had the chance to talk about AI, the future of work, and what it means to be human in a technological age on a lot of great shows. Here are a few.
+    <p class="fade-up" style="color:var(--warm-dark); max-width:54ch; margin-bottom:48px; line-height:1.75;">
+      My own show is in the works — first episode dropping soon. In the meantime, I've had great conversations across a range of other shows. All in one place.
     </p>
-    <div class="appear-grid" id="appearances-grid">
+    <div class="appear-grid" id="conversations-grid">
+
+      <!-- My show — coming soon -->
+      <div class="appear-card conv-mine fade-up">
+        <span class="conv-badge conv-badge-mine">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="3.5" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 5.5a3 3 0 006 0" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5 8.5v1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          GoodFuture.ai
+        </span>
+        <div class="appear-show">Building a Better Future Together</div>
+        <div class="appear-date">Coming soon</div>
+        <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Education</span></div>
+        <h4>First episode dropping soon</h4>
+        <p>Real conversations about navigating the AI era — without the hype and without the doom. Subscribe to the newsletter to be first to hear it.</p>
+        <a href="../#connect" class="appear-link">Get notified <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
 <!-- GF:APPEARANCES:START -->
       <div class="appear-card fade-up delay-1">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">The Wired Garage with Pops</div>
         <div class="appear-date">Feb 2026</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Tools</span></div>
@@ -239,6 +193,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://podcasts.apple.com/gm/podcast/chatbots-were-the-trailer-agents-are-the-movie/id1861572678?i=1000750125404" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-2">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">The Wired Garage with Pops</div>
         <div class="appear-date">Dec 2025</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Leadership</span></div>
@@ -247,6 +202,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://podcasts.apple.com/gm/podcast/unleashing-human-creativity-with-agentic-a/id1861572678?i=1000741426777" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-3">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">Product Mastery Now</div>
         <div class="appear-date">Mar 2025</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span><span class="a-tag">Leadership</span></div>
@@ -255,6 +211,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://productmasterynow.com/blog/531-using-ai-in-risk-adverse-industries-with-matt-coatney/" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-1">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">The Forward Slash Podcast</div>
         <div class="appear-date">Nov 2024</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
@@ -263,6 +220,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://podcasts.apple.com/us/podcast/ai-the-jagged-frontier/id1744372906?i=1000678409487" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-2">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">The Geek In Review</div>
         <div class="appear-date">Nov 2021</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
@@ -271,6 +229,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://podcasts.apple.com/us/podcast/matthew-coatney-the-human-cloud-the-world/id1401505293?i=1000541457900" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-3">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">Futurized</div>
         <div class="appear-date">May 2021</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span></div>
@@ -279,6 +238,7 @@ Real conversations about navigating the AI era — without the hype and without 
         <a href="https://www.podbean.com/media/share/pb-23532-ff9a12" class="appear-link" target="_blank" rel="noopener noreferrer">Listen <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7 3l3.5 3.5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
       <div class="appear-card fade-up delay-1">
+        <span class="conv-badge conv-badge-guest">Guest</span>
         <div class="appear-show">Product Mastery Now</div>
         <div class="appear-date">Apr 2021</div>
         <div class="appear-tags"><span class="a-tag">AI &amp; Work</span><span class="a-tag">Strategy</span><span class="a-tag">Leadership</span></div>
@@ -329,7 +289,7 @@ window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.pod-page-hero .fade-up').forEach((el, i) => {
     setTimeout(() => el.classList.add('visible'), 100 + i * 160);
   });
-  document.querySelectorAll('.episodes-section .fade-up, .appearances-section .fade-up, .episode-coming').forEach(el => {
+  document.querySelectorAll('.fade-up:not(.pod-page-hero .fade-up)').forEach(el => {
     revealObserver.observe(el);
   });
 });
